@@ -1,1 +1,21 @@
 .planning/
+
+# Dependencies
+node_modules
+
+# Next.js build output
+.next/
+out/
+
+# Environment variables
+.env*.local
+
+# Sanity cache
+.sanity/
+
+# Testing
+coverage/
+
+# Misc
+.DS_Store
+*.tsbuildinfo
