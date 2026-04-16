@@ -23,7 +23,12 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title('Posteingang')
         .schemaType('contactSubmission')
-        .child(S.documentList().title('Eingegangene Nachrichten').schemaType('contactSubmission')),
+        .child(
+          S.documentList()
+            .title('Eingegangene Nachrichten')
+            .filter('_type == "contactSubmission"')
+            .schemaType('contactSubmission')
+        ),
       S.divider(),
       // All remaining non-singleton document types
       ...S.documentTypeListItems().filter(
