@@ -50,6 +50,15 @@ const config: Config = {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         serif: ['var(--font-playfair)', 'Georgia', 'serif'],
       },
+      animation: {
+        drawerLink: 'drawerLinkIn 0.4s ease both',
+      },
+      keyframes: {
+        drawerLinkIn: {
+          from: { opacity: '0', transform: 'translateY(16px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
