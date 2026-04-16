@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -12,6 +12,7 @@
     "@portabletext/react": "^3.2.4",
     "@sanity/client": "^6.29.1",
     "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^3.99.0",
     "autoprefixer": "^10.5.0",
     "framer-motion": "^11.18.2",
     "lucide-react": "^1.8.0",
@@ -20,8 +21,10 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.72.1",
+    "react-is": "^19.2.5",
     "sanity": "^3.99.0",
     "sharp": "^0.33.5",
+    "styled-components": "^6.4.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ['sanity', '@sanity/ui', '@sanity/vision', 'next-sanity'],
 };
 
 export default nextConfig;
