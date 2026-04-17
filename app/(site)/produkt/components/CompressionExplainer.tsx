@@ -93,7 +93,7 @@ export default function CompressionExplainer({
                 {[0, 1, 2, 3].map((i) => (
                   <motion.div
                     key={i}
-                    className="w-11 h-11 md:w-13 md:h-13 bg-primary/15 rounded-lg border border-primary/20 shadow-sm"
+                    className="w-11 h-11 md:w-12 md:h-12 bg-primary/15 rounded-lg border border-primary/20 shadow-sm"
                     initial={{ opacity: 0, scale: 0.6 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}

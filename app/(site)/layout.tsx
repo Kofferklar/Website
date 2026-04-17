@@ -11,7 +11,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Zum Hauptinhalt springen
       </a>
       <Header />
-      <main id="main-content">{children}</main>
+      {children}
       <Footer />
     </>
   )

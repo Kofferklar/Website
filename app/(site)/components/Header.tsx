@@ -98,15 +98,13 @@ export default function Header() {
             </nav>
 
             {/* CTA Button */}
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/produkt"
               className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
               Jetzt kaufen
-            </a>
+            </Link>
           </div>
 
           {/* Mobile layout */}

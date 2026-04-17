@@ -124,15 +124,14 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
           {/* CTA Button */}
           <div className="mt-8">
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/produkt"
+              onClick={onClose}
               className="flex items-center justify-center bg-accent text-accent-foreground w-full rounded-full px-6 py-4 text-base font-semibold hover:bg-accent-600 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
               Jetzt kaufen
-            </a>
+            </Link>
           </div>
 
           {/* Footer legal links */}

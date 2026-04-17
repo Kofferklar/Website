@@ -154,3 +154,39 @@ const ALL_POST_SLUGS_QUERY = groq`
 export async function getAllPostSlugs() {
   return client.fetch(ALL_POST_SLUGS_QUERY, {}, { next: { revalidate: 86400 } })
 }
+
+// --- homePageData ---
+
+const HOME_PAGE_DATA_QUERY = groq`
+  {
+    "banner": *[_type == "banner" && !(_id in path("drafts.**"))][0] {
+      _id,
+      text,
+      discountCode,
+      isActive,
+      validFrom,
+      validUntil
+    },
+    "product": *[_type == "product" && !(_id in path("drafts.**"))][0] {
+      _id,
+      name,
+      slug,
+      images,
+      price,
+      buyLink,
+      shortDescription
+    },
+    "reviews": *[_type == "review" && !(_id in path("drafts.**"))] | order(publishedAt desc)[0...6] {
+      _id,
+      reviewerName,
+      rating,
+      body,
+      publishedAt,
+      verified
+    }
+  }
+`
+
+export async function getHomePageData() {
+  return client.fetch(HOME_PAGE_DATA_QUERY, {}, { next: { revalidate: 3600 } })
+}
