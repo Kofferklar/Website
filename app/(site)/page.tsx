@@ -54,11 +54,7 @@ export default async function Startseite() {
             name: 'KofferKlar',
             url: 'https://kofferklar.de',
             logo: 'https://kofferklar.de/LogoKofferklar.png',
-            contactPoint: {
-              '@type': 'ContactPoint',
-              telephone: '+49-000-000000',
-              contactType: 'customer service'
-            }
+            email: 'hallo@kofferklar.de'
           })
         }}
       />

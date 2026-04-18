@@ -23,7 +23,7 @@ export default function NewsletterSignup() {
   }
 
   return (
-    <section className="py-24 md:py-32 lg:py-40 bg-primary overflow-hidden relative">
+    <section id="newsletter" className="py-24 md:py-32 lg:py-40 bg-primary overflow-hidden relative">
       {/* Dynamic Background Orbs (Taste: Grain/Noise would be fixed, but here we use glows) */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 blur-[150px] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />

@@ -41,7 +41,7 @@ function FaqAccordionItem({ item, isOpen, onToggle }: {
         role="region"
         aria-labelledby={buttonId}
         className="overflow-hidden transition-all duration-300 ease-in-out"
-        style={{ maxHeight: isOpen ? '500px' : '0px' }}
+        style={{ maxHeight: isOpen ? '1000px' : '0px' }}
       >
         <div className="pb-5 text-sm text-muted-foreground leading-relaxed">
           {item.answer}

@@ -64,8 +64,7 @@ export const productType = defineType({
     defineField({
       name: 'description',
       title: 'Ausführliche Beschreibung',
-      type: 'array',
-      of: [{ type: 'blockContent' }],
+      type: 'blockContent',
     }),
     defineField({
       name: 'setParts',
@@ -102,6 +101,22 @@ export const productType = defineType({
       title: 'Material',
       type: 'text',
       description: 'Stoff, Reißverschluss, Wasserbeständigkeit etc.',
+    }),
+    defineField({
+      name: 'colorVariants',
+      title: 'Farbvarianten',
+      type: 'array',
+      description: 'Verfügbare Farben dieses Produkts',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({ name: 'colorName', title: 'Farbname', type: 'string' }),
+            defineField({ name: 'colorHex', title: 'Hex-Code', type: 'string', description: 'z.B. #1E3A5F' }),
+            defineField({ name: 'inStock', title: 'Auf Lager', type: 'boolean' }),
+          ],
+        }),
+      ],
     }),
     defineField({
       name: 'seo',

@@ -21,8 +21,7 @@ export const pageType = defineType({
     defineField({
       name: 'body',
       title: 'Inhalt',
-      type: 'array',
-      of: [{ type: 'blockContent' }],
+      type: 'blockContent',
     }),
     defineField({
       name: 'seo',

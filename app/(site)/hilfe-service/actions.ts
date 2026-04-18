@@ -1,16 +1,9 @@
 'use server'
 
-import { z } from 'zod'
 import { writeClient } from '@/lib/sanity/writeClient'
+import { contactFormSchema, type ContactFormData } from './schema'
 
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: 'Bitte gib deinen Namen an.' }),
-  email: z.string().email({ message: 'Bitte gib eine gültige E-Mail-Adresse an.' }),
-  subject: z.string().min(3, { message: 'Bitte gib einen Betreff an.' }),
-  message: z.string().min(10, { message: 'Deine Nachricht sollte mindestens 10 Zeichen enthalten.' }),
-})
-
-export type ContactFormData = z.infer<typeof contactFormSchema>
+export type { ContactFormData }
 
 /**
  * Server Action: submitContact

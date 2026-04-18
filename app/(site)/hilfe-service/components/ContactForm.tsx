@@ -3,17 +3,10 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import { submitContact, type ContactFormData } from '../actions'
-
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: 'Bitte gib deinen Namen an.' }),
-  email: z.string().email({ message: 'Bitte gib eine gültige E-Mail-Adresse an.' }),
-  subject: z.string().min(3, { message: 'Bitte gib einen Betreff an.' }),
-  message: z.string().min(10, { message: 'Deine Nachricht sollte mindestens 10 Zeichen enthalten.' }),
-})
+import { contactFormSchema } from '../schema'
 
 /**
  * ContactForm Client Component

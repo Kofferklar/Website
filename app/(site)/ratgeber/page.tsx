@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { getAllPosts } from '@/lib/sanity/queries'
 import PostGrid from '../components/PostGrid'
 
-export const revalidate = 3600
+export const revalidate = 0
 
 export const metadata: Metadata = {
   title: 'Ratgeber | Pack-Tipps & Reise-Hacks für stressfreies Reisen',

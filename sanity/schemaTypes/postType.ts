@@ -39,8 +39,7 @@ export const postType = defineType({
     defineField({
       name: 'body',
       title: 'Inhalt',
-      type: 'array',
-      of: [{ type: 'blockContent' }],
+      type: 'blockContent',
     }),
     defineField({
       name: 'publishedAt',

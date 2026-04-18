@@ -9,8 +9,8 @@ interface Review {
   reviewerName: string
   rating: number
   body: string
-  publishedAt: string
-  verified: boolean
+  publishedAt?: string
+  verified?: boolean
 }
 
 interface ReviewStripProps {
@@ -132,7 +132,7 @@ export default function ReviewStrip({ reviews }: ReviewStripProps) {
                     </div>
                   </div>
                   <div className="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.15em] opacity-60">
-                    {new Date(review.publishedAt).toLocaleDateString('de-DE', { month: 'short', year: 'numeric' })}
+                    {review.publishedAt ? new Date(review.publishedAt).toLocaleDateString('de-DE', { month: 'short', year: 'numeric' }) : ''}
                   </div>
                 </div>
               </div>

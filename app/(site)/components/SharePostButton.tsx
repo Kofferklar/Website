@@ -7,9 +7,9 @@ interface SharePostButtonProps {
 export default function SharePostButton({ title }: SharePostButtonProps) {
   const handleShare = () => {
     if (typeof navigator !== 'undefined' && navigator.share) {
-      navigator.share({ title, url: window.location.href }).catch(() => {})
+      navigator.share({ title, url: window.location.href }).catch((err) => console.warn('Share failed:', err))
     } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href).catch(() => {})
+      navigator.clipboard.writeText(window.location.href).catch((err) => console.warn('Clipboard write failed:', err))
     }
   }
 

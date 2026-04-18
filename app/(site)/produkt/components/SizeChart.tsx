@@ -1,14 +1,14 @@
 // Keine Props — Maße ändern sich produktbedingt nicht
 
 const sizes = [
-  { name: 'XL Packwürfel',        dimensions: '40 × 30 × 12 cm', category: 'Würfel' },
-  { name: 'L Packwürfel',         dimensions: '35 × 25 × 10 cm', category: 'Würfel' },
-  { name: 'M Packwürfel',         dimensions: '30 × 20 × 8 cm',  category: 'Würfel' },
-  { name: 'S Packwürfel',         dimensions: '25 × 15 × 7 cm',  category: 'Würfel' },
-  { name: 'Schuhbeutel',          dimensions: '30 × 20 cm',       category: 'Flach'  },
-  { name: 'Wäschebeutel',         dimensions: '35 × 25 cm',       category: 'Flach'  },
-  { name: 'Kosmetik-Beutel',      dimensions: '20 × 15 cm',       category: 'Flach'  },
-  { name: 'Kreditkarten-Beutel',  dimensions: '12 × 9 cm',        category: 'Flach'  },
+  { name: 'Packwürfel XL',   dimensions: '35 × 25 × 8 cm',  category: 'Würfel' },
+  { name: 'Packwürfel L',    dimensions: '30 × 22 × 8 cm',  category: 'Würfel' },
+  { name: 'Packwürfel M',    dimensions: '25 × 18 × 8 cm',  category: 'Würfel' },
+  { name: 'Packwürfel S (1)', dimensions: '20 × 14 × 8 cm', category: 'Würfel' },
+  { name: 'Packwürfel S (2)', dimensions: '20 × 14 × 8 cm', category: 'Würfel' },
+  { name: 'Schuhbeutel',     dimensions: '30 × 20 × 10 cm', category: 'Beutel' },
+  { name: 'Kulturbeutel',    dimensions: '25 × 15 × 10 cm', category: 'Beutel' },
+  { name: 'Wäschebeutel',    dimensions: '40 × 30 cm',       category: 'Beutel' },
 ]
 
 export default function SizeChart() {
