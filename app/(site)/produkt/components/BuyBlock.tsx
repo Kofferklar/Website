@@ -1,13 +1,26 @@
+'use client'
+
 import Image from 'next/image'
+import Link from 'next/link'
 import { ShieldCheck, Truck, RotateCcw } from 'lucide-react'
+import type { ColorVariant } from '@/lib/sanity/types'
 
 interface BuyBlockProps {
   price?: number
   buyLink?: string
   material?: string
+  colorVariants?: ColorVariant[]
+  selectedColorIndex?: number
+  onColorChange?: (index: number) => void
 }
 
-export default function BuyBlock({ price, buyLink, material }: BuyBlockProps) {
+export default function BuyBlock({
+  price,
+  material,
+  colorVariants,
+  selectedColorIndex,
+  onColorChange,
+}: BuyBlockProps) {
   return (
     <div className="sticky top-24 space-y-6">
       {/* Preis */}
@@ -23,17 +36,48 @@ export default function BuyBlock({ price, buyLink, material }: BuyBlockProps) {
         </div>
       </div>
 
+      {/* Farbauswahl */}
+      {colorVariants && colorVariants.length > 0 && (
+        <div>
+          <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-2">
+            Farbe:{' '}
+            <span className="text-foreground normal-case tracking-normal font-semibold">
+              {colorVariants[selectedColorIndex ?? 0]?.colorName ?? ''}
+            </span>
+          </p>
+          <div className="flex items-center gap-2">
+            {colorVariants.map((variant, i) => (
+              <button
+                key={variant.colorName}
+                type="button"
+                title={variant.colorName}
+                aria-label={`Farbe ${variant.colorName} wählen`}
+                aria-pressed={i === (selectedColorIndex ?? 0)}
+                onClick={() => onColorChange?.(i)}
+                className={[
+                  'w-7 h-7 rounded-full border-2 transition-all duration-200',
+                  !variant.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
+                  i === (selectedColorIndex ?? 0)
+                    ? 'border-primary scale-110 shadow-md'
+                    : 'border-border hover:border-foreground/40',
+                ].join(' ')}
+                style={{ backgroundColor: variant.colorHex }}
+                disabled={!variant.inStock}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* CTA-Button */}
-      <a
-        href={buyLink ?? '#'}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block w-full text-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+      <Link
+        href="/checkout"
+        className="block w-full text-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:bg-primary/95 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shadow-xl shadow-primary/20"
         style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-        aria-label="Jetzt kaufen — öffnet externen Shop"
+        aria-label="Jetzt kaufen"
       >
         Jetzt kaufen
-      </a>
+      </Link>
 
       {/* Trust-Badges (Versand, Rückgabe, Sicherheit) */}
       <div className="space-y-3 border-t border-border pt-4">
@@ -47,7 +91,7 @@ export default function BuyBlock({ price, buyLink, material }: BuyBlockProps) {
         </div>
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <ShieldCheck className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
-          <span>SSL-gesicherte Zahlung</span>
+          <span>Sicherer Bezahlvorgang</span>
         </div>
       </div>
 
@@ -64,18 +108,18 @@ export default function BuyBlock({ price, buyLink, material }: BuyBlockProps) {
         <p className="text-xs text-muted-foreground mb-3">Sichere Zahlung mit</p>
         <div className="flex items-center gap-3 flex-wrap">
           {[
-            { src: '/icons/paypal.svg', alt: 'PayPal', w: 64, h: 20 },
-            { src: '/icons/klarna.svg', alt: 'Klarna', w: 56, h: 20 },
-            { src: '/icons/visa.svg', alt: 'Visa', w: 48, h: 16 },
-            { src: '/icons/mastercard.svg', alt: 'Mastercard', w: 36, h: 22 },
+            { src: '/icons/paypal.svg',     alt: 'PayPal' },
+            { src: '/icons/klarna.svg',     alt: 'Klarna' },
+            { src: '/icons/visa.svg',       alt: 'Visa' },
+            { src: '/icons/mastercard.svg', alt: 'Mastercard' },
           ].map((logo) => (
-            <div key={logo.alt} className="bg-white rounded px-2 py-1 border border-border">
+            <div key={logo.alt} className="h-8 w-14 flex items-center justify-center bg-white rounded border border-border px-1.5">
               <Image
                 src={logo.src}
                 alt={logo.alt}
-                width={logo.w}
-                height={logo.h}
-                className="h-5 w-auto object-contain"
+                width={48}
+                height={28}
+                className="max-h-[18px] w-auto object-contain"
               />
             </div>
           ))}

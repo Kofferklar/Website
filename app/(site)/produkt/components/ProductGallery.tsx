@@ -1,9 +1,9 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { urlFor } from '@/lib/sanity/image'
-import type { SanityImage } from '@/lib/sanity/types'
+import type { SanityImage, ColorVariant } from '@/lib/sanity/types'
 
 const BLUR_DATA_URL =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
@@ -11,12 +11,32 @@ const BLUR_DATA_URL =
 interface ProductGalleryProps {
   images: SanityImage[]
   productName: string
+  colorVariants?: ColorVariant[]
+  selectedColorIndex?: number
+  onColorChange?: (index: number) => void
 }
 
-export default function ProductGallery({ images, productName }: ProductGalleryProps) {
+export default function ProductGallery({
+  images,
+  productName,
+  colorVariants,
+  selectedColorIndex,
+  onColorChange,
+}: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0)
 
-  if (!images || images.length === 0) {
+  // Reset thumbnail selection when color variant changes
+  useEffect(() => {
+    setActiveIndex(0)
+  }, [selectedColorIndex])
+
+  // Use variant images if available, fall back to product images
+  const activeImages =
+    colorVariants?.[selectedColorIndex ?? 0]?.images?.length
+      ? colorVariants[selectedColorIndex ?? 0].images!
+      : images
+
+  if (!activeImages || activeImages.length === 0) {
     return (
       <div className="w-full aspect-square md:aspect-[4/3] rounded-xl bg-muted flex items-center justify-center">
         <span className="text-muted-foreground text-sm">Kein Bild verfügbar</span>
@@ -26,14 +46,39 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
 
   const handleThumbnailClick = (index: number) => setActiveIndex(index)
 
-  const activeImage = images[activeIndex]
+  const activeImage = activeImages[activeIndex]
   const mainImageUrl =
     activeImage?.asset ? urlFor(activeImage).width(800).height(600).url() : null
 
-  const visibleThumbnails = images.slice(0, 4)
+  const visibleThumbnails = activeImages.slice(0, 4)
 
   return (
     <div className="w-full">
+      {/* Color dot selector (above thumbnail strip) */}
+      {colorVariants && colorVariants.length > 1 && (
+        <div className="flex items-center gap-2 mb-3">
+          {colorVariants.map((variant, i) => (
+            <button
+              key={variant.colorName}
+              type="button"
+              title={variant.colorName}
+              aria-label={`Farbe ${variant.colorName} wählen`}
+              aria-pressed={i === (selectedColorIndex ?? 0)}
+              onClick={() => onColorChange?.(i)}
+              className={[
+                'w-6 h-6 rounded-full border-2 transition-all duration-200',
+                !variant.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
+                i === (selectedColorIndex ?? 0)
+                  ? 'border-primary scale-110'
+                  : 'border-border hover:border-foreground/40',
+              ].join(' ')}
+              style={{ backgroundColor: variant.colorHex }}
+              disabled={!variant.inStock}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Main image */}
       <div className="relative aspect-square md:aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]">
         {mainImageUrl ? (
@@ -55,7 +100,7 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
       </div>
 
       {/* Thumbnail grid */}
-      {images.length > 1 && (
+      {activeImages.length > 1 && (
         <div className="mt-3 grid grid-cols-4 gap-2">
           {visibleThumbnails.map((image, index) => {
             const thumbnailUrl = image?.asset
@@ -68,7 +113,7 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
                 key={image.asset._ref}
                 type="button"
                 onClick={() => handleThumbnailClick(index)}
-                aria-label={`Bild ${index + 1} von ${images.length} anzeigen`}
+                aria-label={`Bild ${index + 1} von ${activeImages.length} anzeigen`}
                 aria-pressed={isActive}
                 className={[
                   'relative aspect-square overflow-hidden rounded-lg cursor-pointer',
