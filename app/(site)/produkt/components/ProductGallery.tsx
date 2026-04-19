@@ -70,10 +70,10 @@ export default function ProductGallery({
     : null
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col md:block">
       {/* Color card grid — always render when variants exist */}
       {colorVariants && colorVariants.length > 1 && (
-        <div className="flex flex-wrap gap-3 mb-4">
+        <div className="order-2 md:order-none flex flex-wrap gap-3 mb-4 mt-4 md:mt-0">
           {colorVariants.map((variant, i) => {
             const firstImageUrl = variant.images?.[0]?.asset
               ? urlFor(variant.images[0]).width(112).height(112).url()
@@ -127,7 +127,7 @@ export default function ProductGallery({
       )}
 
       {/* Hero image slider */}
-      <div className="relative aspect-square md:aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]">
+      <div className="order-1 md:order-none relative aspect-square md:aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]">
         {hasImages ? (
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -154,7 +154,7 @@ export default function ProductGallery({
                   fill
                   priority={activeIndex === 0}
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover pointer-events-none"
+                  className="object-contain pointer-events-none"
                   placeholder="blur"
                   blurDataURL={BLUR_DATA_URL}
                 />
@@ -196,7 +196,7 @@ export default function ProductGallery({
 
       {/* Pagination dots */}
       {hasImages && activeImages.length > 1 && (
-        <div className="flex justify-center gap-1.5 mt-3">
+        <div className="order-3 md:order-none flex justify-center gap-1.5 mt-3">
           {activeImages.map((_, i) => (
             <button
               key={i}
