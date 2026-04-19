@@ -15,16 +15,18 @@ export default function ProductHero({ product }: ProductHeroProps) {
 
   return (
     <section className="max-w-[1400px] mx-auto px-4 md:px-8 py-6 md:py-10">
-      {/* Mobile: Header + CTA zuerst (above fold auf 375px) */}
-      <div className="md:hidden mb-8">
-        <h1 className="font-serif text-3xl font-bold text-foreground mb-3">
+      {/* Mobile layout */}
+      <div className="md:hidden space-y-6 mb-8">
+        <h1 className="font-serif text-3xl font-bold text-foreground">
           {product.name}
         </h1>
-        {product.shortDescription && (
-          <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
-            {product.shortDescription}
-          </p>
-        )}
+        <ProductGallery
+          images={product.images ?? []}
+          productName={product.name}
+          colorVariants={product.colorVariants}
+          selectedColorIndex={selectedColorIndex}
+          onColorChange={setSelectedColorIndex}
+        />
         <BuyBlock
           price={product.price}
           buyLink={product.buyLink}
@@ -33,6 +35,17 @@ export default function ProductHero({ product }: ProductHeroProps) {
           selectedColorIndex={selectedColorIndex}
           onColorChange={setSelectedColorIndex}
         />
+        {product.shortDescription && (
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            {product.shortDescription}
+          </p>
+        )}
+        {product.videoUrl && (
+          <div className="pt-2">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Video-Einblick</h3>
+            <ProductVideo videoUrl={product.videoUrl} title={product.name} />
+          </div>
+        )}
       </div>
 
       {/* Desktop: 2-Spalten-Grid */}
@@ -81,24 +94,6 @@ export default function ProductHero({ product }: ProductHeroProps) {
         </aside>
       </div>
 
-      {/* Mobile: Galerie nach dem ersten CTA */}
-      <div className="md:hidden space-y-8">
-        <ProductGallery
-          images={product.images ?? []}
-          productName={product.name}
-          colorVariants={product.colorVariants}
-          selectedColorIndex={selectedColorIndex}
-          onColorChange={setSelectedColorIndex}
-        />
-        {product.videoUrl && (
-          <div className="pt-4">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-              Video-Einblick
-            </h3>
-            <ProductVideo videoUrl={product.videoUrl} title={product.name} />
-          </div>
-        )}
-      </div>
     </section>
   )
 }
