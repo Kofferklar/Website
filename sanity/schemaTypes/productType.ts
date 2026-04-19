@@ -114,6 +114,21 @@ export const productType = defineType({
             defineField({ name: 'colorName', title: 'Farbname', type: 'string' }),
             defineField({ name: 'colorHex', title: 'Hex-Code', type: 'string', description: 'z.B. #1E3A5F' }),
             defineField({ name: 'inStock', title: 'Auf Lager', type: 'boolean' }),
+            defineField({
+              name: 'images',
+              title: 'Farbvarianten-Bilder',
+              type: 'array',
+              description: 'Produktbilder für diese Farbvariante',
+              of: [
+                defineArrayMember({
+                  type: 'image',
+                  options: { hotspot: true },
+                  fields: [
+                    defineField({ name: 'alt', title: 'Alt-Text', type: 'string' }),
+                  ],
+                }),
+              ],
+            }),
           ],
         }),
       ],

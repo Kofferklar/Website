@@ -35,6 +35,13 @@ export interface SetPart {
   icon?: SanityImage
 }
 
+export interface ColorVariant {
+  colorName: string
+  colorHex: string
+  inStock: boolean
+  images?: SanityImage[]
+}
+
 export interface Product {
   _id: string
   name: string
@@ -47,6 +54,7 @@ export interface Product {
   description?: unknown // PortableText (blockContent) array
   setParts?: SetPart[]
   material?: string
+  colorVariants?: ColorVariant[]
   seo?: SeoFields
 }
 

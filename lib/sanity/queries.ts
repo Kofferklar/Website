@@ -34,6 +34,7 @@ const PRODUCT_QUERY = groq`
     description,
     setParts,
     material,
+    colorVariants[]{ colorName, colorHex, inStock, "images": images[] },
     seo
   }
 `
