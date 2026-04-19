@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * Assembles the homepage with high-end Taste design components.
  */
 export default async function Startseite() {
-  const { product, reviews } = await getHomePageData()
+  const { product, reviews, reviewCount } = await getHomePageData()
 
   if (!product) {
     return (
@@ -68,15 +68,15 @@ export default async function Startseite() {
 
         <main id="main-content">
           {/* Hero Section: Asymmetric Split */}
-          <HeroSection product={product} />
-          
+          <HeroSection product={product} reviewCount={reviewCount} />
+
           {/* Narrative / Visual Comparison Section */}
           <div className="bg-white border-y border-black/5">
             <HomeVorherNachher />
           </div>
-          
+
           {/* Social Proof Section */}
-          <ReviewStrip reviews={reviews} />
+          <ReviewStrip reviews={reviews} reviewCount={reviewCount} />
           
           {/* Community / Newsletter Section */}
           <NewsletterSignup />

@@ -66,6 +66,15 @@ Goal: Produktionsreife Site: SEO-Metadaten, rechtliche Sicherheit, Sitemaps, Rob
 
 ---
 
+## Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260419-ezd | Fix HeroSection: cap xl font to text-8xl; tracking-normal on italic span for fi-ligature | 2026-04-19 | 01e46b3 | [260419-ezd-fix-herosection-font-size-viewport-fi-ligature](./quick/260419-ezd-fix-herosection-font-size-viewport-fi-ligature/) |
+| 260419-ff6 | Produktseite komplett überarbeiten: color variants, SVG icons, spacing, trust badges, 47 reviews | 2026-04-19 | b61d971 | [260419-ff6-produktseite-ueberarbeitung](./quick/260419-ff6-produktseite-ueberarbeitung/) |
+
+---
+
 ## Session Log
 
 | Date | Action |
@@ -76,3 +85,5 @@ Goal: Produktionsreife Site: SEO-Metadaten, rechtliche Sicherheit, Sitemaps, Rob
 | 2026-04-17 | Phase 4 Plan 01 (Rechtliches) implementiert: Impressum, Datenschutz, AGB, Widerruf. |
 | 2026-04-17 | Phase 4 Plan 02 (SEO) implementiert: Sitemap, Robots.txt, Meta-Feinschliff, Em-Dash Cleanup. |
 | 2026-04-17 | Build-Verifizierung Phase 4-02 erfolgreich abgeschlossen. |
+| 2026-04-19 | Quick task 260419-ezd: HeroSection xl font cap + fi-ligature fix |
+| 2026-04-19 | Quick task 260419-ff6: Produktseite überarbeitung — color variants, SVG icons, spacing, trust badges, 47 reviews seeded |

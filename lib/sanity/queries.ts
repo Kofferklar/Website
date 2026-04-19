@@ -184,7 +184,8 @@ const HOME_PAGE_DATA_QUERY = groq`
       body,
       publishedAt,
       verified
-    }
+    },
+    "reviewCount": count(*[_type == "review" && !(_id in path("drafts.**"))])
   }
 `
 
