@@ -16,6 +16,7 @@ interface ProductGalleryProps {
   colorVariants?: ColorVariant[]
   selectedColorIndex?: number
   onColorChange?: (index: number) => void
+  fillHeight?: boolean
 }
 
 /** Slide animation variants for the hero image slider */
@@ -33,6 +34,7 @@ export default function ProductGallery({
   colorVariants,
   selectedColorIndex,
   onColorChange,
+  fillHeight,
 }: ProductGalleryProps) {
   // [activeIndex, direction] — typed as tuple to satisfy TS
   const [[activeIndex, direction], setPage] = useState<[number, number]>([0, 0])
@@ -70,64 +72,14 @@ export default function ProductGallery({
     : null
 
   return (
-    <div className="w-full flex flex-col md:block">
-      {/* Color card grid — always render when variants exist */}
-      {colorVariants && colorVariants.length > 1 && (
-        <div className="order-2 md:order-none flex flex-wrap gap-3 mb-4 mt-4 md:mt-0">
-          {colorVariants.map((variant, i) => {
-            const firstImageUrl = variant.images?.[0]?.asset
-              ? urlFor(variant.images[0]).width(112).height(112).url()
-              : null
-            const isSelected = i === (selectedColorIndex ?? 0)
-
-            return (
-              <button
-                key={variant.colorName}
-                type="button"
-                aria-label={`Farbe ${variant.colorName} wählen`}
-                aria-pressed={isSelected}
-                onClick={() => onColorChange?.(i)}
-                disabled={!variant.inStock}
-                className={[
-                  'relative flex flex-col items-center gap-2 p-1.5 rounded-2xl border-2 transition-all duration-200',
-                  'w-[72px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
-                  !variant.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
-                  isSelected
-                    ? 'border-primary shadow-md'
-                    : 'border-border hover:border-foreground/30',
-                ].join(' ')}
-              >
-                {/* Image area: 56×56 */}
-                <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-muted flex-shrink-0">
-                  {firstImageUrl ? (
-                    <Image
-                      src={firstImageUrl}
-                      alt={variant.colorName}
-                      fill
-                      sizes="56px"
-                      className="object-cover"
-                      placeholder="blur"
-                      blurDataURL={BLUR_DATA_URL}
-                    />
-                  ) : (
-                    <div
-                      className="w-full h-full"
-                      style={{ backgroundColor: variant.colorHex }}
-                    />
-                  )}
-                </div>
-                {/* Color name label */}
-                <span className="text-[10px] font-semibold text-foreground text-center leading-tight truncate w-full px-1">
-                  {variant.colorName}
-                </span>
-              </button>
-            )
-          })}
-        </div>
-      )}
-
+    <div className={`w-full flex flex-col${fillHeight ? ' h-full min-h-0' : ''}`}>
       {/* Hero image slider */}
-      <div className="order-1 md:order-none relative aspect-square md:aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]">
+      <div
+        className={[
+          'relative w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]',
+          fillHeight ? 'flex-1 min-h-0' : 'aspect-square md:aspect-[4/3]',
+        ].join(' ')}
+      >
         {hasImages ? (
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -196,7 +148,7 @@ export default function ProductGallery({
 
       {/* Pagination dots */}
       {hasImages && activeImages.length > 1 && (
-        <div className="order-3 md:order-none flex justify-center gap-1.5 mt-3">
+        <div className="flex justify-center gap-1.5 mt-3">
           {activeImages.map((_, i) => (
             <button
               key={i}
@@ -210,6 +162,61 @@ export default function ProductGallery({
               }`}
             />
           ))}
+        </div>
+      )}
+
+      {/* Color card grid — always render when variants exist */}
+      {colorVariants && colorVariants.length > 1 && (
+        <div className={`flex flex-wrap gap-3 pt-3${fillHeight ? '' : ' mt-1'}`}>
+          {colorVariants.map((variant, i) => {
+            const firstImageUrl = variant.images?.[0]?.asset
+              ? urlFor(variant.images[0]).width(112).height(112).url()
+              : null
+            const isSelected = i === (selectedColorIndex ?? 0)
+
+            return (
+              <button
+                key={variant.colorName}
+                type="button"
+                aria-label={`Farbe ${variant.colorName} wählen`}
+                aria-pressed={isSelected}
+                onClick={() => onColorChange?.(i)}
+                disabled={!variant.inStock}
+                className={[
+                  'relative flex flex-col items-center gap-2 p-1.5 rounded-2xl border-2 transition-all duration-200',
+                  'w-[72px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                  !variant.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
+                  isSelected
+                    ? 'border-primary shadow-md'
+                    : 'border-border hover:border-foreground/30',
+                ].join(' ')}
+              >
+                {/* Image area: 56×56 */}
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-muted flex-shrink-0">
+                  {firstImageUrl ? (
+                    <Image
+                      src={firstImageUrl}
+                      alt={variant.colorName}
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                      placeholder="blur"
+                      blurDataURL={BLUR_DATA_URL}
+                    />
+                  ) : (
+                    <div
+                      className="w-full h-full"
+                      style={{ backgroundColor: variant.colorHex }}
+                    />
+                  )}
+                </div>
+                {/* Color name label */}
+                <span className="text-[10px] font-semibold text-foreground text-center leading-tight truncate w-full px-1">
+                  {variant.colorName}
+                </span>
+              </button>
+            )
+          })}
         </div>
       )}
     </div>
