@@ -177,7 +177,7 @@ const HOME_PAGE_DATA_QUERY = groq`
       buyLink,
       shortDescription
     },
-    "reviews": *[_type == "review" && !(_id in path("drafts.**"))] | order(publishedAt desc)[0...6] {
+    "reviews": *[_type == "review" && !(_id in path("drafts.**"))] | order(publishedAt desc)[0...3] {
       _id,
       reviewerName,
       rating,

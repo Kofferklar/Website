@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Star, ChevronDown } from 'lucide-react'
+import { Star } from 'lucide-react'
+import Link from 'next/link'
 import { ReviewCard } from './ReviewCard'
 import type { Review } from '@/lib/sanity/types'
 
@@ -17,13 +17,11 @@ function getAverageRating(reviews: Review[]): number {
 }
 
 export default function ProductReviews({ reviews }: ProductReviewsProps) {
-  const [showAll, setShowAll] = useState(false)
-
   if (!reviews || reviews.length === 0) return null
 
   const avg = getAverageRating(reviews)
   const count = reviews.length
-  const displayedReviews = showAll ? reviews : reviews.slice(0, 3)
+  const displayedReviews = reviews.slice(0, 3)
 
   return (
     <>
@@ -66,18 +64,15 @@ export default function ProductReviews({ reviews }: ProductReviewsProps) {
         ))}
       </motion.div>
 
-      {/* Expand button */}
-      {!showAll && count > 3 && (
+      {count > 3 && (
         <div className="mt-12 text-center">
-          <button
-            type="button"
-            onClick={() => setShowAll(true)}
+          <Link
+            href="/bewertungen"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-primary text-primary font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-[0.98]"
             style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
           >
-            Alle {count} Bewertungen anzeigen
-            <ChevronDown className="w-4 h-4" aria-hidden="true" />
-          </button>
+            Alle {count} Bewertungen lesen
+          </Link>
         </div>
       )}
     </>

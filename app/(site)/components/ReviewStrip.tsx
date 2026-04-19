@@ -87,13 +87,13 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
         >
-          {reviews.map((review, idx) => (
-            <motion.div 
+          {reviews.slice(0, 3).map((review, idx) => (
+            <motion.div
               key={review._id}
               variants={itemVariants}
               className={`p-2 rounded-[3rem] bg-black/5 ring-1 ring-black/5 transition-all duration-500 hover:shadow-2xl hover:shadow-black/5 group
-                ${idx === 1 ? 'md:mt-12' : ''} 
-                ${idx === 2 ? 'lg:mt-24' : idx === 3 ? 'md:-mt-12 lg:mt-0' : ''}`}
+                ${idx === 1 ? 'md:mt-12' : ''}
+                ${idx === 2 ? 'lg:mt-24' : ''}`}
             >
               <div className="h-full bg-white rounded-[calc(3rem-0.5rem)] p-8 md:p-10 flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] relative overflow-hidden">
                 {/* Background Quote Mark */}
@@ -150,7 +150,7 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
           className="mt-20 text-center"
         >
           <Link 
-            href="/produkt#bewertungen" 
+            href="/bewertungen"
             className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
           >
             Alle {reviewCount ?? reviews.length} Bewertungen lesen
