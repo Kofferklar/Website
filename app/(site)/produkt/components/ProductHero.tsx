@@ -31,15 +31,11 @@ export default function ProductHero({ product }: ProductHeroProps) {
           price={product.price}
           buyLink={product.buyLink}
           material={product.material}
+          shortDescription={product.shortDescription}
           colorVariants={product.colorVariants}
           selectedColorIndex={selectedColorIndex}
           onColorChange={setSelectedColorIndex}
         />
-        {product.shortDescription && (
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            {product.shortDescription}
-          </p>
-        )}
         {product.videoUrl && (
           <div className="pt-2">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">Video-Einblick</h3>

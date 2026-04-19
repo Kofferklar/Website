@@ -9,6 +9,7 @@ interface BuyBlockProps {
   price?: number
   buyLink?: string
   material?: string
+  shortDescription?: string
   colorVariants?: ColorVariant[]
   selectedColorIndex?: number
   onColorChange?: (index: number) => void
@@ -17,12 +18,13 @@ interface BuyBlockProps {
 export default function BuyBlock({
   price,
   material,
+  shortDescription,
   colorVariants,
   selectedColorIndex,
   onColorChange,
 }: BuyBlockProps) {
   return (
-    <div className="sticky top-24 space-y-6">
+    <div className="md:sticky md:top-24 space-y-6">
       {/* Preis */}
       <div>
         <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-2">
@@ -36,9 +38,16 @@ export default function BuyBlock({
         </div>
       </div>
 
-      {/* Farbauswahl */}
+      {/* Kurzbeschreibung (mobile only — appears after price) */}
+      {shortDescription && (
+        <p className="md:hidden text-muted-foreground text-sm leading-relaxed">
+          {shortDescription}
+        </p>
+      )}
+
+      {/* Farbauswahl (desktop only — mobile uses gallery color cards) */}
       {colorVariants && colorVariants.length > 0 && (
-        <div>
+        <div className="hidden md:block">
           <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground mb-2">
             Farbe:{' '}
             <span className="text-foreground normal-case tracking-normal font-semibold">
