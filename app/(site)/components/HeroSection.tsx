@@ -14,13 +14,14 @@ interface HeroSectionProps {
     buyLink?: string
     price?: number
   }
+  reviewCount?: number
 }
 
 /**
  * HeroSection Client Component
  * Asymmetric Split Layout: Left Typography + CTA | Right Double-Bezel Image
  */
-export default function HeroSection({ product }: HeroSectionProps) {
+export default function HeroSection({ product, reviewCount }: HeroSectionProps) {
   // Use the first image from the product
   const heroImage = product?.images?.[0]
 
@@ -101,7 +102,7 @@ export default function HeroSection({ product }: HeroSectionProps) {
                   {[1, 2, 3, 4, 5].map(s => <Star key={s} size={12} fill="currentColor" />)}
                 </div>
                 <span className="text-[11px] tracking-wide uppercase font-bold text-foreground/60 group-hover:text-foreground transition-colors">
-                  47 Bewertungen
+                  {reviewCount ?? 47} Bewertungen
                 </span>
               </div>
             </Link>

@@ -15,13 +15,14 @@ interface Review {
 
 interface ReviewStripProps {
   reviews: Review[]
+  reviewCount?: number
 }
 
 /**
  * ReviewStrip Client Component
  * Renders an asymmetric grid of customer reviews with Framer Motion staggered reveals.
  */
-export default function ReviewStrip({ reviews }: ReviewStripProps) {
+export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) {
   if (!reviews || reviews.length === 0) return null
 
   const containerVariants = {
@@ -73,7 +74,7 @@ export default function ReviewStrip({ reviews }: ReviewStripProps) {
                {[1, 2, 3, 4, 5].map(i => <Star key={i} size={18} fill="currentColor" />)}
              </div>
              <div className="text-sm font-bold text-foreground">
-               4.9 / 5.0 <span className="text-muted-foreground font-medium ml-1">(500+ Reviews)</span>
+               4.9 / 5.0 <span className="text-muted-foreground font-medium ml-1">({reviewCount ?? reviews.length} Bewertungen)</span>
              </div>
           </motion.div>
         </div>
@@ -152,7 +153,7 @@ export default function ReviewStrip({ reviews }: ReviewStripProps) {
             href="/produkt#bewertungen" 
             className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
           >
-            Alle 500+ Bewertungen lesen
+            Alle {reviewCount ?? reviews.length} Bewertungen lesen
           </Link>
         </motion.div>
       </div>

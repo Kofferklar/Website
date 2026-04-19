@@ -1,4 +1,9 @@
-import { Star, CheckCircle2 } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Star, ChevronDown } from 'lucide-react'
+import { ReviewCard } from './ReviewCard'
 import type { Review } from '@/lib/sanity/types'
 
 interface ProductReviewsProps {
@@ -11,83 +16,70 @@ function getAverageRating(reviews: Review[]): number {
   return Math.round((sum / reviews.length) * 10) / 10
 }
 
-function StarRating({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'lg' }) {
-  const sizeClass = size === 'lg' ? 'w-6 h-6' : 'w-4 h-4'
-  return (
-    <div className="flex items-center gap-0.5" aria-label={`${rating} von 5 Sternen`}>
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Star
-          key={star}
-          className={`${sizeClass} ${star <= rating ? 'fill-accent text-accent' : 'fill-muted text-muted'}`}
-          aria-hidden="true"
-        />
-      ))}
-    </div>
-  )
-}
-
-function formatDate(dateStr?: string): string {
-  if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })
-}
-
 export default function ProductReviews({ reviews }: ProductReviewsProps) {
+  const [showAll, setShowAll] = useState(false)
+
   if (!reviews || reviews.length === 0) return null
 
   const avg = getAverageRating(reviews)
+  const count = reviews.length
+  const displayedReviews = showAll ? reviews : reviews.slice(0, 3)
 
   return (
-    <section aria-label="Kundenbewertungen">
-      <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
-        Was Kunden sagen
-      </h2>
-
-      {/* Durchschnitt-Summary */}
-      <div className="flex items-center gap-6 mb-10 p-6 bg-muted rounded-2xl">
-        <div className="text-center">
-          <div className="font-serif text-5xl font-bold text-foreground">{avg}</div>
-          <StarRating rating={Math.round(avg)} size="lg" />
-          <p className="text-sm text-muted-foreground mt-1">{reviews.length} Bewertungen</p>
+    <>
+      {/* Section heading + rating badge */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14">
+        <div>
+          <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-4">
+            Social Proof
+          </div>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1]">
+            Was Kunden sagen
+          </h2>
         </div>
-        <div className="h-16 w-px bg-border" aria-hidden="true" />
-        <p className="text-sm text-muted-foreground">
-          Verifizierte Käufer · Alle Bewertungen stammen von echten Kunden
-        </p>
+
+        {/* Rating summary pill */}
+        <div className="flex items-center gap-5 p-4 rounded-3xl bg-white shadow-xl shadow-black/[0.03] border border-black/5 flex-shrink-0">
+          <div className="flex text-accent">
+            {[1, 2, 3, 4, 5].map(i => (
+              <Star key={i} size={18} fill="currentColor" aria-hidden="true" />
+            ))}
+          </div>
+          <div className="text-sm font-bold text-foreground">
+            {avg} / 5.0{' '}
+            <span className="text-muted-foreground font-medium ml-1">({count} Bewertungen)</span>
+          </div>
+        </div>
       </div>
 
-      {/* Review-Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {reviews.map((review) => (
-          <article
+      {/* Review grid */}
+      <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {displayedReviews.map((review, idx) => (
+          <motion.div
             key={review._id}
-            className="bg-background border border-border rounded-2xl p-6 flex flex-col gap-3"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Header: Name + Verified */}
-            <div className="flex items-start justify-between gap-2">
-              <div>
-                <p className="font-semibold text-foreground text-sm">{review.reviewerName}</p>
-                {review.publishedAt && (
-                  <p className="text-xs text-muted-foreground">{formatDate(review.publishedAt)}</p>
-                )}
-              </div>
-              {review.verified && (
-                <div className="flex items-center gap-1 text-xs text-primary flex-shrink-0">
-                  <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
-                  <span>Verifiziert</span>
-                </div>
-              )}
-            </div>
-
-            {/* Sterne */}
-            <StarRating rating={review.rating} />
-
-            {/* Review-Text */}
-            <p className="text-sm text-foreground leading-relaxed flex-1">
-              &ldquo;{review.body}&rdquo;
-            </p>
-          </article>
+            <ReviewCard review={review} index={idx} />
+          </motion.div>
         ))}
-      </div>
-    </section>
+      </motion.div>
+
+      {/* Expand button */}
+      {!showAll && count > 3 && (
+        <div className="mt-12 text-center">
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-primary text-primary font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-[0.98]"
+            style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+          >
+            Alle {count} Bewertungen anzeigen
+            <ChevronDown className="w-4 h-4" aria-hidden="true" />
+          </button>
+        </div>
+      )}
+    </>
   )
 }
