@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getProduct, getAllReviews, getFaqItems } from '@/lib/sanity/queries'
 import ProductHero from './components/ProductHero'
+import ProductDescription from './components/ProductDescription'
 import SetOverview from './components/SetOverview'
 import SizeChart from './components/SizeChart'
 import CompressionExplainer from './components/CompressionExplainer'
@@ -85,6 +86,16 @@ export default async function ProduktPage() {
       <main id="main-content" className="min-h-screen pt-[72px]">
         {/* ─── Hero-Sektion: Galerie + BuyBlock (client wrapper) ─── */}
         <ProductHero product={product} />
+
+        {/* ─── Ausführliche Produktbeschreibung ─── */}
+        {product.description && (
+          <section className="max-w-[1400px] mx-auto px-4 md:px-8 py-10 md:py-16">
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
+              Produktdetails
+            </h2>
+            <ProductDescription content={product.description} />
+          </section>
+        )}
 
         {/* ─── Set-Übersicht ─── */}
         {product.setParts && product.setParts.length > 0 && (
