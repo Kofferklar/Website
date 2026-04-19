@@ -63,22 +63,15 @@ export default function ProductGallery({
     goTo(next, 1)
   }
 
-  if (!activeImages || activeImages.length === 0) {
-    return (
-      <div className="w-full aspect-square md:aspect-[4/3] rounded-xl bg-muted flex items-center justify-center">
-        <span className="text-muted-foreground text-sm">Kein Bild verfügbar</span>
-      </div>
-    )
-  }
-
-  const activeImage = activeImages[activeIndex]
+  const hasImages = activeImages && activeImages.length > 0
+  const activeImage = hasImages ? activeImages[activeIndex] : null
   const mainImageUrl = activeImage?.asset
     ? urlFor(activeImage).width(800).height(600).url()
     : null
 
   return (
     <div className="w-full">
-      {/* Color card grid */}
+      {/* Color card grid — always render when variants exist */}
       {colorVariants && colorVariants.length > 1 && (
         <div className="flex flex-wrap gap-3 mb-4">
           {colorVariants.map((variant, i) => {
@@ -135,45 +128,51 @@ export default function ProductGallery({
 
       {/* Hero image slider */}
       <div className="relative aspect-square md:aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]">
-        <AnimatePresence initial={false} custom={direction}>
-          <motion.div
-            key={activeIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={slideTransition}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={1}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -50) goNext()
-              else if (info.offset.x > 50) goPrev()
-            }}
-            className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
-          >
-            {mainImageUrl ? (
-              <Image
-                src={mainImageUrl}
-                alt={activeImage?.alt ?? productName}
-                fill
-                priority={activeIndex === 0}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover pointer-events-none"
-                placeholder="blur"
-                blurDataURL={BLUR_DATA_URL}
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span className="text-muted-foreground text-sm">Bild wird geladen…</span>
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        {hasImages ? (
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={activeIndex}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={slideTransition}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={1}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -50) goNext()
+                else if (info.offset.x > 50) goPrev()
+              }}
+              className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+            >
+              {mainImageUrl ? (
+                <Image
+                  src={mainImageUrl}
+                  alt={activeImage?.alt ?? productName}
+                  fill
+                  priority={activeIndex === 0}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover pointer-events-none"
+                  placeholder="blur"
+                  blurDataURL={BLUR_DATA_URL}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-muted-foreground text-sm">Bild wird geladen…</span>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-muted-foreground text-sm">Kein Bild verfügbar</span>
+          </div>
+        )}
 
         {/* Desktop prev/next arrows */}
-        {activeImages.length > 1 && (
+        {hasImages && activeImages.length > 1 && (
           <>
             <button
               type="button"
@@ -196,7 +195,7 @@ export default function ProductGallery({
       </div>
 
       {/* Pagination dots */}
-      {activeImages.length > 1 && (
+      {hasImages && activeImages.length > 1 && (
         <div className="flex justify-center gap-1.5 mt-3">
           {activeImages.map((_, i) => (
             <button
