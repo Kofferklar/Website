@@ -98,8 +98,10 @@ export default function BuyBlock({
       {/* Material (optional — nur wenn vorhanden) */}
       {material && (
         <div className="text-sm text-muted-foreground border-t border-border pt-4">
-          <span className="font-medium text-foreground">Material: </span>
-          {material}
+          <span className="font-medium text-foreground block mb-1">Material:</span>
+          {material.split('\n').filter(Boolean).map((line, i) => (
+            <span key={i} className="block">{line}</span>
+          ))}
         </div>
       )}
 
