@@ -49,9 +49,9 @@ export default function HeroSection({ product }: HeroSectionProps) {
             Wieder auf Lager
           </motion.div>
           
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-foreground leading-[1.05] tracking-tight mb-10">
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl xl:text-8xl font-bold text-foreground leading-[1.05] tracking-tight mb-10">
             Reisen <br />
-            <span className="text-primary italic relative">
+            <span className="text-primary italic relative tracking-normal">
               neu definiert.
               <svg className="absolute -bottom-2 left-0 w-full h-3 text-accent/30" viewBox="0 0 300 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 15C50 5 150 5 295 15" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
@@ -101,7 +101,7 @@ export default function HeroSection({ product }: HeroSectionProps) {
                   {[1, 2, 3, 4, 5].map(s => <Star key={s} size={12} fill="currentColor" />)}
                 </div>
                 <span className="text-[11px] tracking-wide uppercase font-bold text-foreground/60 group-hover:text-foreground transition-colors">
-                  500+ Bewertungen
+                  47 Bewertungen
                 </span>
               </div>
             </Link>
