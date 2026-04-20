@@ -1,9 +1,9 @@
 # Roadmap: KofferKlar
 
 **Generated:** 2026-04-16
-**Granularity:** Coarse (4 phases)
-**Total v1 Requirements:** 77
-**Coverage:** 77/77 ✓
+**Granularity:** Coarse (5 phases)
+**Total v1 Requirements:** 84
+**Coverage:** 84/84 ✓
 
 ---
 
@@ -15,8 +15,9 @@
 | 2 | Produktseite | Core Value: Besucher versteht und kann kaufen | PROD-01–12, DESIGN-03, DESIGN-05 | Pending |
 | 3 | Restliche Seiten | Alle Content-Seiten funktionsfähig | HOME-01–06, BRAND-01–03, BLOG-01–06, SERVICE-01–10 | Pending |
 | 4 | SEO & Production | Produktionsreif, rechtlich sicher, SEO-optimiert | LEGAL-01–05, SEO-01–12 | Pending |
+| 5 | Warenkorb & Navigation | Mehrfarb-Kombinationen bestellbar; Cart-Icon immer sichtbar | CART-01–07 | Pending |
 
-**Milestone: v1.0** — nach Phase 4
+**Milestone: v1.0** — nach Phase 5
 
 ---
 
@@ -172,6 +173,45 @@ Plans:
 - alle `next/image` auf explizite width/height prüfen
 - Vercel Preview noindex Header in `vercel.json` verifizieren
 - `NEXT_PUBLIC_SITE_URL` in allen absolutem URL-Konstruktionen prüfen
+
+---
+
+## Phase 5: Warenkorb & Navigation
+
+**Goal:** Besucher können verschiedene Farb-Sets kombiniert in den Warenkorb legen und zur Kasse gehen. Das Cart-Icon ist auf Desktop und Mobile jederzeit sichtbar. Der Checkout nutzt den globalen Cart-State statt Single-Product-Props.
+
+**Requirements:** CART-01–07
+
+**Depends on:** Phase 2 (BuyBlock, ProductGallery, CheckoutWizard existieren)
+
+**Plans:** 4 plans
+
+Plans:
+- [ ] 05-01-PLAN.md — CartProvider: React Context + localStorage Persistence (Wave 1)
+- [ ] 05-02-PLAN.md — Header: Cart Icon + Badge + Logo Touch-Target Fix (Wave 2)
+- [ ] 05-03-PLAN.md — BuyBlock + ProductHero: "In den Warenkorb" CTAs (Wave 2)
+- [ ] 05-04-PLAN.md — CheckoutWizard CartStep + checkout/page.tsx Simplification (Wave 2)
+
+**Success Criteria:**
+1. `CartContext` exportiert `useCart()` Hook; `CartProvider` wrappet `(site)/layout.tsx`
+2. Zwei verschiedene Farben hinzufügen → beide erscheinen als separate Zeilen im CheckoutWizard CartStep
+3. Cart-Icon mit Badge auf Mobile (375px) ist neben dem Hamburger-Button sichtbar — ohne Scrollen
+4. Cart-Icon auf Desktop ist im Header-Bereich sichtbar mit korrektem Badge-Count
+5. "In den Warenkorb"-Button in BuyBlock fügt item hinzu und zeigt Bestätigung
+6. `localStorage` persistiert Cart — Seite neu laden behält Warenkorb
+7. Logo in Header ist als `<Link href="/">` klickbar; Touch-Target ≥ 44px
+
+**UI hint:** yes (Header, BuyBlock, CartStep)
+
+**Key Tasks:**
+- `app/(site)/components/CartProvider.tsx` erstellen: `CartItem`-Typ, Provider, `useCart`-Hook, localStorage-Sync
+- `app/(site)/layout.tsx` mit `CartProvider` wrappen
+- `app/(site)/components/Header.tsx`: Cart-Icon (ShoppingCart aus lucide-react) + Badge auf Desktop + Mobile (neben Hamburger)
+- `app/(site)/produkt/components/BuyBlock.tsx`: `useCart` importieren, "In den Warenkorb" Button, Bestätigungs-Feedback
+- `app/(site)/produkt/components/ProductHero.tsx`: Mobile CTA zu addToCart-Button umstellen
+- `app/(site)/checkout/components/CheckoutWizard.tsx`: CartStep von Single-Product-Props auf `useCart()` umstellen; alle CartItems rendern, Menge ändern, Artikel entfernen
+- `app/(site)/checkout/page.tsx`: searchParams entfernen, Checkout-Props vereinfachen
+- Logo Touch-Target: min-h-[44px] min-w-[44px] padding fix
 
 ---
 
