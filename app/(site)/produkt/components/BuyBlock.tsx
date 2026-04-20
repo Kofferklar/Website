@@ -1,9 +1,10 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { ShieldCheck, Truck, RotateCcw } from 'lucide-react'
 import type { ColorVariant } from '@/lib/sanity/types'
+import { useCart } from '@/app/(site)/components/CartProvider'
 
 interface BuyBlockProps {
   price?: number
@@ -23,6 +24,27 @@ export default function BuyBlock({
   selectedColorIndex,
   onColorChange,
 }: BuyBlockProps) {
+  const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  // Feedback timeout with cleanup (prevents memory leak if user navigates away before 2s)
+  useEffect(() => {
+    if (!added) return
+    const id = setTimeout(() => setAdded(false), 2000)
+    return () => clearTimeout(id)
+  }, [added])
+
+  const handleAddToCart = () => {
+    const variant = colorVariants?.[selectedColorIndex ?? 0]
+    addToCart({
+      color: variant?.colorName ?? 'Standard',
+      colorLabel: variant?.colorName ?? 'Standard',
+      price: price ?? 0,
+      // qty omitted — defaults to 1 inside CartProvider.addToCart
+    })
+    setAdded(true)
+  }
+
   return (
     <div className="md:sticky md:top-24 space-y-6">
       {/* Preis */}
@@ -79,14 +101,13 @@ export default function BuyBlock({
       )}
 
       {/* CTA-Button */}
-      <Link
-        href="/checkout"
+      <button
+        onClick={handleAddToCart}
         className="block w-full text-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:bg-primary/95 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shadow-xl shadow-primary/20"
         style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-        aria-label="Jetzt kaufen"
       >
-        Jetzt kaufen
-      </Link>
+        {added ? 'Hinzugefügt ✓' : 'In den Warenkorb'}
+      </button>
 
       {/* Trust-Badges (Versand, Rückgabe, Sicherheit) */}
       <div className="space-y-3 border-t border-border pt-4">

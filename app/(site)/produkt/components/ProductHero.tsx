@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Truck, RotateCcw, ShieldCheck } from 'lucide-react'
+import { useCart } from '@/app/(site)/components/CartProvider'
 import ProductGallery from './ProductGallery'
 import ProductVideo from './ProductVideo'
 import BuyBlock from './BuyBlock'
@@ -15,6 +15,24 @@ interface ProductHeroProps {
 
 export default function ProductHero({ product }: ProductHeroProps) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0)
+  const { addToCart } = useCart()
+  const [added, setAdded] = useState(false)
+
+  useEffect(() => {
+    if (!added) return
+    const id = setTimeout(() => setAdded(false), 2000)
+    return () => clearTimeout(id)
+  }, [added])
+
+  const handleMobileAddToCart = () => {
+    const variant = product.colorVariants?.[selectedColorIndex]
+    addToCart({
+      color: variant?.colorName ?? 'Standard',
+      colorLabel: variant?.colorName ?? 'Standard',
+      price: product.price ?? 0,
+    })
+    setAdded(true)
+  }
 
   return (
     <section className="max-w-[1400px] mx-auto px-4 md:px-8">
@@ -55,14 +73,13 @@ export default function ProductHero({ product }: ProductHeroProps) {
         </div>
 
         {/* CTA button */}
-        <Link
-          href="/checkout"
+        <button
+          onClick={handleMobileAddToCart}
           className="block w-full text-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:bg-primary/95 active:scale-[0.98] transition-all duration-300 shadow-xl shadow-primary/20 shrink-0"
           style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-          aria-label="Jetzt kaufen"
         >
-          Jetzt kaufen
-        </Link>
+          {added ? 'Hinzugefügt ✓' : 'In den Warenkorb'}
+        </button>
       </div>
 
       {/* ── MOBILE: Below-fold section (trust / material / payment) ── */}
