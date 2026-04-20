@@ -1,11 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import MobileDrawer from './MobileDrawer'
+import { useCart } from './CartProvider'
 
 const navLinks = [
   { href: '/', label: 'Startseite' },
@@ -18,6 +19,8 @@ const navLinks = [
 export default function Header() {
   const pathname = usePathname()
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const { totalItems, mounted } = useCart()
+  const router = useRouter()
 
   return (
     <>
@@ -51,17 +54,37 @@ export default function Header() {
               })}
             </nav>
 
-            <Link
-              href="/produkt"
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            >
-              Jetzt kaufen
-            </Link>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/produkt"
+                className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+              >
+                Jetzt kaufen
+              </Link>
+
+              {/* Cart icon — to the RIGHT of "Jetzt kaufen" */}
+              <button
+                onClick={() => router.push('/checkout')}
+                className="relative flex items-center justify-center w-[44px] h-[44px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                aria-label={`Warenkorb${mounted && totalItems > 0 ? ` (${totalItems} Artikel)` : ''}`}
+              >
+                <ShoppingCart className="w-6 h-6 text-foreground" aria-hidden="true" />
+                {mounted && totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
+                    {totalItems > 9 ? '9+' : totalItems}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Mobile layout */}
           <div className="flex md:hidden items-center justify-between w-full">
-            <Link href="/" aria-label="KofferKlar — Zur Startseite">
+            <Link
+              href="/"
+              aria-label="KofferKlar — Zur Startseite"
+              className="flex items-center justify-center min-h-[44px] min-w-[44px] -m-2 p-2"
+            >
               <Image
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
@@ -72,39 +95,56 @@ export default function Header() {
               />
             </Link>
 
-            <button
-              onClick={() => setDrawerOpen(!drawerOpen)}
-              className="flex items-center justify-center w-[44px] h-[44px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
-              aria-label={drawerOpen ? 'Navigation schließen' : 'Navigation öffnen'}
-              aria-expanded={drawerOpen}
-            >
-              <span
-                className="transition-all duration-150 ease-in-out"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  opacity: drawerOpen ? 0 : 1,
-                  transform: drawerOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-                  position: 'absolute',
-                }}
+            <div className="flex items-center gap-1">
+              {/* Cart icon button (left of hamburger) */}
+              <button
+                onClick={() => router.push('/checkout')}
+                className="relative flex items-center justify-center w-[44px] h-[44px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                aria-label={`Warenkorb${mounted && totalItems > 0 ? ` (${totalItems} Artikel)` : ''}`}
               >
-                <Menu className="w-6 h-6 text-foreground" aria-hidden="true" />
-              </span>
-              <span
-                className="transition-all duration-150 ease-in-out"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  opacity: drawerOpen ? 1 : 0,
-                  transform: drawerOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
-                  position: 'absolute',
-                }}
+                <ShoppingCart className="w-6 h-6 text-foreground" aria-hidden="true" />
+                {mounted && totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
+                    {totalItems > 9 ? '9+' : totalItems}
+                  </span>
+                )}
+              </button>
+
+              {/* Existing hamburger button — content UNCHANGED */}
+              <button
+                onClick={() => setDrawerOpen(!drawerOpen)}
+                className="flex items-center justify-center w-[44px] h-[44px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                aria-label={drawerOpen ? 'Navigation schließen' : 'Navigation öffnen'}
+                aria-expanded={drawerOpen}
               >
-                <X className="w-6 h-6 text-foreground" aria-hidden="true" />
-              </span>
-            </button>
+                <span
+                  className="transition-all duration-150 ease-in-out"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: drawerOpen ? 0 : 1,
+                    transform: drawerOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+                    position: 'absolute',
+                  }}
+                >
+                  <Menu className="w-6 h-6 text-foreground" aria-hidden="true" />
+                </span>
+                <span
+                  className="transition-all duration-150 ease-in-out"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    opacity: drawerOpen ? 1 : 0,
+                    transform: drawerOpen ? 'rotate(0deg)' : 'rotate(-90deg)',
+                    position: 'absolute',
+                  }}
+                >
+                  <X className="w-6 h-6 text-foreground" aria-hidden="true" />
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
