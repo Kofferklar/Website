@@ -36,7 +36,6 @@ export default function ProductReviews({ reviews }: ProductReviewsProps) {
           </h2>
         </div>
 
-        {/* Rating summary pill */}
         <div className="flex items-center gap-5 p-4 rounded-3xl bg-white shadow-xl shadow-black/[0.03] border border-black/5 flex-shrink-0">
           <div className="flex text-accent">
             {[1, 2, 3, 4, 5].map(i => (
@@ -50,8 +49,8 @@ export default function ProductReviews({ reviews }: ProductReviewsProps) {
         </div>
       </div>
 
-      {/* Review grid */}
-      <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+      {/* Review Grid */}
+      <div className="grid grid-cols-1 gap-6 md:gap-10 md:grid-cols-2 lg:grid-cols-3">
         {displayedReviews.map((review, idx) => (
           <motion.div
             key={review._id}
@@ -62,14 +61,15 @@ export default function ProductReviews({ reviews }: ProductReviewsProps) {
             <ReviewCard review={review} index={idx} />
           </motion.div>
         ))}
-      </motion.div>
 
+      </div>
+
+      {/* Bottom callout */}
       {count > 3 && (
-        <div className="mt-12 text-center">
+        <div className="mt-10 md:mt-12 text-center">
           <Link
             href="/bewertungen"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-primary text-primary font-semibold text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-[0.98]"
-            style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+            className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
           >
             Alle {count} Bewertungen lesen
           </Link>

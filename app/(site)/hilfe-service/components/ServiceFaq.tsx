@@ -39,7 +39,7 @@ export default function ServiceFaq({ items }: ServiceFaqProps) {
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16 lg:gap-24 items-start">
           
           {/* --- Left Column: Navigation & Search --- */}
-          <aside className="space-y-12 sticky top-[100px]">
+          <aside className="space-y-12 lg:sticky lg:top-[100px]">
             <div>
                <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-accent mb-8">Navigation</h3>
                <nav className="flex flex-wrap lg:flex-col gap-3">

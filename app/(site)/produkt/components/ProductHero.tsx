@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Truck, RotateCcw, ShieldCheck } from 'lucide-react'
 import { useCart } from '@/app/(site)/components/CartProvider'
 import { PRODUCT_GALLERY_IMAGES, resolveColorKey } from '@/lib/product-images'
@@ -17,16 +18,18 @@ interface ProductHeroProps {
 export default function ProductHero({ product }: ProductHeroProps) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0)
   const { addToCart } = useCart()
+  const router = useRouter()
   const [added, setAdded] = useState(false)
+  const [feedback, setFeedback] = useState(false)
 
   const colorName = product.colorVariants?.[selectedColorIndex]?.colorName ?? ''
   const localImages = PRODUCT_GALLERY_IMAGES[resolveColorKey(colorName)]
 
   useEffect(() => {
-    if (!added) return
-    const id = setTimeout(() => setAdded(false), 2000)
+    if (!feedback) return
+    const id = setTimeout(() => setFeedback(false), 800)
     return () => clearTimeout(id)
-  }, [added])
+  }, [feedback])
 
   const handleMobileAddToCart = () => {
     const variant = product.colorVariants?.[selectedColorIndex]
@@ -36,6 +39,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
       price: product.price ?? 0,
     })
     setAdded(true)
+    setFeedback(true)
   }
 
   return (
@@ -79,11 +83,11 @@ export default function ProductHero({ product }: ProductHeroProps) {
 
         {/* CTA button */}
         <button
-          onClick={handleMobileAddToCart}
+          onClick={added && !feedback ? () => router.push('/checkout') : handleMobileAddToCart}
           className="block w-full text-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:bg-primary/95 active:scale-[0.98] transition-all duration-300 shadow-xl shadow-primary/20 shrink-0"
           style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
         >
-          {added ? 'Hinzugefügt ✓' : 'In den Warenkorb'}
+          {feedback ? 'Hinzugefügt ✓' : added ? 'Zur Kasse →' : 'In den Warenkorb'}
         </button>
       </div>
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { ShieldCheck, Truck, RotateCcw } from 'lucide-react'
 import type { ColorVariant } from '@/lib/sanity/types'
 import { useCart } from '@/app/(site)/components/CartProvider'
@@ -25,14 +26,15 @@ export default function BuyBlock({
   onColorChange,
 }: BuyBlockProps) {
   const { addToCart } = useCart()
+  const router = useRouter()
   const [added, setAdded] = useState(false)
+  const [feedback, setFeedback] = useState(false)
 
-  // Feedback timeout with cleanup (prevents memory leak if user navigates away before 2s)
   useEffect(() => {
-    if (!added) return
-    const id = setTimeout(() => setAdded(false), 2000)
+    if (!feedback) return
+    const id = setTimeout(() => setFeedback(false), 800)
     return () => clearTimeout(id)
-  }, [added])
+  }, [feedback])
 
   const handleAddToCart = () => {
     const variant = colorVariants?.[selectedColorIndex ?? 0]
@@ -40,9 +42,9 @@ export default function BuyBlock({
       color: variant?.colorName ?? 'Standard',
       colorLabel: variant?.colorName ?? 'Standard',
       price: price ?? 0,
-      // qty omitted — defaults to 1 inside CartProvider.addToCart
     })
     setAdded(true)
+    setFeedback(true)
   }
 
   return (
@@ -102,11 +104,11 @@ export default function BuyBlock({
 
       {/* CTA-Button */}
       <button
-        onClick={handleAddToCart}
+        onClick={added && !feedback ? () => router.push('/checkout') : handleAddToCart}
         className="block w-full text-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:bg-primary/95 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 shadow-xl shadow-primary/20"
         style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
       >
-        {added ? 'Hinzugefügt ✓' : 'In den Warenkorb'}
+        {feedback ? 'Hinzugefügt ✓' : added ? 'Zur Kasse →' : 'In den Warenkorb'}
       </button>
 
       {/* Trust-Badges (Versand, Rückgabe, Sicherheit) */}

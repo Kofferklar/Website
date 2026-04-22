@@ -63,7 +63,7 @@ export default function HomeVorherNachher() {
              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
              viewport={{ once: true }}
              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-             className="relative order-1 lg:order-2"
+             className="relative order-1 lg:order-2 hidden lg:block"
            >
              <div className="grid grid-cols-2 gap-6 md:gap-12">
                 {/* Chaos Block */}
@@ -78,12 +78,9 @@ export default function HomeVorherNachher() {
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 25vw"
                       />
-                      <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold text-white uppercase tracking-[0.2em] border border-white/10">
-                         Chaos
-                      </div>
                    </div>
                    <div className="text-center">
-                     <div className="font-serif italic text-muted-foreground text-lg">Davor.</div>
+                     <div className="font-serif italic text-muted-foreground text-lg">Vorher.</div>
                    </div>
                 </div>
 
@@ -99,12 +96,9 @@ export default function HomeVorherNachher() {
                         className="object-cover"
                         sizes="(max-width: 768px) 50vw, 25vw"
                       />
-                      <div className="absolute top-8 left-8 bg-accent text-accent-foreground px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] shadow-xl">
-                         KofferKlar
-                      </div>
                    </div>
                    <div className="text-center">
-                     <div className="font-serif italic text-foreground font-bold text-xl">Danach.</div>
+                     <div className="font-serif italic text-foreground font-bold text-xl">Nachher.</div>
                    </div>
                 </div>
              </div>
