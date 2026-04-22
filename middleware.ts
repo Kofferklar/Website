@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const PUBLIC_PATHS = ['/login', '/_next/static', '/favicon.ico']
+const PUBLIC_PATHS = ['/login', '/_next/static', '/favicon.ico', '/favicon.svg']
 
 function isPublicPath(pathname: string) {
   return PUBLIC_PATHS.some((p) => pathname.startsWith(p))
@@ -54,5 +54,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|favicon.ico).*)'],
+  matcher: ['/((?!_next/static|favicon\\.ico|favicon\\.svg).*)'],
 }

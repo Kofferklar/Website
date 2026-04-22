@@ -20,13 +20,13 @@ interface ProductGalleryProps {
   fillHeight?: boolean
 }
 
-const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%' }),
-  center: { x: 0 },
-  exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%' }),
+const fadeVariants = {
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
 }
 
-const slideTransition = { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
+const slideTransition = { duration: 0.3, ease: 'easeInOut' as const }
 
 export default function ProductGallery({
   images,
@@ -110,11 +110,10 @@ export default function ProductGallery({
         ].join(' ')}
       >
         {hasImages ? (
-          <AnimatePresence initial={false} custom={direction}>
+          <AnimatePresence initial={false} mode="wait">
             <motion.div
               key={activeIndex}
-              custom={direction}
-              variants={slideVariants}
+              variants={fadeVariants}
               initial="enter"
               animate="center"
               exit="exit"
