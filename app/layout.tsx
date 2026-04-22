@@ -17,7 +17,10 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kofferklar.de'),
+  metadataBase: (() => {
+    const raw = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kofferklar.de'
+    return new URL(raw.startsWith('http') ? raw : `https://${raw}`)
+  })(),
   title: { default: 'KofferKlar', template: '%s | KofferKlar' },
   description: 'Das 8-teilige Kompressions-Packwürfel-Set für stressfreies Reisen.',
   icons: {
