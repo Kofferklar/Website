@@ -9,8 +9,6 @@ import { urlFor } from '@/lib/sanity/image'
 import type { SanityImage, ColorVariant } from '@/lib/sanity/types'
 import type { LocalImage } from '@/lib/product-images'
 
-const BLUR_DATA_URL =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
 
 interface ProductGalleryProps {
   images: SanityImage[]
@@ -139,8 +137,6 @@ export default function ProductGallery({
                   priority={activeIndex === 0}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover pointer-events-none"
-                  placeholder="blur"
-                  blurDataURL={BLUR_DATA_URL}
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
@@ -231,8 +227,6 @@ export default function ProductGallery({
                       fill
                       sizes="36px"
                       className="object-cover"
-                      placeholder="blur"
-                      blurDataURL={BLUR_DATA_URL}
                     />
                   ) : (
                     <div
