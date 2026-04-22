@@ -23,9 +23,9 @@ interface ProductGalleryProps {
 }
 
 const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
+  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%' }),
+  center: { x: 0 },
+  exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%' }),
 }
 
 const slideTransition = { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
@@ -129,7 +129,7 @@ export default function ProductGallery({
                 else if (info.offset.x > 50) goPrev()
               }}
               onClick={() => setLightboxOpen(true)}
-              className="absolute inset-0 w-full h-full cursor-zoom-in"
+              className="absolute inset-0 w-full h-full cursor-zoom-in bg-white"
             >
               {mainImageSrc ? (
                 <Image

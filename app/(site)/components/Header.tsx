@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Menu, X, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import Image from 'next/image'
 import MobileDrawer from './MobileDrawer'
 import { useCart } from './CartProvider'
 
@@ -29,13 +28,13 @@ export default function Header() {
           {/* Desktop layout */}
           <div className="hidden md:flex items-center justify-between w-full h-full">
             <Link href="/" aria-label="KofferKlar — Zur Startseite" className="flex items-center h-full pr-4">
-              <Image
+              <img
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
                 width={52}
                 height={56}
                 className="h-8 w-auto"
-                priority
+                fetchPriority="high"
                 draggable={false}
               />
             </Link>
@@ -86,13 +85,13 @@ export default function Header() {
               aria-label="KofferKlar — Zur Startseite"
               className="flex items-center justify-center min-h-[44px] min-w-[44px] -m-2 p-2"
             >
-              <Image
+              <img
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
                 width={40}
                 height={44}
                 className="h-7 w-auto"
-                priority
+                fetchPriority="high"
               />
             </Link>
 
