@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kofferklar.de'),
   title: { default: 'KofferKlar', template: '%s | KofferKlar' },
   description: 'Das 8-teilige Kompressions-Packwürfel-Set für stressfreies Reisen.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
