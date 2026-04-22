@@ -2,16 +2,19 @@
 
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { urlFor } from '@/lib/sanity/image'
 import type { SanityImage, ColorVariant } from '@/lib/sanity/types'
+import type { LocalImage } from '@/lib/product-images'
 
 const BLUR_DATA_URL =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
 
 interface ProductGalleryProps {
   images: SanityImage[]
+  localImages?: LocalImage[]
   productName: string
   colorVariants?: ColorVariant[]
   selectedColorIndex?: number
@@ -19,7 +22,6 @@ interface ProductGalleryProps {
   fillHeight?: boolean
 }
 
-/** Slide animation variants for the hero image slider */
 const slideVariants = {
   enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
   center: { x: 0, opacity: 1 },
@@ -30,53 +32,82 @@ const slideTransition = { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
 
 export default function ProductGallery({
   images,
+  localImages,
   productName,
   colorVariants,
   selectedColorIndex,
   onColorChange,
   fillHeight,
 }: ProductGalleryProps) {
-  // [activeIndex, direction] — typed as tuple to satisfy TS
   const [[activeIndex, direction], setPage] = useState<[number, number]>([0, 0])
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
-  // Reset slider to first image when color variant changes
+  useEffect(() => setMounted(true), [])
+
   useEffect(() => {
     setPage([0, 0])
   }, [selectedColorIndex])
 
-  // Use variant images if available, fall back to product images
-  const activeImages: SanityImage[] =
+  const useLocal = (localImages?.length ?? 0) > 0
+
+  const activeImages: SanityImage[] = useLocal ? [] : (
     colorVariants?.[selectedColorIndex ?? 0]?.images?.length
       ? (colorVariants[selectedColorIndex ?? 0].images as SanityImage[])
       : images
+  )
 
-  // Navigate to a specific index with direction
+  const imageCount = useLocal ? (localImages?.length ?? 0) : activeImages.length
+
   function goTo(index: number, dir: number) {
     setPage([index, dir])
   }
 
   function goPrev() {
-    const prev = activeIndex - 1 < 0 ? activeImages.length - 1 : activeIndex - 1
+    const prev = activeIndex - 1 < 0 ? imageCount - 1 : activeIndex - 1
     goTo(prev, -1)
   }
 
   function goNext() {
-    const next = activeIndex + 1 > activeImages.length - 1 ? 0 : activeIndex + 1
+    const next = activeIndex + 1 > imageCount - 1 ? 0 : activeIndex + 1
     goTo(next, 1)
   }
 
-  const hasImages = activeImages && activeImages.length > 0
-  const activeImage = hasImages ? activeImages[activeIndex] : null
-  const mainImageUrl = activeImage?.asset
-    ? urlFor(activeImage).width(800).height(600).url()
-    : null
+  useEffect(() => {
+    if (!lightboxOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxOpen(false)
+      else if (e.key === 'ArrowRight') {
+        const next = activeIndex + 1 > imageCount - 1 ? 0 : activeIndex + 1
+        setPage([next, 1])
+      } else if (e.key === 'ArrowLeft') {
+        const prev = activeIndex - 1 < 0 ? imageCount - 1 : activeIndex - 1
+        setPage([prev, -1])
+      }
+    }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [lightboxOpen, activeIndex, imageCount])
+
+  const hasImages = imageCount > 0
+  const activeImage = !useLocal && hasImages ? activeImages[activeIndex] : null
+  const mainImageSrc = useLocal
+    ? (localImages![activeIndex % imageCount]?.src ?? null)
+    : (activeImage?.asset ? urlFor(activeImage).width(800).height(600).url() : null)
+  const mainImageAlt = useLocal
+    ? (localImages![activeIndex % imageCount]?.alt ?? productName)
+    : (activeImage?.alt ?? productName)
 
   return (
     <div className={`w-full flex flex-col${fillHeight ? ' h-full min-h-0' : ''}`}>
       {/* Hero image slider */}
       <div
         className={[
-          'relative w-full overflow-hidden rounded-xl bg-muted ring-1 ring-black/[0.06]',
+          'relative w-full overflow-hidden rounded-xl bg-white',
           fillHeight ? 'flex-1 min-h-0' : 'aspect-square md:aspect-[4/3]',
         ].join(' ')}
       >
@@ -97,16 +128,17 @@ export default function ProductGallery({
                 if (info.offset.x < -50) goNext()
                 else if (info.offset.x > 50) goPrev()
               }}
-              className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+              onClick={() => setLightboxOpen(true)}
+              className="absolute inset-0 w-full h-full cursor-zoom-in"
             >
-              {mainImageUrl ? (
+              {mainImageSrc ? (
                 <Image
-                  src={mainImageUrl}
-                  alt={activeImage?.alt ?? productName}
+                  src={mainImageSrc}
+                  alt={mainImageAlt}
                   fill
                   priority={activeIndex === 0}
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-contain pointer-events-none"
+                  className="object-cover pointer-events-none"
                   placeholder="blur"
                   blurDataURL={BLUR_DATA_URL}
                 />
@@ -124,7 +156,7 @@ export default function ProductGallery({
         )}
 
         {/* Desktop prev/next arrows */}
-        {hasImages && activeImages.length > 1 && (
+        {hasImages && imageCount > 1 && (
           <>
             <button
               type="button"
@@ -147,9 +179,9 @@ export default function ProductGallery({
       </div>
 
       {/* Pagination dots */}
-      {hasImages && activeImages.length > 1 && (
-        <div className="flex justify-center gap-1.5 mt-3">
-          {activeImages.map((_, i) => (
+      {hasImages && imageCount > 1 && (
+        <div className="flex justify-center gap-1.5 mt-2">
+          {Array.from({ length: imageCount }, (_, i) => i).map((i) => (
             <button
               key={i}
               type="button"
@@ -165,12 +197,12 @@ export default function ProductGallery({
         </div>
       )}
 
-      {/* Color card grid — always render when variants exist */}
+      {/* Color card grid — compact */}
       {colorVariants && colorVariants.length > 1 && (
-        <div className={`flex flex-wrap gap-3 pt-3${fillHeight ? '' : ' mt-1'}`}>
+        <div className={`flex flex-wrap gap-2 pt-2${fillHeight ? '' : ' mt-1'}`}>
           {colorVariants.map((variant, i) => {
             const firstImageUrl = variant.images?.[0]?.asset
-              ? urlFor(variant.images[0]).width(112).height(112).url()
+              ? urlFor(variant.images[0]).width(80).height(80).url()
               : null
             const isSelected = i === (selectedColorIndex ?? 0)
 
@@ -183,22 +215,21 @@ export default function ProductGallery({
                 onClick={() => onColorChange?.(i)}
                 disabled={!variant.inStock}
                 className={[
-                  'relative flex flex-col items-center gap-2 p-1.5 rounded-2xl border-2 transition-all duration-200',
-                  'w-[72px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                  'relative flex flex-col items-center gap-1 p-1 rounded-xl border-2 transition-all duration-200',
+                  'w-[56px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
                   !variant.inStock ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer',
                   isSelected
-                    ? 'border-primary shadow-md'
+                    ? 'border-primary shadow-sm'
                     : 'border-border hover:border-foreground/30',
                 ].join(' ')}
               >
-                {/* Image area: 56×56 */}
-                <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-muted flex-shrink-0">
+                <div className="relative w-9 h-9 rounded-lg overflow-hidden bg-muted flex-shrink-0">
                   {firstImageUrl ? (
                     <Image
                       src={firstImageUrl}
                       alt={variant.colorName}
                       fill
-                      sizes="56px"
+                      sizes="36px"
                       className="object-cover"
                       placeholder="blur"
                       blurDataURL={BLUR_DATA_URL}
@@ -210,14 +241,94 @@ export default function ProductGallery({
                     />
                   )}
                 </div>
-                {/* Color name label */}
-                <span className="text-[10px] font-semibold text-foreground text-center leading-tight truncate w-full px-1">
+                <span className="text-[9px] font-semibold text-foreground text-center leading-tight truncate w-full px-0.5">
                   {variant.colorName}
                 </span>
               </button>
             )
           })}
         </div>
+      )}
+
+      {/* Lightbox */}
+      {mounted && lightboxOpen && createPortal(
+        <div
+          className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            type="button"
+            aria-label="Schließen"
+            onClick={() => setLightboxOpen(false)}
+            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {imageCount > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Vorheriges Bild"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  const prev = activeIndex - 1 < 0 ? imageCount - 1 : activeIndex - 1
+                  setPage([prev, -1])
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                aria-label="Nächstes Bild"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  const next = activeIndex + 1 > imageCount - 1 ? 0 : activeIndex + 1
+                  setPage([next, 1])
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </>
+          )}
+
+          <div
+            className="relative w-[92vw] h-[88vh] max-w-5xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {mainImageSrc && (
+              <Image
+                src={mainImageSrc}
+                alt={mainImageAlt}
+                fill
+                sizes="92vw"
+                className="object-contain"
+                priority
+              />
+            )}
+          </div>
+
+          {imageCount > 1 && (
+            <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2">
+              {Array.from({ length: imageCount }, (_, i) => i).map((i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setPage([i, i > activeIndex ? 1 : -1])
+                  }}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    i === activeIndex ? 'bg-white w-6' : 'bg-white/40 w-3 hover:bg-white/70'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>,
+        document.body
       )}
     </div>
   )

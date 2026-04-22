@@ -6,6 +6,13 @@ import Link from 'next/link'
 import { urlFor } from '@/lib/sanity/image'
 import { ArrowUpRight } from 'lucide-react'
 
+const LOCAL_COVER_IMAGES: Record<string, string> = {
+  'reiseziele-2025-europa-staedtereisen': '/images/images_kofferklar/lissabon.jpg',
+  'handgepaeck-guide-eine-woche': '/images/images_kofferklar/product-04-gallery-lifestyle.png',
+  'packwuerfel-vergleich-kaufratgeber': '/images/images_kofferklar/nachher-koffer.png',
+  'stressfreies-reisen-tipps': '/images/images_kofferklar/stressfrei-reisen.jpg',
+}
+
 interface PostCardProps {
   post: {
     _id: string
@@ -40,19 +47,35 @@ export default function PostCard({ post, isFeatured = false }: PostCardProps) {
       >
         <div className="relative h-full overflow-hidden rounded-[calc(2.5rem-0.5rem)] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] flex flex-col">
           {/* Image Container with Liquid Glass Reveal */}
-          <div className={`relative overflow-hidden ${isFeatured ? 'flex-1' : 'aspect-[16/10]'}`}>
-            {post.coverImage ? (
-              <Image
-                src={urlFor(post.coverImage).width(isFeatured ? 1200 : 800).height(isFeatured ? 800 : 500).url()}
-                alt={post.title}
-                fill
-                className="object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
-              />
-            ) : (
-              <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground/40 italic">
-                Kein Vorschaubild verfügbar
-              </div>
-            )}
+          <div className={`relative overflow-hidden ${isFeatured ? 'flex-1 min-h-[350px]' : 'aspect-[16/10]'}`}>
+            {(() => {
+              const localSrc = LOCAL_COVER_IMAGES[post.slug.current]
+              if (post.coverImage) {
+                return (
+                  <Image
+                    src={urlFor(post.coverImage).width(isFeatured ? 1200 : 800).height(isFeatured ? 800 : 500).url()}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                  />
+                )
+              }
+              if (localSrc) {
+                return (
+                  <Image
+                    src={localSrc}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
+                  />
+                )
+              }
+              return (
+                <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground/40 italic">
+                  Kein Vorschaubild verfügbar
+                </div>
+              )
+            })()}
             
             {/* Category/Date Overlay */}
             <div className="absolute top-6 left-6 z-10 flex items-center gap-3">

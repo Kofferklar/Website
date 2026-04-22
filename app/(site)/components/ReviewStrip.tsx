@@ -37,8 +37,8 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
     }
@@ -47,10 +47,10 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
   return (
     <section id="bewertungen" className="py-24 md:py-32 lg:py-40 bg-muted/30">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -62,25 +62,25 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
               Was Reisende über <br /> KofferKlar sagen.
             </h2>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex items-center gap-5 p-4 rounded-3xl bg-white shadow-xl shadow-black/[0.03] border border-black/5"
           >
-             <div className="flex text-accent">
-               {[1, 2, 3, 4, 5].map(i => <Star key={i} size={18} fill="currentColor" />)}
-             </div>
-             <div className="text-sm font-bold text-foreground">
-               4.9 / 5.0 <span className="text-muted-foreground font-medium ml-1">({reviewCount ?? reviews.length} Bewertungen)</span>
-             </div>
+            <div className="flex text-accent">
+              {[1, 2, 3, 4, 5].map(i => <Star key={i} size={18} fill="currentColor" />)}
+            </div>
+            <div className="text-sm font-bold text-foreground">
+              4.8 / 5.0 <span className="text-muted-foreground font-medium ml-1">({reviewCount ?? reviews.length} Bewertungen)</span>
+            </div>
           </motion.div>
         </div>
 
         {/* Asymmetric Review Grid */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -99,8 +99,8 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
                 {/* Background Quote Mark */}
                 <div className="absolute top-0 right-0 p-8 text-muted/20 pointer-events-none group-hover:text-accent/10 transition-colors duration-500">
                   <svg width="60" height="45" viewBox="0 0 60 45" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-20">
-                    <path d="M14.2857 0C6.42857 0 0 6.42857 0 14.2857C0 22.1429 6.42857 28.5714 14.2857 28.5714H17.8571C17.8571 37.8571 10 45 0 45V45C22.1429 45 35.7143 31.4286 35.7143 14.2857C35.7143 6.42857 29.2857 0 21.4286 0H14.2857Z" fill="currentColor"/>
-                    <path d="M38.5714 0C30.7143 0 24.2857 6.42857 24.2857 14.2857C24.2857 22.1429 30.7143 28.5714 38.5714 28.5714H42.1429C42.1429 37.8571 34.2857 45 24.2857 45V45C46.4286 45 60 31.4286 60 14.2857C60 6.42857 53.5714 0 45.7143 0H38.5714Z" fill="currentColor"/>
+                    <path d="M14.2857 0C6.42857 0 0 6.42857 0 14.2857C0 22.1429 6.42857 28.5714 14.2857 28.5714H17.8571C17.8571 37.8571 10 45 0 45V45C22.1429 45 35.7143 31.4286 35.7143 14.2857C35.7143 6.42857 29.2857 0 21.4286 0H14.2857Z" fill="currentColor" />
+                    <path d="M38.5714 0C30.7143 0 24.2857 6.42857 24.2857 14.2857C24.2857 22.1429 30.7143 28.5714 38.5714 28.5714H42.1429C42.1429 37.8571 34.2857 45 24.2857 45V45C46.4286 45 60 31.4286 60 14.2857C60 6.42857 53.5714 0 45.7143 0H38.5714Z" fill="currentColor" />
                   </svg>
                 </div>
 
@@ -140,16 +140,16 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
             </motion.div>
           ))}
         </motion.div>
-        
+
         {/* Bottom Callout */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1, delay: 0.5 }}
           className="mt-20 text-center"
         >
-          <Link 
+          <Link
             href="/bewertungen"
             className="text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
           >

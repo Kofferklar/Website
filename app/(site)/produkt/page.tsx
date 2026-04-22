@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getProduct, getAllReviews, getFaqItems } from '@/lib/sanity/queries'
+import { SLIDER_IMAGES } from '@/lib/product-images'
 import ProductHero from './components/ProductHero'
 import ProductDescription from './components/ProductDescription'
 import SetOverview from './components/SetOverview'
@@ -120,7 +121,12 @@ export default async function ProduktPage() {
 
         {/* ─── Vorher/Nachher-Slider ─── */}
         <section className="max-w-[1400px] mx-auto px-4 md:px-8 py-10 md:py-16">
-          <VorherNachherSlider />
+          <VorherNachherSlider
+            beforeSrc={SLIDER_IMAGES.before.src}
+            afterSrc={SLIDER_IMAGES.after.src}
+            beforeAlt={SLIDER_IMAGES.before.alt}
+            afterAlt={SLIDER_IMAGES.after.alt}
+          />
         </section>
 
         {/* ─── Kundenbewertungen ─── */}

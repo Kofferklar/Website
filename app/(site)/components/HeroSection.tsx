@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/lib/sanity/image'
+import { HERO_FALLBACK_IMAGE } from '@/lib/product-images'
 import { ArrowRight, Star } from 'lucide-react'
 
 interface HeroSectionProps {
@@ -132,21 +133,15 @@ export default function HeroSection({ product, reviewCount }: HeroSectionProps) 
                   priority
                 />
               ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground p-12 text-center font-serif text-2xl italic">
-                  Visual Excellence <br /> Loading...
-                </div>
+                <Image
+                  src={HERO_FALLBACK_IMAGE.src}
+                  alt={HERO_FALLBACK_IMAGE.alt}
+                  fill
+                  className="object-cover hover:scale-[1.03] transition-transform duration-[2000ms] ease-out"
+                  priority
+                />
               )}
               
-              {/* Product Info Float Overlay */}
-              <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl flex items-center justify-between">
-                <div>
-                  <div className="text-[10px] font-bold text-accent tracking-[0.2em] uppercase mb-1">Bestseller</div>
-                  <div className="text-sm font-bold text-foreground">KofferKlar 8-Teile Set</div>
-                </div>
-                <div className="text-lg font-serif font-bold text-primary">
-                  {product?.price ? `${product.price}€` : "€--"}
-                </div>
-              </div>
             </div>
           </div>
           

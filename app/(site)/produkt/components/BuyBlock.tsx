@@ -117,7 +117,7 @@ export default function BuyBlock({
         </div>
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <RotateCcw className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
-          <span>30&nbsp;Tage Rückgabe — kein Aufwand</span>
+          <span>30&nbsp;Tage Rückgabe — kein Risiko</span>
         </div>
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <ShieldCheck className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
@@ -140,9 +140,9 @@ export default function BuyBlock({
         <p className="text-xs text-muted-foreground mb-3">Sichere Zahlung mit</p>
         <div className="flex items-center gap-3 flex-wrap">
           {[
-            { src: '/icons/paypal.svg',     alt: 'PayPal' },
-            { src: '/icons/klarna.svg',     alt: 'Klarna' },
-            { src: '/icons/visa.svg',       alt: 'Visa' },
+            { src: '/icons/paypal.svg', alt: 'PayPal' },
+            { src: '/icons/klarna.svg', alt: 'Klarna' },
+            { src: '/icons/visa.svg', alt: 'Visa' },
             { src: '/icons/mastercard.svg', alt: 'Mastercard' },
           ].map((logo) => (
             <div key={logo.alt} className="h-8 w-14 flex items-center justify-center bg-white rounded border border-border px-1.5">

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 /**
@@ -63,26 +64,15 @@ export default function FounderSection() {
             {/* Double-Bezel Architecture */}
             <div className="relative p-2.5 md:p-5 rounded-[4rem] bg-black/5 ring-1 ring-black/5 backdrop-blur-sm shadow-2xl">
               <div
-                role="img"
-                aria-label="Porträt-Platzhalter für Yasar Heidt und Nico Pandrock"
-                className="relative overflow-hidden rounded-[calc(4rem-1.25rem)] aspect-[4/5] w-full max-w-[600px] mx-auto bg-gradient-to-br from-primary/30 via-accent/25 to-primary/45"
+                className="relative overflow-hidden rounded-[calc(4rem-1.25rem)] aspect-[4/5] w-full max-w-[600px] mx-auto"
               >
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage:
-                      'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 60%), radial-gradient(circle at 70% 70%, rgba(201,168,76,0.3) 0%, transparent 55%)',
-                  }}
-                  aria-hidden="true"
+                <Image
+                  src="/images/images_kofferklar/yn.jpg"
+                  alt="Yasar Heidt und Nico Pandrock, Gründer von KofferKlar"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 600px"
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span
-                    className="font-serif text-white/80 text-[120px] md:text-[160px] font-bold italic tracking-tighter select-none drop-shadow-lg"
-                    aria-hidden="true"
-                  >
-                    Y&amp;N
-                  </span>
-                </div>
 
                 {/* Floating Detail Overlay */}
                 <div className="absolute top-8 right-8 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl flex flex-col items-center gap-2">

@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 /**
@@ -68,19 +69,15 @@ export default function HomeVorherNachher() {
                 {/* Chaos Block */}
                 <div className="space-y-6">
                    <div
-                     role="img"
-                     aria-label="Chaos im Koffer — unorganisierte Kleidung"
-                     className="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden border border-black/5 shadow-inner bg-gradient-to-br from-muted via-muted-foreground/20 to-muted-foreground/40"
+                     className="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden border border-black/5 shadow-inner"
                    >
-                      <div
-                        className="absolute inset-0 opacity-30 mix-blend-overlay"
-                        style={{
-                          backgroundImage:
-                            'repeating-linear-gradient(45deg, rgba(0,0,0,0.12) 0 6px, transparent 6px 18px), repeating-linear-gradient(-45deg, rgba(0,0,0,0.08) 0 4px, transparent 4px 14px)',
-                        }}
-                        aria-hidden="true"
+                      <Image
+                        src="/images/images_kofferklar/vorher-koffer.png"
+                        alt="Chaos im Koffer — unorganisierte Kleidung"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
                       />
-                      <div className="absolute inset-0 bg-black/15" />
                       <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold text-white uppercase tracking-[0.2em] border border-white/10">
                          Chaos
                       </div>
@@ -93,17 +90,14 @@ export default function HomeVorherNachher() {
                 {/* Solution Block (Offset) */}
                 <div className="space-y-6 pt-16 md:pt-24">
                    <div
-                     role="img"
-                     aria-label="Ordnung mit KofferKlar — organisierte Packwürfel"
-                     className="relative aspect-[3/4.5] rounded-[3.5rem] overflow-hidden border-[3px] border-accent/30 shadow-[0_50px_100px_-20px_rgba(201,168,76,0.15)] group bg-gradient-to-br from-primary/15 via-accent/20 to-primary/25"
+                     className="relative aspect-[3/4.5] rounded-[3.5rem] overflow-hidden border-[3px] border-accent/30 shadow-[0_50px_100px_-20px_rgba(201,168,76,0.15)]"
                    >
-                      <div
-                        className="absolute inset-0 opacity-40"
-                        style={{
-                          backgroundImage:
-                            'repeating-linear-gradient(0deg, rgba(30,58,95,0.08) 0 2px, transparent 2px 22px), repeating-linear-gradient(90deg, rgba(30,58,95,0.08) 0 2px, transparent 2px 22px)',
-                        }}
-                        aria-hidden="true"
+                      <Image
+                        src="/images/images_kofferklar/nachher-koffer.png"
+                        alt="Ordnung mit KofferKlar — organisierte Packwürfel"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 25vw"
                       />
                       <div className="absolute top-8 left-8 bg-accent text-accent-foreground px-5 py-2 rounded-full text-[11px] font-bold uppercase tracking-[0.2em] shadow-xl">
                          KofferKlar

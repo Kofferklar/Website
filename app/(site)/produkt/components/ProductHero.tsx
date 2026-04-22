@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Truck, RotateCcw, ShieldCheck } from 'lucide-react'
 import { useCart } from '@/app/(site)/components/CartProvider'
+import { PRODUCT_GALLERY_IMAGES, resolveColorKey } from '@/lib/product-images'
 import ProductGallery from './ProductGallery'
 import ProductVideo from './ProductVideo'
 import BuyBlock from './BuyBlock'
@@ -17,6 +18,9 @@ export default function ProductHero({ product }: ProductHeroProps) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0)
   const { addToCart } = useCart()
   const [added, setAdded] = useState(false)
+
+  const colorName = product.colorVariants?.[selectedColorIndex]?.colorName ?? ''
+  const localImages = PRODUCT_GALLERY_IMAGES[resolveColorKey(colorName)]
 
   useEffect(() => {
     if (!added) return
@@ -37,9 +41,9 @@ export default function ProductHero({ product }: ProductHeroProps) {
   return (
     <section className="max-w-[1400px] mx-auto px-4 md:px-8">
       {/* ── MOBILE: 100svh hero ── */}
-      <div className="md:hidden h-[calc(100svh-72px)] flex flex-col px-0 pt-4 pb-4 gap-3">
+      <div className="md:hidden h-[calc(100svh-72px)] flex flex-col px-0 pt-3 pb-3 gap-2">
         {/* Heading */}
-        <h1 className="font-serif text-3xl font-bold text-foreground leading-tight shrink-0">
+        <h1 className="font-serif text-2xl font-bold text-foreground leading-tight shrink-0">
           {product.name}
         </h1>
 
@@ -48,6 +52,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
           <ProductGallery
             fillHeight
             images={product.images ?? []}
+            localImages={localImages}
             productName={product.name}
             colorVariants={product.colorVariants}
             selectedColorIndex={selectedColorIndex}
@@ -92,7 +97,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <RotateCcw className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
-            <span>30&nbsp;Tage Rückgabe — kein Aufwand</span>
+            <span>30&nbsp;Tage Rückgabe — kein Risiko</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <ShieldCheck className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
@@ -115,9 +120,9 @@ export default function ProductHero({ product }: ProductHeroProps) {
           <p className="text-xs text-muted-foreground mb-3">Sichere Zahlung mit</p>
           <div className="flex items-center gap-3 flex-wrap">
             {[
-              { src: '/icons/paypal.svg',     alt: 'PayPal' },
-              { src: '/icons/klarna.svg',     alt: 'Klarna' },
-              { src: '/icons/visa.svg',       alt: 'Visa' },
+              { src: '/icons/paypal.svg', alt: 'PayPal' },
+              { src: '/icons/klarna.svg', alt: 'Klarna' },
+              { src: '/icons/visa.svg', alt: 'Visa' },
               { src: '/icons/mastercard.svg', alt: 'Mastercard' },
             ].map((logo) => (
               <div key={logo.alt} className="h-8 w-14 flex items-center justify-center bg-white rounded border border-border px-1.5">
@@ -147,15 +152,15 @@ export default function ProductHero({ product }: ProductHeroProps) {
       {/* Desktop 2-column grid */}
       <div className="hidden md:grid md:grid-cols-[1fr_380px] gap-12 lg:gap-20 items-start">
         {/* Left: full viewport-height flex column */}
-        <div className="h-[calc(100svh-72px)] flex flex-col py-8 gap-4">
+        <div className="h-[calc(100svh-72px)] flex flex-col py-4 gap-2">
           {/* Heading — shrink-0 */}
-          <h1 className="font-serif text-4xl lg:text-5xl font-bold text-foreground leading-[1.1] shrink-0">
+          <h1 className="font-serif text-3xl lg:text-4xl font-bold text-foreground leading-[1.1] shrink-0">
             {product.name}
           </h1>
 
           {/* Short description — shrink-0 */}
           {product.shortDescription && (
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl shrink-0">
+            <p className="text-muted-foreground text-base leading-relaxed shrink-0">
               {product.shortDescription}
             </p>
           )}
@@ -165,6 +170,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
             <ProductGallery
               fillHeight
               images={product.images ?? []}
+              localImages={localImages}
               productName={product.name}
               colorVariants={product.colorVariants}
               selectedColorIndex={selectedColorIndex}

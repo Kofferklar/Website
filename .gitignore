@@ -19,3 +19,16 @@ coverage/
 # Misc
 .DS_Store
 *.tsbuildinfo
+
+# Claude Code
+.claude/
+
+# Playwright CLI cache
+.playwright-cli/
+
+# Skills lock
+skills-lock.json
+
+# Debug screenshots & working notes
+/*.png
+image_prompts.md

@@ -24,11 +24,11 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-30 h-[72px] bg-background border-b border-border shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
+      <header className="fixed top-0 left-0 right-0 z-50 h-[72px] bg-background border-b border-border shadow-[0_2px_12px_rgba(0,0,0,0.06)]">
         <div className="max-w-[1400px] mx-auto px-6 h-full flex items-center justify-between">
           {/* Desktop layout */}
-          <div className="hidden md:flex items-center justify-between w-full">
-            <Link href="/" aria-label="KofferKlar — Zur Startseite">
+          <div className="hidden md:flex items-center justify-between w-full h-full">
+            <Link href="/" aria-label="KofferKlar — Zur Startseite" className="flex items-center h-full pr-4">
               <Image
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
@@ -36,17 +36,18 @@ export default function Header() {
                 height={56}
                 className="h-8 w-auto"
                 priority
+                draggable={false}
               />
             </Link>
 
-            <nav className="flex items-center gap-8" aria-label="Hauptnavigation">
+            <nav className="flex items-center h-full gap-8" aria-label="Hauptnavigation">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-sm font-normal text-foreground transition-colors duration-200 hover:text-accent hover:underline ${isActive ? 'underline' : ''}`}
+                    className={`flex items-center h-full text-sm font-normal text-foreground transition-colors duration-200 hover:text-accent hover:underline ${isActive ? 'underline' : ''}`}
                   >
                     {link.label}
                   </Link>
@@ -54,7 +55,7 @@ export default function Header() {
               })}
             </nav>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center h-full gap-2">
               <Link
                 href="/produkt"
                 className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
@@ -65,12 +66,12 @@ export default function Header() {
               {/* Cart icon — to the RIGHT of "Jetzt kaufen" */}
               <button
                 onClick={() => router.push('/checkout')}
-                className="relative flex items-center justify-center w-[44px] h-[44px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                className="relative flex items-center justify-center w-[44px] h-full cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
                 aria-label={`Warenkorb${mounted && totalItems > 0 ? ` (${totalItems} Artikel)` : ''}`}
               >
                 <ShoppingCart className="w-6 h-6 text-foreground" aria-hidden="true" />
                 {mounted && totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
+                  <span className="absolute top-1 right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
                     {totalItems > 9 ? '9+' : totalItems}
                   </span>
                 )}
@@ -99,12 +100,12 @@ export default function Header() {
               {/* Cart icon button (left of hamburger) */}
               <button
                 onClick={() => router.push('/checkout')}
-                className="relative flex items-center justify-center w-[44px] h-[44px] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
+                className="relative flex items-center justify-center w-[44px] h-[44px] cursor-pointer focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded"
                 aria-label={`Warenkorb${mounted && totalItems > 0 ? ` (${totalItems} Artikel)` : ''}`}
               >
                 <ShoppingCart className="w-6 h-6 text-foreground" aria-hidden="true" />
                 {mounted && totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
+                  <span className="absolute top-1 right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center pointer-events-none">
                     {totalItems > 9 ? '9+' : totalItems}
                   </span>
                 )}

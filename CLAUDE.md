@@ -89,7 +89,35 @@ KofferKlar ist eine produktionsreife, desktop-first E-Commerce-Website für koff
 <!-- GSD:conventions-start source:CONVENTIONS.md -->
 ## Conventions
 
-Conventions not yet established. Will populate as patterns emerge during development.
+### Sanity — neues Feld einbinden (Checkliste)
+1. Feld im Schema definieren (`sanity/schemas/`)
+2. Feld in der GROQ-Query holen (`lib/sanity/queries.ts`)
+3. Feld im TypeScript-Type ergänzen (`lib/sanity/types.ts`)
+4. **Feld im Component rendern** — fehlender Render gibt keinen Fehler, Feld wird still ignoriert
+5. Nach dem Hinzufügen: `grep -r "feldname" app/` um sicherzustellen, dass mindestens ein Component es rendert
+
+### Sanity — dynamische Zähler (z.B. Review-Anzahl)
+- Nie hardcoden. Immer per GROQ `count()` Projektion holen:
+  ```groq
+  "reviewCount": count(*[_type == "review" && !(_id in path("drafts.**"))])
+  ```
+- Nicht `reviews.length` wenn die Query einen `[0...6]`-Slice hat — das gibt nur die Slice-Länge zurück.
+- `reviewCount` als Prop weitergeben; Fallback auf `reviews.length` nur wenn Prop fehlt.
+
+### PortableText rendern
+- Immer `@portabletext/react` mit expliziten `components`-Props verwenden.
+- Muster: `PostBody.tsx` und `ProductDescription.tsx` als Referenz.
+- Nie rohe `description`-Arrays ohne Renderer ausgeben — führt zu `[object Object]`.
+
+### Multi-Section Components (z.B. Color Picker + Slider)
+- Kein top-level Early Return wenn nur ein Sub-Bereich leer ist.
+- Jede Sektion mit eigenem inline `{condition && <Section />}` absichern.
+- Beispiel-Fehler: `ProductGallery` hatte `if (!images) return <placeholder>` — übersprang Color Cards komplett.
+
+### Build vs. Dev
+- `next dev`: läuft trotz ESLint-Fehlern (Warnings, kein Abbruch)
+- `next build`: schlägt bei ESLint-Fehlern fehl (z.B. `react/no-unescaped-entities` in `agb/page.tsx`, `datenschutz/page.tsx`)
+- Vor Vercel-Deploy diese ESLint-Fehler in den Rechtseiten fixen.
 <!-- GSD:conventions-end -->
 
 <!-- GSD:architecture-start source:ARCHITECTURE.md -->

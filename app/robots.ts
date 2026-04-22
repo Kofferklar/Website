@@ -6,6 +6,13 @@ import { MetadataRoute } from 'next'
  */
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kofferklar.de'
+  const isLocked = !!process.env.SITE_PASSWORD
+
+  if (isLocked) {
+    return {
+      rules: { userAgent: '*', disallow: '/' },
+    }
+  }
 
   return {
     rules: {
