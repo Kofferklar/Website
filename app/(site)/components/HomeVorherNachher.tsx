@@ -2,12 +2,19 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { urlFor } from '@/lib/sanity/image'
+import { HERO_FALLBACK_IMAGE } from '@/lib/product-images'
 
-/**
- * HomeVorherNachher Client Component
- * Simplified visual comparison for the homepage with high-end editorial styling.
- */
-export default function HomeVorherNachher() {
+interface HomeVorherNachherProps {
+  product?: {
+    name?: string
+    images?: Array<{ asset: { _ref: string } }>
+  }
+}
+
+export default function HomeVorherNachher({ product }: HomeVorherNachherProps) {
+  const heroImage = product?.images?.[0]
+
   return (
     <section className="py-24 md:py-32 lg:py-40 overflow-hidden bg-white">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
@@ -65,42 +72,27 @@ export default function HomeVorherNachher() {
              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
              className="relative order-1 lg:order-2 hidden lg:block"
            >
-             <div className="grid grid-cols-2 gap-6 md:gap-12">
-                {/* Chaos Block */}
-                <div className="space-y-6">
-                   <div
-                     className="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden border border-black/5 shadow-inner"
-                   >
-                      <Image
-                        src="/images/images_kofferklar/vorher-koffer.png"
-                        alt="Chaos im Koffer — unorganisierte Kleidung"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                   </div>
-                   <div className="text-center">
-                     <div className="font-serif italic text-muted-foreground text-lg">Vorher.</div>
-                   </div>
-                </div>
-
-                {/* Solution Block (Offset) */}
-                <div className="space-y-6 pt-16 md:pt-24">
-                   <div
-                     className="relative aspect-[3/4.5] rounded-[3.5rem] overflow-hidden border-[3px] border-accent/30 shadow-[0_50px_100px_-20px_rgba(201,168,76,0.15)]"
-                   >
-                      <Image
-                        src="/images/images_kofferklar/nachher-koffer.png"
-                        alt="Ordnung mit KofferKlar — organisierte Packwürfel"
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 25vw"
-                      />
-                   </div>
-                   <div className="text-center">
-                     <div className="font-serif italic text-foreground font-bold text-xl">Nachher.</div>
-                   </div>
-                </div>
+             {/* Double-Bezel Architecture */}
+             <div className="relative p-1.5 md:p-5 rounded-[3rem] md:rounded-[4rem] bg-black/5 ring-1 ring-black/5 backdrop-blur-sm shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] overflow-hidden">
+               <div className="relative overflow-hidden rounded-[calc(3rem-0.375rem)] md:rounded-[calc(4rem-1.25rem)] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] aspect-[3/2] md:aspect-square lg:aspect-[4/5] w-full max-w-[600px] mx-auto">
+                 {heroImage ? (
+                   <Image
+                     src={urlFor(heroImage).width(1000).height(1250).url()}
+                     alt={product?.name || 'KofferKlar Packwürfel-Set'}
+                     fill
+                     className="object-cover hover:scale-[1.03] transition-transform duration-[2000ms] ease-out"
+                     sizes="(max-width: 1024px) 0, 45vw"
+                   />
+                 ) : (
+                   <Image
+                     src={HERO_FALLBACK_IMAGE.src}
+                     alt={HERO_FALLBACK_IMAGE.alt}
+                     fill
+                     className="object-cover hover:scale-[1.03] transition-transform duration-[2000ms] ease-out"
+                     sizes="(max-width: 1024px) 0, 45vw"
+                   />
+                 )}
+               </div>
              </div>
              
              {/* Decorative Background Glow */}

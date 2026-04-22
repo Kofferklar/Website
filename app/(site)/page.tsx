@@ -68,11 +68,11 @@ export default async function Startseite() {
 
         <main id="main-content">
           {/* Hero Section: Asymmetric Split */}
-          <HeroSection product={product} reviewCount={reviewCount} />
+          <HeroSection reviewCount={reviewCount} />
 
           {/* Narrative / Visual Comparison Section */}
           <div className="bg-white border-y border-black/5">
-            <HomeVorherNachher />
+            <HomeVorherNachher product={product} />
           </div>
 
           {/* Social Proof Section */}

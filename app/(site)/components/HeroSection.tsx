@@ -3,24 +3,13 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { urlFor } from '@/lib/sanity/image'
-import { HERO_FALLBACK_IMAGE } from '@/lib/product-images'
 import { ArrowRight, Star } from 'lucide-react'
 
 interface HeroSectionProps {
-  product: {
-    name: string
-    shortDescription?: string
-    images?: Array<{ asset: { _ref: string } }>
-    buyLink?: string
-    price?: number
-  }
   reviewCount?: number
 }
 
-export default function HeroSection({ product, reviewCount }: HeroSectionProps) {
-  const heroImage = product?.images?.[0]
-
+export default function HeroSection({ reviewCount }: HeroSectionProps) {
   return (
     <section className="relative min-h-[calc(100dvh-72px)] lg:min-h-[85dvh] flex items-stretch lg:items-start overflow-hidden pt-4 md:pt-10 lg:pt-20 pb-6 md:pb-16 lg:pb-32">
       <div className="max-w-[1400px] w-full mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-24 items-stretch lg:items-center">
@@ -135,26 +124,40 @@ export default function HeroSection({ product, reviewCount }: HeroSectionProps) 
           <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent/20 blur-[100px] rounded-full pointer-events-none" />
           <div className="absolute -top-20 -right-10 w-64 h-64 bg-primary/20 blur-[100px] rounded-full pointer-events-none" />
 
-          {/* Double-Bezel Architecture */}
-          <div className="relative p-1.5 md:p-5 rounded-[3rem] md:rounded-[4rem] bg-black/5 ring-1 ring-black/5 backdrop-blur-sm shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] overflow-hidden">
-            <div className="relative overflow-hidden rounded-[calc(3rem-0.375rem)] md:rounded-[calc(4rem-1.25rem)] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] aspect-[3/2] md:aspect-square lg:aspect-[4/5] w-full max-w-[600px] mx-auto">
-              {heroImage ? (
+          {/* Editorial Vorher/Nachher Grid */}
+          <div className="grid grid-cols-2 gap-6 md:gap-12 w-full max-w-[600px] mx-auto">
+            {/* Chaos Block */}
+            <div className="space-y-6">
+              <div className="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden border border-black/5 shadow-inner">
                 <Image
-                  src={urlFor(heroImage).width(1000).height(1250).url()}
-                  alt={product?.name || "KofferKlar Packwürfel-Set"}
+                  src="/images/images_kofferklar/vorher-koffer.png"
+                  alt="Chaos im Koffer — unorganisierte Kleidung"
                   fill
-                  className="object-cover hover:scale-[1.03] transition-transform duration-[2000ms] ease-out"
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   priority
                 />
-              ) : (
+              </div>
+              <div className="text-center">
+                <div className="font-serif italic text-muted-foreground text-lg">Vorher.</div>
+              </div>
+            </div>
+
+            {/* Solution Block (Offset) */}
+            <div className="space-y-6 pt-16 md:pt-24">
+              <div className="relative aspect-[3/4.5] rounded-[3.5rem] overflow-hidden border-[3px] border-accent/30 shadow-[0_50px_100px_-20px_rgba(201,168,76,0.15)]">
                 <Image
-                  src={HERO_FALLBACK_IMAGE.src}
-                  alt={HERO_FALLBACK_IMAGE.alt}
+                  src="/images/images_kofferklar/nachher-koffer.png"
+                  alt="Ordnung mit KofferKlar — organisierte Packwürfel"
                   fill
-                  className="object-cover hover:scale-[1.03] transition-transform duration-[2000ms] ease-out"
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                   priority
                 />
-              )}
+              </div>
+              <div className="text-center">
+                <div className="font-serif italic text-foreground font-bold text-xl">Nachher.</div>
+              </div>
             </div>
           </div>
 
