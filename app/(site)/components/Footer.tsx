@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Column 1: Logo + tagline */}
           <div className="flex flex-col gap-4">
-            <Link href="/" aria-label="KofferKlar — Zur Startseite">
+            <Link href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" aria-label="KofferKlar — Zur Startseite">
               <Image
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
@@ -30,7 +30,7 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                href="/produkt"
+                href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
                 Produktseite

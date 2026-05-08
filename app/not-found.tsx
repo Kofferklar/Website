@@ -9,7 +9,7 @@ export default function NotFound() {
       <Header />
       <main id="main-content" className="min-h-[60vh] flex flex-col items-center justify-center gap-4 pt-[72px]">
         <h1 className="text-2xl font-semibold text-foreground">Diese Seite existiert nicht.</h1>
-        <Link href="/" className="text-primary hover:underline transition-colors duration-200">
+        <Link href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" className="text-primary hover:underline transition-colors duration-200">
           Zurück zur Startseite
         </Link>
       </main>

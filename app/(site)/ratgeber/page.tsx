@@ -50,7 +50,7 @@ export default async function RatgeberPage() {
               Melde dich für unseren Newsletter an und erhalte die neuesten Pack-Hacks direkt in dein Postfach.
             </p>
             <Link 
-              href="/#newsletter" 
+              href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=newsletter-banner&utm_campaign=kofferklar-launch&utm_content=ratgeber-page#newsletter" 
               className="inline-block bg-accent text-accent-foreground px-10 py-4 rounded-full font-bold hover:bg-accent-400 transition-all active:scale-[0.98]"
             >
               Jetzt anmelden

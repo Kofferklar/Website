@@ -21,7 +21,7 @@ export default async function BewertungenPage() {
 
           {/* Back link */}
           <Link
-            href="/produkt"
+            href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
             className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors mb-12"
           >
             <ArrowLeft size={14} aria-hidden="true" />

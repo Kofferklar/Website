@@ -23,7 +23,7 @@ export default function LegalLayout({ title, subtitle, children }: LegalLayoutPr
         
         <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
           <Link 
-            href="/" 
+            href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" 
             className="group inline-flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-colors mb-12"
           >
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />

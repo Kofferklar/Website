@@ -8,8 +8,8 @@ import MobileDrawer from './MobileDrawer'
 import { useCart } from './CartProvider'
 
 const navLinks = [
-  { href: '/', label: 'Startseite' },
-  { href: '/produkt', label: 'Produkt' },
+  { href: 'https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch', label: 'Startseite' },
+  { href: 'https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch', label: 'Produkt' },
   { href: '/ratgeber', label: 'Ratgeber' },
   { href: '/ueber-uns', label: 'Über uns' },
   { href: '/hilfe-service', label: 'Hilfe & Service' },
@@ -27,7 +27,7 @@ export default function Header() {
         <div className="max-w-[1400px] mx-auto px-6 h-full flex items-center justify-between">
           {/* Desktop layout */}
           <div className="hidden md:flex items-center justify-between w-full h-full">
-            <Link href="/" aria-label="KofferKlar — Zur Startseite" className="flex items-center h-full pr-4">
+            <Link href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" aria-label="KofferKlar — Zur Startseite" className="flex items-center h-full pr-4">
               <img
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
@@ -41,7 +41,9 @@ export default function Header() {
 
             <nav className="flex items-center h-full gap-8" aria-label="Hauptnavigation">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href
+                const isActive = link.href.includes('?') 
+                  ? pathname === link.href.split('?')[0].replace('https://kofferklar.vercel.app', '') || (pathname === '/' && link.href.split('?')[0] === 'https://kofferklar.vercel.app/')
+                  : pathname === link.href
                 return (
                   <Link
                     key={link.href}
@@ -56,7 +58,7 @@ export default function Header() {
 
             <div className="flex items-center h-full gap-2">
               <Link
-                href="/produkt"
+                href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
                 className="bg-primary text-primary-foreground px-6 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
               >
                 Jetzt kaufen
@@ -81,7 +83,7 @@ export default function Header() {
           {/* Mobile layout */}
           <div className="flex md:hidden items-center justify-between w-full">
             <Link
-              href="/"
+              href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
               aria-label="KofferKlar — Zur Startseite"
               className="flex items-center justify-center min-h-[44px] min-w-[44px] -m-2 p-2"
             >

@@ -70,7 +70,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
           <div className="flex flex-col sm:flex-row items-center gap-5 lg:gap-8">
             {/* Main CTA */}
             <Link
-              href="/produkt"
+              href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=hero-cta&utm_campaign=kofferklar-launch&utm_content=homepage"
               className="group relative inline-flex items-center gap-3 lg:gap-5 bg-primary text-primary-foreground px-7 py-3.5 lg:px-10 lg:py-5 rounded-full text-sm lg:text-lg font-bold hover:bg-primary/95 transition-all duration-300 active:scale-[0.98] shadow-2xl shadow-primary/20"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >

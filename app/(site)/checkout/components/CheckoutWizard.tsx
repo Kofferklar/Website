@@ -135,7 +135,7 @@ function CartStep({ onNext }: { onNext: () => void }) {
         <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">Dein Warenkorb</h2>
         <p className="text-muted-foreground">Dein Warenkorb ist leer.</p>
         <Link
-          href="/produkt"
+          href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
           className="text-sm text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors"
         >
           <ChevronLeft size={16} />
@@ -224,7 +224,7 @@ function CartStep({ onNext }: { onNext: () => void }) {
 
       <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
         <Link
-          href="/produkt"
+          href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
           className="text-sm text-muted-foreground hover:text-primary flex items-center gap-2 transition-colors"
         >
           <ChevronLeft size={16} />
@@ -602,13 +602,13 @@ function DemoStep({
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         <Link
-          href="/produkt"
+          href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
           className="px-10 py-4 rounded-full border-2 border-border font-bold text-base hover:bg-muted transition-all duration-300 text-center"
         >
           Zurück zum Produkt
         </Link>
         <Link
-          href="/"
+          href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
           className="px-10 py-4 rounded-full bg-primary text-primary-foreground font-bold text-base hover:bg-primary/95 transition-all duration-300 shadow-xl shadow-primary/20 text-center"
         >
           Zur Startseite

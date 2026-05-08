@@ -72,7 +72,7 @@ export default async function UeberUnsPage() {
                Bereit, deine Reise <br /> neu zu organisieren?
             </h2>
             <Link
-              href="/produkt"
+              href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
               className="inline-block bg-primary text-primary-foreground px-12 py-5 rounded-full text-lg font-bold hover:bg-primary/95 transition-all duration-300 shadow-2xl active:scale-[0.98]"
             >
               Zum Produkt

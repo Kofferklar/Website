@@ -113,7 +113,7 @@ export default function PostBody({ content }: PostBodyProps) {
             </p>
             
             <Link 
-              href="/produkt" 
+              href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" 
               className="group inline-flex items-center gap-5 bg-primary text-primary-foreground px-10 py-5 rounded-full text-lg font-bold hover:bg-primary/95 transition-all duration-300 active:scale-[0.98] shadow-2xl shadow-primary/20"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >

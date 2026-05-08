@@ -96,7 +96,7 @@ export default async function Startseite() {
                </p>
                
                <Link 
-                 href="/produkt" 
+                 href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=secondary-cta&utm_campaign=kofferklar-launch&utm_content=homepage-bottom" 
                  className="group inline-flex items-center gap-5 bg-primary text-primary-foreground px-12 py-6 rounded-full text-xl font-bold hover:bg-primary/95 transition-all duration-300 active:scale-[0.98] shadow-[0_25px_50px_-12px_rgba(30,58,95,0.25)]"
                  style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
                >

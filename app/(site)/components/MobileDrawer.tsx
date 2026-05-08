@@ -11,8 +11,8 @@ interface MobileDrawerProps {
 }
 
 const navLinks = [
-  { href: '/', label: 'Startseite' },
-  { href: '/produkt', label: 'Produkt' },
+  { href: 'https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch', label: 'Startseite' },
+  { href: 'https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch', label: 'Produkt' },
   { href: '/ratgeber', label: 'Ratgeber' },
   { href: '/ueber-uns', label: 'Über uns' },
   { href: '/hilfe-service', label: 'Hilfe & Service' },
@@ -78,7 +78,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
         <div className="flex flex-col h-full px-6 py-6">
           {/* Top row: Logo + Close button */}
           <div className="flex items-center justify-between mb-8">
-            <Link href="/" onClick={onClose} aria-label="KofferKlar — Zur Startseite">
+            <Link href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" onClick={onClose} aria-label="KofferKlar — Zur Startseite">
               <Image
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
@@ -125,7 +125,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           {/* CTA Button */}
           <div className="mt-8">
             <Link
-              href="/produkt"
+              href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
               onClick={onClose}
               className="flex items-center justify-center bg-accent text-accent-foreground w-full rounded-full px-6 py-4 text-base font-semibold hover:bg-accent-600 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
