@@ -16,10 +16,29 @@ export default function NewsletterSignup() {
     e.preventDefault()
     setStatus('loading')
 
-    // TODO: Mockup-only. Before production: Double-Opt-In flow (SPF/DKIM-verified domain + transactional mail provider like Resend/Postmark).
-    setTimeout(() => {
-      setStatus('success')
-    }, 1500)
+    try {
+      const response = await fetch('https://submit-form.com/BlcbkpVFG', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          source: 'Newsletter Signup Footer',
+        }),
+      })
+
+      if (response.ok) {
+        setStatus('success')
+        setEmail('')
+      } else {
+        setStatus('error')
+      }
+    } catch (error) {
+      console.error('Newsletter submission error:', error)
+      setStatus('error')
+    }
   }
 
   return (

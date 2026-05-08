@@ -23,6 +23,27 @@ export async function submitContact(data: ContactFormData) {
   try {
     const { name, email, subject, message } = result.data
 
+    // 1. Send to Formspark
+    const formsparkUrl = `https://submit-form.com/${process.env.FORMSPARK_CONTACT_ID || 'fdITpLzLI'}`
+    const formsparkResponse = await fetch(formsparkUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        subject,
+        message,
+      }),
+    })
+
+    if (!formsparkResponse.ok) {
+      console.warn('Formspark submission failed, but continuing with Sanity backup.')
+    }
+
+    // 2. Backup to Sanity
     await writeClient.create({
       _type: 'contactSubmission',
       name,

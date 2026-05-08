@@ -44,7 +44,7 @@ KofferKlar ist eine produktionsreife, desktop-first E-Commerce-Website für koff
 - `/ratgeber/[slug]`: `generateStaticParams` + `revalidate: 86400` (SSG + daily revalidation)
 - `/ratgeber`: `revalidate: 3600` (ISR)
 - Static legal pages: `export const dynamic = 'force-static'` (pure SSG, never changes)
-- Contact form submission: Server Action (no caching)
+- Contact form submission: Server Action (Formspark + Sanity backup)
 ## Image Strategy
 ## Font Pairing Recommendation
 - Inter: UI, body text, navigation, prices — clean, highly legible
@@ -61,11 +61,13 @@ KofferKlar ist eine produktionsreife, desktop-first E-Commerce-Website für koff
 - Exclude `drafts.**` documents
 - Allow all for production
 - Disallow /studio (Sanity studio route)
-## Form → Sanity Pattern
+## Form → Formspark Pattern
+- Contact Form: Server Action → Formspark → Sanity (Backup)
+- Newsletter: Client-side fetch → Formspark
 ## What NOT to Use
 | Skip | Reason |
 |------|--------|
-| Formspark / Formspree | Unnecessary external service — Sanity handles it |
+| Formspree | Formspark is the chosen provider |
 | Redux / Zustand | No shared global state needed for a single-product site |
 | CSS Modules | Tailwind covers all styling needs |
 | `getServerSideProps` | Legacy Pages Router API — we use App Router |
