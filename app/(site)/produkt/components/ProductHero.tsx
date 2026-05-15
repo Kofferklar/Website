@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import type { ReactNode } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Truck, RotateCcw, ShieldCheck } from 'lucide-react'
@@ -13,9 +14,15 @@ import type { Product } from '@/lib/sanity/types'
 
 interface ProductHeroProps {
   product: Product
+  mobileDetailsContent?: ReactNode
+  desktopDetailsContent?: ReactNode
 }
 
-export default function ProductHero({ product }: ProductHeroProps) {
+export default function ProductHero({
+  product,
+  mobileDetailsContent,
+  desktopDetailsContent,
+}: ProductHeroProps) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0)
   const { addToCart } = useCart()
   const router = useRouter()
@@ -51,7 +58,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
           {product.name}
         </h1>
 
-        {/* Gallery — fills remaining space */}
+        {/* Gallery. fills remaining space */}
         <div className="flex-1 min-h-0">
           <ProductGallery
             fillHeight
@@ -101,7 +108,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <RotateCcw className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
-            <span>30&nbsp;Tage Rückgabe — kein Risiko</span>
+            <span>30&nbsp;Tage Rückgabe, kein Risiko</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
             <ShieldCheck className="w-4 h-4 flex-shrink-0 text-foreground" aria-hidden="true" />
@@ -143,7 +150,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
         </div>
       </div>
 
-      {/* Mobile video — below fold */}
+      {/* Mobile video. below fold */}
       {product.videoUrl && (
         <div className="md:hidden px-0 pb-8">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
@@ -153,26 +160,29 @@ export default function ProductHero({ product }: ProductHeroProps) {
         </div>
       )}
 
+      {mobileDetailsContent && (
+        <div className="md:hidden px-0 pb-8">
+          {mobileDetailsContent}
+        </div>
+      )}
+
       {/* Desktop 2-column grid */}
       <div className="hidden md:grid md:grid-cols-[1fr_380px] gap-12 lg:gap-20 items-start">
-        {/* Left: full viewport-height flex column */}
-        <div className="h-[calc(100svh-72px)] flex flex-col py-4 gap-2">
-          {/* Heading — shrink-0 */}
-          <h1 className="font-serif text-3xl lg:text-4xl font-bold text-foreground leading-[1.1] shrink-0">
-            {product.name}
-          </h1>
+        <div className="hidden md:flex md:flex-col py-4 gap-8">
+          {/* Heading. shrink-0 */}
+          <div className="flex flex-col gap-2">
+            <h1 className="font-serif text-3xl lg:text-4xl font-bold text-foreground leading-[1.1]">
+              {product.name}
+            </h1>
 
-          {/* Short description — shrink-0 */}
-          {product.shortDescription && (
-            <p className="text-muted-foreground text-base leading-relaxed shrink-0">
-              {product.shortDescription}
-            </p>
-          )}
+            {/* Short description. shrink-0 */}
+            {product.shortDescription && (
+              <p className="text-muted-foreground text-base leading-relaxed">
+                {product.shortDescription}
+              </p>
+            )}
 
-          {/* Gallery — takes all remaining space */}
-          <div className="flex-1 min-h-0">
             <ProductGallery
-              fillHeight
               images={product.images ?? []}
               localImages={localImages}
               productName={product.name}
@@ -181,10 +191,12 @@ export default function ProductHero({ product }: ProductHeroProps) {
               onColorChange={setSelectedColorIndex}
             />
           </div>
+
+          {desktopDetailsContent}
         </div>
 
         {/* Right: BuyBlock sticky sidebar (unchanged) */}
-        <aside className="h-full pt-8">
+        <aside className="hidden md:block h-full pt-8">
           <BuyBlock
             price={product.price}
             buyLink={product.buyLink}
@@ -196,7 +208,7 @@ export default function ProductHero({ product }: ProductHeroProps) {
         </aside>
       </div>
 
-      {/* Video — below the 100svh section on desktop (outside the grid) */}
+      {/* Video. below the 100svh section on desktop (outside the grid) */}
       {product.videoUrl && (
         <div className="hidden md:block pt-10 pb-8">
           <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">

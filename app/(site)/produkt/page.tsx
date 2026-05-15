@@ -9,6 +9,8 @@ import CompressionExplainer from './components/CompressionExplainer'
 import VorherNachherSlider from './components/VorherNachherSlider'
 import ProductReviews from './components/ProductReviews'
 import ProductFaq from './components/ProductFaq'
+import ProductProofSection from './components/ProductProofSection'
+import ExitIntentPopup from './components/ExitIntentPopup'
 
 export const revalidate = 3600
 
@@ -61,6 +63,21 @@ function buildProductJsonLd(
   return JSON.stringify(schema)
 }
 
+function ProductDetailsSection({
+  content,
+}: {
+  content: NonNullable<Awaited<ReturnType<typeof getProduct>>>['description']
+}) {
+  return (
+    <section className="pt-8 md:pt-4">
+      <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
+        Produktdetails
+      </h2>
+      <ProductDescription content={content} />
+    </section>
+  )
+}
+
 export default async function ProduktPage() {
   const [product, reviews, faqItems] = await Promise.all([
     getProduct(),
@@ -86,17 +103,25 @@ export default async function ProduktPage() {
 
       <main id="main-content" className="min-h-screen pt-[72px]">
         {/* ─── Hero-Sektion: Galerie + BuyBlock (client wrapper) ─── */}
-        <ProductHero product={product} />
+        <div id="kaufbereich">
+          <ProductHero
+            product={product}
+            mobileDetailsContent={
+              product.description ? (
+                <ProductDetailsSection key="mobile-product-details" content={product.description} />
+              ) : null
+            }
+            desktopDetailsContent={
+              product.description ? (
+                <ProductDetailsSection key="desktop-product-details" content={product.description} />
+              ) : null
+            }
+          />
+        </div>
 
-        {/* ─── Ausführliche Produktbeschreibung ─── */}
-        {product.description && (
-          <section className="max-w-[1400px] mx-auto px-4 md:px-8 py-10 md:py-16">
-            <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
-              Produktdetails
-            </h2>
-            <ProductDescription content={product.description} />
-          </section>
-        )}
+        <section id="produktbeweis" className="max-w-[1400px] mx-auto px-4 md:px-8 pb-10 md:pb-16">
+          <ProductProofSection />
+        </section>
 
         {/* ─── Set-Übersicht ─── */}
         {product.setParts && product.setParts.length > 0 && (
@@ -150,7 +175,7 @@ export default async function ProduktPage() {
               Bereit für stressfreies Reisen?
             </h2>
             <p className="text-white/70 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-              Dein 8-teiliges Kompressions-Packwürfel-Set wartet auf dich — jetzt versandkostenfrei bestellen und Koffer-Chaos beenden.
+              Dein 8-teiliges Kompressions-Packwürfel-Set wartet auf dich. Jetzt versandkostenfrei bestellen und Koffer-Chaos beenden.
             </p>
             <a
               href={product.buyLink ?? '#'}
@@ -167,6 +192,8 @@ export default async function ProduktPage() {
           </div>
         </section>
       </main>
+
+      <ExitIntentPopup />
     </>
   )
 }
