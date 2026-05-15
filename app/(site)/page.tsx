@@ -95,7 +95,7 @@ export default async function Startseite() {
                  <span className="italic text-primary">großes Abenteuer?</span>
                </h2>
                <p className="text-muted-foreground text-lg md:text-xl lg:text-2xl mb-14 max-w-2xl mx-auto leading-relaxed">
-                 Sichere dir jetzt dein KofferKlar Set und erlebe, wie einfach und stressfrei Packen sein kann.
+                 Sichere dir jetzt dein KofferKlar Set. Unsere KofferKlar Erfahrungen zeigen, dass das Koffer Organizer Set dir hilft, deinen Koffer platzsparend packen zu können.
                </p>
 
                <Link

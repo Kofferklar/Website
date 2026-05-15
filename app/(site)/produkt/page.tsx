@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { getProduct, getAllReviews, getFaqItems } from '@/lib/sanity/queries'
 import { SLIDER_IMAGES } from '@/lib/product-images'
 import ProductHero from './components/ProductHero'
@@ -141,6 +142,9 @@ export default async function ProduktPage() {
         <section className="bg-muted/20 py-8 md:py-14">
           <div className="max-w-[1400px] mx-auto px-4 md:px-8">
             <CompressionExplainer />
+            <div className="mt-8 text-center">
+              <Link href="/ratgeber/handgepaeck-guide-eine-woche" className="text-primary hover:underline font-semibold">Packanleitung für Handgepäck lesen &rarr;</Link>
+            </div>
           </div>
         </section>
 
@@ -175,7 +179,7 @@ export default async function ProduktPage() {
               Bereit für stressfreies Reisen?
             </h2>
             <p className="text-white/70 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-              Dein 8-teiliges Kompressions-Packwürfel-Set wartet auf dich. Jetzt versandkostenfrei bestellen und Koffer-Chaos beenden.
+              Mit dem 8-teiligen Kofferklar Koffer Organizer Set bringst du Ordnung in dein Handgepäck. Jetzt dein neues Kompressions-Packwürfel Set kaufen und Koffer-Chaos beenden.
             </p>
             <a
               href={product.buyLink ?? '#'}
@@ -184,7 +188,7 @@ export default async function ProduktPage() {
               className="inline-block bg-accent text-accent-foreground px-12 py-5 rounded-full text-lg font-bold hover:bg-accent-400 active:scale-[0.98] transition-all duration-300 shadow-xl shadow-black/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
-              Jetzt Pack-Set sichern
+              Packwürfel Set kaufen
             </a>
             <p className="mt-6 text-white/40 text-xs">
               Sicherer Checkout · 30 Tage Rückgaberecht · Kostenloser Versand

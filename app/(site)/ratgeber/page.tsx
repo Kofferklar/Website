@@ -6,8 +6,8 @@ import PostGrid from '../components/PostGrid'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Ratgeber | Pack-Tipps & Reise-Hacks für stressfreies Reisen',
-  description: 'Entdecke wertvolle Tipps zum Thema Koffer packen, Platz sparen und Reiseorganisation. Werde zum Pack-Profi mit dem KofferKlar Ratgeber.',
+  title: 'Ratgeber | Koffer packen Tipps & Reisen nur mit Handgepäck',
+  description: 'Entdecke Koffer packen Tipps, lerne wie du deinen Koffer richtig packst und erfahre alles zum Reisen nur mit Handgepäck im Kofferklar Ratgeber.',
 }
 
 /**

@@ -115,7 +115,7 @@ export default async function HilfeServicePage() {
                    <span className="italic text-primary">persönliche Nachricht.</span>
                  </h2>
                  <p className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-16 max-w-[45ch]">
-                   Du hast ein spezielles Anliegen oder möchtest uns Feedback geben? Nutze einfach unser Formular. Unser Team in Deutschland meldet sich werktags innerhalb von 24 Stunden bei dir.
+                   Du hast ein spezielles Anliegen oder möchtest uns Feedback geben? Nutze einfach unseren Kofferklar Kontakt. Unser Team aus Deutschland meldet sich werktags innerhalb von 24 Stunden bei dir.
                  </p>
                  
                  <div className="space-y-12">
