@@ -106,7 +106,7 @@ export default function ProductGallery({
       <div
         className={[
           'relative w-full overflow-hidden rounded-xl bg-white',
-          fillHeight ? 'flex-1 min-h-0' : 'aspect-square md:aspect-[4/3]',
+          fillHeight ? 'flex-1 min-h-0' : 'aspect-[4/3] md:aspect-[3/2]',
         ].join(' ')}
       >
         {hasImages ? (

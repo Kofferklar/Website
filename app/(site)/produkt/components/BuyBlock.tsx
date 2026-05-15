@@ -79,20 +79,20 @@ export default function BuyBlock({
   return (
     <div className="md:sticky md:top-24 space-y-6">
       {/* 1. Feature / Trust Block (Now at the top) */}
-      <div className="rounded-[2rem] border border-primary/10 bg-primary/5 p-4 space-y-4">
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-primary ring-1 ring-primary/10">
+      <div className="rounded-[2rem] border border-primary/10 bg-primary/5 p-3 space-y-3">
+        <div className="flex items-start gap-2.5">
+          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-primary ring-1 ring-primary/10">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
           </div>
           <div>
             <p className="text-sm font-bold text-foreground">Sicher testen, sauber packen</p>
-            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
               Alltagstest für Wochenendtrip, Semesterferien und Geschäftsreise.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-1 gap-1.5">
           {trustItems.map((item) => {
             const Icon = item.icon
             return (
@@ -104,19 +104,19 @@ export default function BuyBlock({
           })}
         </div>
 
-        <div className="border-t border-primary/10 pt-4">
-          <div className="mb-2 flex items-center gap-1.5 text-accent" aria-label="5 von 5 Sternen">
+        <div className="border-t border-primary/10 pt-3">
+          <div className="mb-1.5 flex items-center gap-1.5 text-accent" aria-label="5 von 5 Sternen">
             {[1, 2, 3, 4, 5].map((star) => (
               <Star key={star} className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true" />
             ))}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {testerVoices.map((voice) => (
-              <figure key={voice.name} className="rounded-2xl bg-white/80 p-3 ring-1 ring-black/5">
+              <figure key={voice.name} className="rounded-2xl bg-white/80 p-2.5 ring-1 ring-black/5">
                 <blockquote className="text-xs leading-relaxed text-foreground/80">
                   &quot;{voice.text}&quot;
                 </blockquote>
-                <figcaption className="mt-2 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
+                <figcaption className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
                   {voice.name}
                 </figcaption>
               </figure>

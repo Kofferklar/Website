@@ -167,7 +167,7 @@ export default function ProductHero({
 
       {/* Desktop 2-column grid */}
       <div className="hidden md:grid md:grid-cols-[1fr_380px] gap-12 lg:gap-20 items-start">
-        <div className="hidden md:flex md:flex-col py-4 gap-8">
+        <div className="hidden md:flex md:flex-col pt-2 pb-4 gap-6">
           {/* Heading. shrink-0 */}
           <div className="flex flex-col gap-2">
             <h1 className="font-serif text-3xl lg:text-4xl font-bold text-foreground leading-[1.1]">
@@ -195,7 +195,7 @@ export default function ProductHero({
         </div>
 
         {/* Right: BuyBlock sticky sidebar (unchanged) */}
-        <aside className="hidden md:block h-full pt-8">
+        <aside className="hidden md:block h-full pt-4">
           <BuyBlock
             price={product.price}
             buyLink={product.buyLink}
