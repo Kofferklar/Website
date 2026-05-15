@@ -13,7 +13,7 @@ interface HeroSectionProps {
 export default function HeroSection({ reviewCount }: HeroSectionProps) {
   const [titleNumber, setTitleNumber] = useState(0)
   const titles = useMemo(
-    () => ['definiert.', 'gedacht.', 'organisiert.', 'erlebt.'],
+    () => ['definiert.', 'gedacht.', 'organisiert.', 'erleben.', 'gepackt.'],
     []
   )
 
@@ -24,7 +24,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
       } else {
         setTitleNumber(titleNumber + 1)
       }
-    }, 2500)
+    }, 3000)
     return () => clearTimeout(timeoutId)
   }, [titleNumber, titles])
 
@@ -52,7 +52,13 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
                           key={index}
                           className="absolute left-0 top-0 whitespace-nowrap"
                           initial={{ opacity: 0, y: "100%" }}
-                          transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                          transition={{ 
+                            type: "spring", 
+                            stiffness: 40, 
+                            damping: 14,
+                            mass: 1,
+                            opacity: { duration: 0.6 }
+                          }}
                           animate={
                             titleNumber === index
                               ? {
