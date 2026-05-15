@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,6 +11,23 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ reviewCount }: HeroSectionProps) {
+  const [titleNumber, setTitleNumber] = useState(0)
+  const titles = useMemo(
+    () => ['definiert.', 'gedacht.', 'organisiert.', 'erlebt.'],
+    []
+  )
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (titleNumber === titles.length - 1) {
+        setTitleNumber(0)
+      } else {
+        setTitleNumber(titleNumber + 1)
+      }
+    }, 2500)
+    return () => clearTimeout(timeoutId)
+  }, [titleNumber, titles])
+
   return (
     <section className="relative min-h-[calc(100dvh-72px)] lg:min-h-[85dvh] flex items-stretch lg:items-start overflow-hidden pt-4 md:pt-10 lg:pt-20 pb-6 md:pb-16 lg:pb-32">
       <div className="max-w-[1400px] w-full mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-24 items-stretch lg:items-center">
@@ -24,9 +42,40 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
           <div>
             <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-8xl font-bold text-foreground leading-[1.05] tracking-tight mb-5 md:mb-8 lg:mb-10">
               Reisen <br />
-              <span className="text-primary italic relative tracking-normal">
-                neu definiert.
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-accent/30" viewBox="0 0 300 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <span className="text-primary italic relative tracking-normal inline-flex align-top">
+                <span className="inline-flex flex-col overflow-hidden h-[1.15em]">
+                  <span className="flex items-center gap-[0.2em]">
+                    neu
+                    <span className="relative flex">
+                      {titles.map((title, index) => (
+                        <motion.span
+                          key={index}
+                          className="absolute left-0 top-0 whitespace-nowrap"
+                          initial={{ opacity: 0, y: "100%" }}
+                          transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                          animate={
+                            titleNumber === index
+                              ? {
+                                  y: 0,
+                                  opacity: 1,
+                                }
+                              : {
+                                  y: titleNumber > index ? "-100%" : "100%",
+                                  opacity: 0,
+                                }
+                          }
+                        >
+                          {title}
+                        </motion.span>
+                      ))}
+                      {/* Ghost text to ensure width is always enough for the longest word */}
+                      <span className="opacity-0 select-none pointer-events-none whitespace-nowrap">
+                        organisiert.
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-accent/30 pointer-events-none" viewBox="0 0 300 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 15C50 5 150 5 295 15" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
                 </svg>
               </span>
