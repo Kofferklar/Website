@@ -20,16 +20,16 @@ export default function LegalLayout({ title, subtitle, children }: LegalLayoutPr
       {/* Editorial Header */}
       <header className="py-20 md:py-32 lg:py-40 bg-muted/20 border-b border-black/5 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
-        
+
         <div className="max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
-          <Link 
-            href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" 
+          <Link
+            href="/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
             className="group inline-flex items-center gap-3 text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground hover:text-primary transition-colors mb-12"
           >
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
             Zurück zur Startseite
           </Link>
-          
+
           <div className="max-w-4xl">
             <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-6">Rechtliches</div>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.05] tracking-tight mb-8">
@@ -47,7 +47,7 @@ export default function LegalLayout({ title, subtitle, children }: LegalLayoutPr
       {/* Content Area */}
       <section className="py-24 md:py-32 lg:py-40">
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <motion.article 
+          <motion.article
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}

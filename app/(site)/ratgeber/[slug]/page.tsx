@@ -7,6 +7,7 @@ import { urlFor } from '@/lib/sanity/image'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Clock, User } from 'lucide-react'
+import PackGuideEnhancement from '../../components/PackGuideEnhancement'
 
 export const revalidate = 86400 // Daily revalidation
 
@@ -112,6 +113,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <section className="py-24 md:py-32 lg:py-40">
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
            <PostBody content={post.body} />
+           {slug === 'handgepaeck-guide-eine-woche' && <PackGuideEnhancement />}
         </div>
       </section>
 

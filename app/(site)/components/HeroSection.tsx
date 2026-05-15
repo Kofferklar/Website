@@ -33,7 +33,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
             </h1>
 
             <p className="text-muted-foreground text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed max-w-[45ch] lg:mb-12">
-              Das 8-teilige Kompressions-Packwürfel-Set — packst du klüger, reist du leichter.
+              Das 8-teilige Kompressions-Packwürfel-Set. Pack klüger und reise leichter.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
           <div className="flex flex-col sm:flex-row items-center gap-5 lg:gap-8">
             {/* Main CTA */}
             <Link
-              href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=hero-cta&utm_campaign=kofferklar-launch&utm_content=homepage"
+              href="/produkt?utm_source=website&utm_medium=hero-cta&utm_campaign=kofferklar-launch&utm_content=homepage"
               className="group relative inline-flex items-center gap-3 lg:gap-5 bg-primary text-primary-foreground px-7 py-3.5 lg:px-10 lg:py-5 rounded-full text-sm lg:text-lg font-bold hover:bg-primary/95 transition-all duration-300 active:scale-[0.98] shadow-2xl shadow-primary/20"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
@@ -80,10 +80,10 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
               </div>
             </Link>
 
-            {/* Social Proof Link */}
+            {/* Bewertungslink */}
             <Link
               href="#bewertungen"
-              className="group text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors flex items-center gap-3"
+              className="group text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors flex flex-col lg:flex-row items-center gap-1 lg:gap-3"
             >
               <div className="hidden lg:flex -space-x-3" aria-label="Kundenbewertungen">
                 {[
@@ -100,11 +100,11 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1 text-accent">
+              <div className="flex flex-col items-center lg:items-start">
+                <div className="flex items-center justify-center lg:justify-start gap-1 text-accent mb-0.5">
                   {[1, 2, 3, 4, 5].map(s => <Star key={s} size={12} fill="currentColor" />)}
                 </div>
-                <span className="text-[11px] tracking-wide uppercase font-bold text-foreground/60 group-hover:text-foreground transition-colors">
+                <span className="text-[11px] tracking-wide uppercase font-bold text-foreground/60 group-hover:text-foreground transition-colors text-center lg:text-left">
                   {reviewCount ?? 47} Bewertungen
                 </span>
               </div>
@@ -113,7 +113,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
 
         </motion.div>
 
-        {/* --- Right Column: Asymmetric Double-Bezel Image — desktop only --- */}
+        {/* --- Right Column: Asymmetric Double-Bezel Image. desktop only --- */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, x: 60 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -131,7 +131,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
               <div className="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden border border-black/5 shadow-inner">
                 <Image
                   src="/images/images_kofferklar/vorher-koffer.png"
-                  alt="Chaos im Koffer — unorganisierte Kleidung"
+                  alt="Chaos im Koffer, unorganisierte Kleidung"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 50vw, 25vw"
@@ -148,7 +148,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
               <div className="relative aspect-[3/4.5] rounded-[3.5rem] overflow-hidden border-[3px] border-accent/30 shadow-[0_50px_100px_-20px_rgba(201,168,76,0.15)]">
                 <Image
                   src="/images/images_kofferklar/nachher-koffer.png"
-                  alt="Ordnung mit KofferKlar — organisierte Packwürfel"
+                  alt="Ordnung mit KofferKlar, organisierte Packwürfel"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 50vw, 25vw"

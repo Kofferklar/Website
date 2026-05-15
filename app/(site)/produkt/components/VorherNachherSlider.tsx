@@ -22,8 +22,8 @@ const AFTER_PLACEHOLDER =
 export default function VorherNachherSlider({
   beforeSrc,
   afterSrc,
-  beforeAlt = 'Vorher — Koffer ungepackt',
-  afterAlt = 'Nachher — Koffer mit KofferKlar gepackt',
+  beforeAlt = 'Vorher: Koffer ungepackt',
+  afterAlt = 'Nachher: Koffer mit KofferKlar gepackt',
   initialPosition = 50,
 }: VorherNachherSliderProps) {
   const [position, setPosition] = useState(initialPosition)
@@ -83,7 +83,7 @@ export default function VorherNachherSlider({
         Der Unterschied ist spürbar
       </motion.h2>
 
-      {/* Slider container — outer shell (double-bezel) */}
+      {/* Slider container. outer shell (double-bezel) */}
       <motion.div
         className="p-1.5 rounded-[2rem] bg-muted/40 ring-1 ring-black/5 mx-auto max-w-3xl"
         initial={{ opacity: 0, y: 16 }}
@@ -91,7 +91,7 @@ export default function VorherNachherSlider({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
       >
-        {/* Inner core — the actual slider */}
+        {/* Inner core. the actual slider */}
         <div
           ref={containerRef}
           className="relative w-full aspect-[4/3] md:aspect-video overflow-hidden rounded-[calc(2rem-0.375rem)] select-none cursor-col-resize"
@@ -99,7 +99,7 @@ export default function VorherNachherSlider({
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerUp}
         >
-          {/* Nachher-Bild (Basis — vollständig sichtbar) */}
+          {/* Nachher-Bild (Basis. vollständig sichtbar) */}
           <Image
             src={afterUrl}
             alt={afterAlt}
@@ -109,7 +109,7 @@ export default function VorherNachherSlider({
             priority
           />
 
-          {/* Vorher-Bild (überlagert — durch clip-path auf linken Bereich begrenzt) */}
+          {/* Vorher-Bild (überlagert. durch clip-path auf linken Bereich begrenzt) */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
@@ -143,7 +143,7 @@ export default function VorherNachherSlider({
             style={{ left: `${position}%` }}
             aria-hidden="true"
           >
-            {/* Handle-Kreis — interaktiver Drag-Punkt */}
+            {/* Handle-Kreis. interaktiver Drag-Punkt */}
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 bg-white rounded-full shadow-[0_2px_16px_rgba(0,0,0,0.18)] flex items-center justify-center cursor-col-resize touch-none"
               onPointerDown={handlePointerDown}

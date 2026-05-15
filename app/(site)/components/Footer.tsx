@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Column 1: Logo + tagline */}
           <div className="flex flex-col gap-4">
-            <Link href="https://kofferklar.vercel.app/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" aria-label="KofferKlar — Zur Startseite">
+            <Link href="/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" aria-label="KofferKlar, zur Startseite">
               <Image
                 src="/LogoKofferklar.svg"
                 alt="KofferKlar Logo"
@@ -30,7 +30,7 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-2">
               <Link
-                href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
+                href="/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
                 Produktseite
@@ -105,7 +105,7 @@ export default function Footer() {
             © 2026 KofferKlar. Alle Rechte vorbehalten.
           </p>
           <div className="flex items-center gap-1">
-            {/* Instagram icon — inline SVG (lucide-react v0.4x does not export Instagram) */}
+            {/* Instagram icon. inline SVG (lucide-react v0.4x does not export Instagram) */}
             <a
               href="https://instagram.com/kofferklar"
               target="_blank"
@@ -130,7 +130,7 @@ export default function Footer() {
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
             </a>
-            {/* Facebook icon — inline SVG (lucide-react v0.4x does not export Facebook) */}
+            {/* Facebook icon. inline SVG (lucide-react v0.4x does not export Facebook) */}
             <a
               href="https://facebook.com/kofferklar"
               target="_blank"

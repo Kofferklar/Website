@@ -77,7 +77,7 @@ export default function CompressionExplainer({
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14">
         {/* Ohne Kompression */}
         <div className="flex flex-col items-center gap-5">
-          {/* Outer shell — double-bezel technique */}
+          {/* Outer shell. double-bezel technique */}
           <motion.div
             className="p-2 rounded-[2rem] bg-muted/60 ring-1 ring-black/5"
             custom={0}
@@ -88,7 +88,7 @@ export default function CompressionExplainer({
           >
             {/* Inner core */}
             <div className="w-36 h-36 md:w-44 md:h-44 bg-muted rounded-[calc(2rem-0.375rem)] border border-border/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.9)] flex items-center justify-center">
-              {/* 4 large cubes — uncompressed state */}
+              {/* 4 large cubes. uncompressed state */}
               <div className="grid grid-cols-2 gap-3 p-4">
                 {[0, 1, 2, 3].map((i) => (
                   <motion.div
@@ -161,7 +161,7 @@ export default function CompressionExplainer({
           >
             {/* Inner core */}
             <div className="w-36 h-36 md:w-44 md:h-44 bg-primary/5 rounded-[calc(2rem-0.375rem)] border border-primary/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] flex items-center justify-center">
-              {/* 4 small cubes — compressed state */}
+              {/* 4 small cubes. compressed state */}
               <div className="grid grid-cols-2 gap-1.5 p-7">
                 {[0, 1, 2, 3].map((i) => (
                   <motion.div
@@ -191,7 +191,7 @@ export default function CompressionExplainer({
           >
             <p className="font-semibold text-primary text-sm">Mit Kompression</p>
             <p className="text-muted-foreground text-xs mt-1">
-              <span className="text-accent font-bold">60% weniger</span> Volumen
+              <span className="text-accent font-bold">Spürbar weniger</span> Volumen
             </p>
           </motion.div>
         </div>
@@ -205,8 +205,8 @@ export default function CompressionExplainer({
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
       >
-        Der Doppel-Reißverschluss komprimiert den Inhalt auf einen Bruchteil —
-        mehr Platz im Koffer, weniger Chaos beim Einpacken.
+        Der Doppel-Reißverschluss hilft, weiche Kleidung flacher zu packen.
+        So bleibt dein Handgepäck übersichtlich und leichter zugänglich.
       </motion.p>
     </section>
   )

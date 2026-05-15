@@ -21,7 +21,7 @@ export default async function BewertungenPage() {
 
           {/* Back link */}
           <Link
-            href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
+            href="/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
             className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors mb-12"
           >
             <ArrowLeft size={14} aria-hidden="true" />
@@ -31,7 +31,7 @@ export default async function BewertungenPage() {
           {/* Header */}
           <div className="mb-16">
             <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-4">
-              Social Proof
+              Bewertungen
             </div>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1]">
               Was Reisende über <br />

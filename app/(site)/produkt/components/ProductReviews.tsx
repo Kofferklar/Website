@@ -29,10 +29,10 @@ export default function ProductReviews({ reviews }: ProductReviewsProps) {
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-14">
         <div>
           <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-4">
-            Social Proof
+            Bewertungen
           </div>
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground leading-[1.1]">
-            Was Kunden sagen
+            Das sagen erste Kofferklar-Tester
           </h2>
         </div>
 

@@ -2,7 +2,7 @@ import { Star, CheckCircle2 } from 'lucide-react'
 import type { Review } from '@/lib/sanity/types'
 
 /**
- * ReviewCard — pure presentational component, no client directive needed.
+ * ReviewCard. pure presentational component, no client directive needed.
  * Matches the double-bezel aesthetic from ReviewStrip on the homepage.
  * Caller applies animation (motion.div wrapper).
  */
@@ -62,7 +62,7 @@ export function ReviewCard({ review, index }: { review: Review; index: number })
                 )}
               </div>
               <div className="text-[10px] text-muted-foreground font-bold tracking-widest uppercase">
-                Verifizierter Kunde
+                {review.verified ? 'Verifizierter Kunde' : 'Tester-Stimme'}
               </div>
             </div>
           </div>

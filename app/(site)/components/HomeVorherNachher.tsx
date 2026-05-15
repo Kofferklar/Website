@@ -40,7 +40,7 @@ export default function HomeVorherNachher({ product }: HomeVorherNachherProps) {
              {/* Benefit List */}
              <ul className="space-y-8">
                {[
-                 { title: "60% mehr Platz", desc: "Durch innovative Hochleistungs-Reißverschlüsse." },
+                 { title: "Mehr Platz", desc: "Durch Kompression und klare Kategorien." },
                  { title: "Knitterfrei reisen", desc: "Deine Kleidung bleibt fixiert und perfekt geschützt." },
                  { title: "Sofortiger Zugriff", desc: "Alles hat seinen festen Platz. Kein Wühlen mehr im Hotel." }
                ].map((item, i) => (

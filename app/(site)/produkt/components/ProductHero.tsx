@@ -51,17 +51,16 @@ export default function ProductHero({
 
   return (
     <section className="max-w-[1400px] mx-auto px-4 md:px-8">
-      {/* ── MOBILE: 100svh hero ── */}
-      <div className="md:hidden h-[calc(100svh-72px)] flex flex-col px-0 pt-3 pb-3 gap-2">
+      {/* ── MOBILE: Shorter hero to show colors ── */}
+      <div className="md:hidden flex flex-col px-0 pt-6 pb-6 gap-6">
         {/* Heading */}
-        <h1 className="font-serif text-2xl font-bold text-foreground leading-tight shrink-0">
-          {product.name}
+        <h1 className="font-serif text-3xl font-bold text-foreground leading-[1.15] shrink-0">
+          8-teiliges Kompressions-<br />Packwürfel-Set
         </h1>
 
-        {/* Gallery. fills remaining space */}
-        <div className="flex-1 min-h-0">
+        {/* Gallery */}
+        <div className="shrink-0">
           <ProductGallery
-            fillHeight
             images={product.images ?? []}
             localImages={localImages}
             productName={product.name}

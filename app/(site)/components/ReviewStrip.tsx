@@ -47,7 +47,7 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-4">Social Proof</div>
+            <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-4">Bewertungen</div>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1]">
               Was Reisende über <br /> KofferKlar sagen.
             </h2>
@@ -114,7 +114,7 @@ export default function ReviewStrip({ reviews, reviewCount }: ReviewStripProps) 
                           {review.verified && <CheckCircle2 size={14} className="text-green-600" />}
                         </div>
                         <div className="text-[10px] text-muted-foreground font-bold tracking-widest uppercase">
-                          Verifizierter Kunde
+                          {review.verified ? 'Verifizierter Kunde' : 'Tester-Stimme'}
                         </div>
                       </div>
                     </div>

@@ -71,8 +71,8 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => {
       const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined
       return (
-        <a 
-          href={value.href} 
+        <a
+          href={value.href}
           rel={rel}
           className="text-primary font-bold border-b border-primary/20 hover:border-primary transition-colors"
         >
@@ -95,13 +95,13 @@ export default function PostBody({ content }: PostBodyProps) {
     <article className="max-w-[75ch] mx-auto">
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
       <PortableText value={content as any} components={components} />
-      
+
       {/* Editorial Internal CTA (BLOG-05) */}
       <div className="mt-24 p-2.5 rounded-[3.5rem] bg-primary/5 ring-1 ring-primary/10 overflow-hidden group">
         <div className="bg-white rounded-[calc(3.5rem-0.75rem)] p-10 md:p-16 text-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] relative overflow-hidden">
           {/* Background Glow */}
           <div className="absolute -top-24 -right-24 w-64 h-64 bg-accent/10 blur-[100px] rounded-full" />
-          
+
           <div className="relative z-10">
             <div className="text-accent text-[10px] font-bold tracking-[0.4em] uppercase mb-8">System-Tipp</div>
             <h3 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-8 leading-tight">
@@ -109,11 +109,11 @@ export default function PostBody({ content }: PostBodyProps) {
               <span className="italic text-primary">Starte organisiert.</span>
             </h3>
             <p className="text-muted-foreground text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-              Unsere Leser lieben den Platzgewinn durch das KofferKlar Set. Hol dir jetzt den Testsieger unter den Packwürfeln.
+              Unsere Leser nutzen das KofferKlar Set, um Kleidung klar zu sortieren und Platz im Gepäck besser auszunutzen.
             </p>
-            
-            <Link 
-              href="https://kofferklar.vercel.app/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" 
+
+            <Link
+              href="/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
               className="group inline-flex items-center gap-5 bg-primary text-primary-foreground px-10 py-5 rounded-full text-lg font-bold hover:bg-primary/95 transition-all duration-300 active:scale-[0.98] shadow-2xl shadow-primary/20"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >

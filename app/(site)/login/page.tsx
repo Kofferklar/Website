@@ -1,7 +1,7 @@
 import { loginAction } from './actions'
 
 export const metadata = {
-  title: 'KofferKlar — Zugang',
+  title: 'KofferKlar Zugang',
   robots: { index: false, follow: false },
 }
 
