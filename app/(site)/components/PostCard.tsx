@@ -26,7 +26,7 @@ interface PostCardProps {
 
 /**
  * PostCard Client Component
- * Implements Double-Bezel Architecture and Liquid Glass hover effects.
+ * Refined editorial card with calm hover, restrained chrome.
  */
 export default function PostCard({ post, isFeatured = false }: PostCardProps) {
   const formattedDate = new Date(post.publishedAt).toLocaleDateString('de-DE', {
@@ -38,77 +38,86 @@ export default function PostCard({ post, isFeatured = false }: PostCardProps) {
   return (
     <Link href={`/ratgeber/${post.slug.current}`} className="group block">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`relative p-2 rounded-[2.5rem] bg-black/5 ring-1 ring-black/5 transition-all duration-700 group-hover:shadow-2xl group-hover:shadow-black/5
-          ${isFeatured ? 'h-full min-h-[500px]' : ''}`}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className={`relative rounded-[2rem] bg-white ring-1 ring-black/5 shadow-card transition-all duration-500 ease-expo group-hover:-translate-y-1 group-hover:shadow-elevated
+          ${isFeatured ? 'grid md:grid-cols-2 overflow-hidden' : 'flex flex-col overflow-hidden h-full'}`}
       >
-        <div className="relative h-full overflow-hidden rounded-[calc(2.5rem-0.5rem)] bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] flex flex-col">
-          {/* Image Container with Liquid Glass Reveal */}
-          <div className={`relative overflow-hidden ${isFeatured ? 'flex-1 min-h-[350px]' : 'aspect-[16/10]'}`}>
-            {(() => {
-              const localSrc = LOCAL_COVER_IMAGES[post.slug.current]
-              if (post.coverImage) {
-                return (
-                  <Image
-                    src={urlFor(post.coverImage).width(isFeatured ? 1200 : 800).height(isFeatured ? 800 : 500).url()}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
-                  />
-                )
-              }
-              if (localSrc) {
-                return (
-                  <Image
-                    src={localSrc}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-[2000ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
-                  />
-                )
-              }
+        {/* Image Container */}
+        <div
+          className={`relative overflow-hidden bg-muted/40
+            ${isFeatured ? 'aspect-[4/3] md:aspect-auto md:min-h-[440px]' : 'aspect-[16/10]'}`}
+        >
+          {(() => {
+            const localSrc = LOCAL_COVER_IMAGES[post.slug.current]
+            if (post.coverImage) {
               return (
-                <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground/40 italic">
-                  Kein Vorschaubild verfügbar
-                </div>
+                <Image
+                  src={urlFor(post.coverImage).width(isFeatured ? 1400 : 900).height(isFeatured ? 1000 : 560).url()}
+                  alt={post.title}
+                  fill
+                  className="object-cover transition-transform duration-[1400ms] ease-expo group-hover:scale-[1.04]"
+                />
               )
-            })()}
-            
-            {/* Category/Date Overlay */}
-            <div className="absolute top-6 left-6 z-10 flex items-center gap-3">
-              <div className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-white/20 text-[10px] font-bold tracking-[0.15em] uppercase text-primary">
-                Reisetipp
+            }
+            if (localSrc) {
+              return (
+                <Image
+                  src={localSrc}
+                  alt={post.title}
+                  fill
+                  className="object-cover transition-transform duration-[1400ms] ease-expo group-hover:scale-[1.04]"
+                />
+              )
+            }
+            return (
+              <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground/50 font-handwrite text-xl">
+                Kein Vorschaubild
               </div>
-              <div className="px-3 py-1 rounded-full bg-black/20 backdrop-blur-md border border-white/10 text-[10px] font-bold tracking-[0.15em] uppercase text-white">
-                {formattedDate}
-              </div>
-            </div>
+            )
+          })()}
 
-            {/* Hover Icon Reveal */}
-            <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex items-center justify-center">
-               <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-primary scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 delay-100">
-                  <ArrowUpRight size={32} />
-               </div>
+          {/* Category/Date Overlay */}
+          <div className="absolute top-5 left-5 z-10 flex items-center gap-2">
+            <div className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-bold tracking-[0.15em] uppercase text-primary shadow-soft">
+              Reisetipp
+            </div>
+            <div className="px-3 py-1 rounded-full bg-black/30 backdrop-blur-md text-[10px] font-bold tracking-[0.15em] uppercase text-white">
+              {formattedDate}
             </div>
           </div>
+        </div>
 
-          {/* Content Area */}
-          <div className="p-8 md:p-10 flex flex-col justify-between">
-            <h3 className={`font-serif font-bold text-foreground leading-[1.2] mb-6 transition-colors group-hover:text-primary
-              ${isFeatured ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-2xl md:text-3xl'}`}>
+        {/* Content Area */}
+        <div
+          className={`flex flex-col justify-between
+            ${isFeatured ? 'p-8 md:p-12 lg:p-16' : 'p-7 md:p-8'}`}
+        >
+          <div>
+            {isFeatured && (
+              <div className="font-handwrite text-accent text-lg mb-4">Empfohlen</div>
+            )}
+            <h3
+              className={`font-display font-bold text-foreground leading-[1.15] tracking-tightest transition-colors group-hover:text-primary
+                ${isFeatured ? 'text-3xl md:text-4xl lg:text-5xl mb-6' : 'text-xl md:text-2xl mb-5'}`}
+            >
               {post.title}
             </h3>
-            
-            <div className="flex items-center justify-between">
-               <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-accent border-b border-accent/20 pb-1 group-hover:border-accent transition-all duration-300">
-                  Artikel lesen
-               </div>
-               <div className="w-8 h-8 rounded-full border border-muted flex items-center justify-center text-muted-foreground group-hover:border-primary group-hover:text-primary transition-all duration-500">
-                  <ArrowUpRight size={16} />
-               </div>
+            {isFeatured && (
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-prose mb-8">
+                Der ausführliche Leitfaden für alle, die mehr aus ihrem Gepäck holen wollen.
+              </p>
+            )}
+          </div>
+
+          <div className="flex items-center justify-between pt-4 border-t border-black/5">
+            <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-accent">
+              Artikel lesen
+            </div>
+            <div className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center text-muted-foreground group-hover:border-primary group-hover:text-primary group-hover:bg-primary/5 transition-all duration-500 ease-expo">
+              <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-500 ease-expo" />
             </div>
           </div>
         </div>

@@ -1,0 +1,20 @@
+{
+  "name": "KofferKlar – Pack klüger, reise leichter",
+  "short_name": "KofferKlar",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1E3A5F",
+  "background_color": "#FAFAF8",
+  "lang": "de",
+  "dir": "ltr",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/LogoKofferklar.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

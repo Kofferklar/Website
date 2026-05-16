@@ -55,6 +55,22 @@ export default function BuyBlock({
     })
     setAdded(true)
     setFeedback(true)
+
+    // Fly-to-cart animation: dispatch event with hero image + origin rect
+    if (typeof window !== 'undefined') {
+      const heroImg = document.querySelector('[data-product-hero-image]') as HTMLImageElement | null
+      if (heroImg) {
+        const rect = heroImg.getBoundingClientRect()
+        const imageUrl = heroImg.currentSrc || heroImg.src
+        if (imageUrl && rect.width > 0 && rect.height > 0) {
+          window.dispatchEvent(
+            new CustomEvent('kk:fly-to-cart', {
+              detail: { imageUrl, originRect: rect },
+            })
+          )
+        }
+      }
+    }
   }
 
   const trustItems = [
@@ -144,6 +160,22 @@ export default function BuyBlock({
           <span className="text-sm text-muted-foreground">inkl. MwSt.</span>
         </div>
       </div>
+
+      {/* Scarcity hint (only when current variant stock <= 20) */}
+      {(() => {
+        const variant = colorVariants?.[selectedColorIndex ?? 0]
+        const lvl = variant?.stockLevel
+        if (typeof lvl !== 'number' || lvl <= 0 || lvl > 20) return null
+        return (
+          <p className="inline-flex items-center gap-2 rounded-full bg-rose-50 text-rose-700 ring-1 ring-rose-200/70 px-3 py-1 text-xs font-bold w-fit">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-500 opacity-70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-rose-500" />
+            </span>
+            Nur noch {lvl} verfügbar{variant?.colorName ? ` in ${variant.colorName}` : ''}
+          </p>
+        )
+      })()}
 
       {/* Kurzbeschreibung (mobile only — appears after price) */}
       {shortDescription && (

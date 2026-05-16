@@ -17,7 +17,7 @@ export default function ImpressumPage() {
       title="Impressum"
       subtitle="Gesetzliche Anbieterkennung für KofferKlar."
     >
-      <h2>Angaben gemäß § 5 TMG</h2>
+      <h2>Angaben gemäß § 5 DDG</h2>
       <p>
         Yasar Heidt<br />
         Doggenriedstraße 12<br />
@@ -28,7 +28,8 @@ export default function ImpressumPage() {
       <h2>Kontakt</h2>
       <p>
         E-Mail: info@kofferklar.de<br />
-        Internet: www.kofferklar.de
+        Internet: www.kofferklar.de<br />
+        Kontaktformular: <a href="/hilfe-service">/hilfe-service</a> (Antwort innerhalb von 24&nbsp;h an Werktagen)
       </p>
 
       <h2>Umsatzsteuer-ID</h2>
@@ -36,11 +37,18 @@ export default function ImpressumPage() {
         Als Kleinunternehmer im Sinne von § 19 Abs. 1 UStG wird keine Umsatzsteuer berechnet.
       </p>
 
-      <h2>Redaktionell verantwortlich</h2>
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>
         Yasar Heidt<br />
         Doggenriedstraße 12<br />
-        88250 Weingarten
+        88250 Weingarten<br />
+        Deutschland
+      </p>
+
+      <h2>Datenschutz</h2>
+      <p>
+        Informationen zum Umgang mit personenbezogenen Daten finden Sie in unserer{' '}
+        <a href="/datenschutz">Datenschutzerklärung</a>.
       </p>
 
       <h2>EU-Streitschlichtung</h2>

@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const PUBLIC_PATHS = ['/login', '/_next/static', '/favicon.ico', '/favicon.svg']
+const PUBLIC_PATHS = [
+  '/login',
+  '/_next/static',
+  '/favicon.ico',
+  '/favicon.svg',
+  '/api/revalidate', // Sanity webhook — secured via SANITY_REVALIDATE_SECRET, not cookie
+]
 
 function isPublicPath(pathname: string) {
   return PUBLIC_PATHS.some((p) => pathname.startsWith(p))

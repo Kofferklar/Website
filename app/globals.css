@@ -3,27 +3,235 @@
 @tailwind utilities;
 
 /* CSS custom properties for font variables are injected by next/font */
-/* No manual @font-face declarations — next/font handles self-hosting */
 
 @layer base {
+  :root {
+    --color-primary:    30 58 95;
+    --color-accent:    201 168 76;
+    --color-bg:        250 250 248;
+    --color-ink:        11  15  20;
+    --easing-expo:     cubic-bezier(0.16, 1, 0.3, 1);
+    --easing-spring:   cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  /* Satoshi tracking sharpening for big display type */
+  .font-display {
+    letter-spacing: -0.03em;
+  }
+  .font-handwrite,
+  .font-editorial {
+    font-feature-settings: normal;
+  }
+
+  /* Premium focus ring */
+  :focus-visible {
+    outline: 2px solid rgba(201,168,76, 0.7);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Custom scrollbar (desktop) */
+  @media (min-width: 1024px) {
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(30,58,95,0.18); border-radius: 999px; border: 2px solid transparent; background-clip: padding-box; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(30,58,95,0.32); background-clip: padding-box; border: 2px solid transparent; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Selection */
+  ::selection {
+    background: rgba(201,168,76, 0.32);
+    color: #0B0F14;
   }
 }
 
-/* Utility: hide scrollbar while keeping scroll functionality */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+@layer utilities {
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Mobile drawer nav link stagger animation */
+  /* Glass surfaces */
+  .glass-light {
+    background: linear-gradient(135deg, rgba(255,255,255,0.72), rgba(255,255,255,0.45));
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.55);
+  }
+  .glass-dark {
+    background: linear-gradient(135deg, rgba(11,15,20,0.55), rgba(11,15,20,0.32));
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+
+  /* Subtle film grain overlay for premium texture */
+  .grain::before {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.045;
+    mix-blend-mode: multiply;
+  }
+
+  /* Aurora — whisper-soft animated background blob */
+  .aurora {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 70% at 22% 24%, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0) 75%),
+      radial-gradient(55% 60% at 80% 80%, rgba(30,58,95,0.10)   0%, rgba(30,58,95,0)   75%);
+    filter: blur(60px);
+    opacity: 0.85;
+  }
+
+  /* Fluid section-edge fade — kills hard color seams between sections */
+  .section-fade-top::before,
+  .section-fade-bottom::after {
+    content: "";
+    position: absolute; left: 0; right: 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .section-fade-top::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--section-fade-from, rgba(250,250,248,1)) 0%, transparent 100%);
+  }
+  .section-fade-bottom::after {
+    bottom: 0;
+    background: linear-gradient(to top,    var(--section-fade-from, rgba(250,250,248,1)) 0%, transparent 100%);
+  }
+
+  /* Animated gradient text accent */
+  .gradient-text {
+    background: linear-gradient(110deg, #1E3A5F 0%, #5383C3 40%, #C9A84C 70%, #1E3A5F 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-x 14s ease infinite;
+  }
+
+  /* Premium underline animation on hover */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1.5px;
+    transition: background-size 0.5s var(--easing-expo);
+  }
+  .link-underline:hover {
+    background-size: 100% 1.5px;
+  }
+
+  /* Magnetic interactive element shadow on hover */
+  .lift {
+    transition: transform 0.5s var(--easing-expo), box-shadow 0.5s var(--easing-expo);
+  }
+  .lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 30px 60px -20px rgba(15,23,42,0.20);
+  }
+
+  /* Vignette */
+  .vignette::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 100% at 50% 0%, transparent 55%, rgba(0,0,0,0.35) 100%);
+  }
+
+  /* Text balance for headings */
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty;  }
+
+  /* Marquee track */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  /* Spotlight blob behind hero — softer */
+  .spotlight {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: 0.5;
+    will-change: transform, opacity;
+    animation: spotlight 12s ease-in-out infinite;
+  }
+
+  /* Blur-fade utility for in-view reveals */
+  .blur-fade { filter: blur(8px); opacity: 0; transform: translateY(12px); }
+  .blur-fade.is-visible { filter: blur(0); opacity: 1; transform: translateY(0); transition: all 1s var(--easing-expo); }
+
+  /* Tap target accessibility helper */
+  .tap-44 { min-width: 44px; min-height: 44px; }
+}
+
+/* Keyframes used by Tailwind config */
 @keyframes drawerLinkIn {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes spotlight {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.45; }
+  50%      { transform: translate(-45%, -55%) scale(1.1); opacity: 0.65; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes kkCartPulse {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(0.9); }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+.kk-cart-pulse {
+  animation: kkCartPulse 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+  will-change: transform;
 }

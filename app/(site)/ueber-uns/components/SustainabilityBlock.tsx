@@ -41,9 +41,9 @@ export default function SustainabilityBlock() {
             transition={{ duration: 0.8 }}
           >
             <div className="text-accent text-[10px] font-bold tracking-[0.4em] uppercase mb-6">Werte & Vision</div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-8">
-              Qualität, die <br /> 
-              <span className="italic text-primary">Bestand hat.</span>
+            <h2 className="font-display text-balance text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.05] tracking-tightest mb-8">
+              Qualität, die <br />
+              <span className="font-handwrite text-primary">Bestand hat.</span>
             </h2>
             <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
               Bei KofferKlar glauben wir nicht an Fast-Fashion oder Wegwerf-Produkte. Wir entwickeln Reise-Equipment, das dich über Jahre hinweg begleitet und dein Reiseerlebnis nachhaltig verbessert.
