@@ -127,7 +127,6 @@ export default function CompressionExplainer({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="rotate-90 md:rotate-0"
           aria-hidden="true"
         >
           <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shadow-sm">
@@ -139,7 +138,7 @@ export default function CompressionExplainer({
               strokeWidth="1.75"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-4 h-4 text-accent"
+              className="w-4 h-4 text-accent rotate-90 md:rotate-0"
               aria-hidden="true"
             >
               <path d="M5 12h14" />

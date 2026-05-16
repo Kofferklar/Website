@@ -1,4 +1,9 @@
 import { loginAction } from './actions'
+import PreloadAssets from './PreloadAssets'
+
+// Edge runtime: cookie-set + redirect runs in ~30ms instead of ~300ms cold start.
+// next/headers cookies() + next/navigation redirect() are both edge-compatible.
+export const runtime = 'edge'
 
 export const metadata = {
   title: 'KofferKlar Zugang',
@@ -14,6 +19,7 @@ export default async function LoginPage({ searchParams }: Props) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F9F6F2]">
+      <PreloadAssets />
       <div className="w-full max-w-sm px-8 py-10 bg-white rounded-2xl shadow-sm border border-neutral-100">
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-semibold text-neutral-900 tracking-tight">KofferKlar</h1>

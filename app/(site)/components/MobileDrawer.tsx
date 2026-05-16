@@ -61,7 +61,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
 
       {/* Drawer panel */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-full max-w-[320px] bg-primary
+        className={`fixed top-0 right-0 z-50 h-full w-full max-w-[340px] bg-primary overflow-hidden
           transition-transform
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
         style={{
@@ -75,7 +75,10 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
         aria-modal="true"
         aria-label="Navigation"
       >
-        <div className="flex flex-col h-full px-6 py-6">
+        {/* Soft accent glow only */}
+        <div className="absolute top-0 right-0 w-72 h-72 bg-accent/15 blur-[100px] rounded-full pointer-events-none" />
+
+        <div className="relative flex flex-col h-full px-6 py-6">
           {/* Top row: Logo + Close button */}
           <div className="flex items-center justify-between mb-8">
             <Link href="/?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch" onClick={onClose} aria-label="KofferKlar, zur Startseite">
@@ -106,7 +109,7 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                 key={link.href}
                 href={link.href}
                 onClick={onClose}
-                className={`flex items-center text-white text-lg font-normal py-4 border-b border-white/10 min-h-[52px] hover:text-accent transition-colors duration-200
+                className={`group flex items-center justify-between text-white text-lg font-medium py-4 border-b border-white/10 min-h-[52px] hover:text-accent transition-colors duration-300
                   ${isOpen ? 'animate-drawerLink' : ''}`}
                 style={
                   isOpen
@@ -117,7 +120,8 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
                     : undefined
                 }
               >
-                {link.label}
+                <span className="font-serif">{link.label}</span>
+                <span className="text-white/30 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300">→</span>
               </Link>
             ))}
           </nav>
@@ -127,10 +131,11 @@ export default function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             <Link
               href="/produkt?utm_source=website&utm_medium=navigation&utm_campaign=kofferklar-launch"
               onClick={onClose}
-              className="flex items-center justify-center bg-accent text-accent-foreground w-full rounded-full px-6 py-4 text-base font-semibold hover:bg-accent-600 active:scale-[0.98] transition-all duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="relative overflow-hidden flex items-center justify-center bg-accent text-accent-foreground w-full rounded-full px-6 py-4 text-base font-bold hover:bg-accent-400 active:scale-[0.98] transition-all duration-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 shadow-glow-gold group"
               style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
-              Jetzt kaufen
+              <span className="relative z-10">Jetzt kaufen</span>
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:translate-x-full transition-transform duration-1000" />
             </Link>
           </div>
 

@@ -1,4 +1,5 @@
 import { getBanner } from '@/lib/sanity/queries'
+import CountdownTimer from './CountdownTimer'
 
 /**
  * RabattBanner Server Component
@@ -24,6 +25,8 @@ export default async function RabattBanner() {
             <span className="bg-white/10 px-2 py-0.5 rounded sm:bg-transparent sm:p-0">
               Code: <span className="text-accent-200">{banner.discountCode}</span>
             </span>
+            <div className="w-px h-3 bg-white/20 hidden sm:block" />
+            <CountdownTimer variant="banner" label="Endet in" />
           </>
         )}
       </div>

@@ -20,10 +20,12 @@ export default function FounderSection() {
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="text-accent text-[10px] font-bold tracking-[0.4em] uppercase mb-8">Die Gründer</div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-[1.05] mb-12">
+            <div className="inline-flex items-center gap-2 text-accent text-[10px] font-bold tracking-[0.4em] uppercase mb-8">
+              <span className="w-6 h-px bg-accent" /> Die Gründer
+            </div>
+            <h2 className="font-display text-balance text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-[1.05] tracking-tightest mb-12">
               Zwei Visionäre, <br />
-              <span className="italic text-primary">ein Ziel.</span>
+              <span className="font-handwrite text-primary">ein Ziel.</span>
             </h2>
             
             <div className="space-y-8 text-muted-foreground text-lg md:text-xl leading-relaxed max-w-[50ch]">
@@ -43,7 +45,7 @@ export default function FounderSection() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="mt-16 relative p-8 md:p-12 rounded-[2.5rem] bg-primary/5 border-l-4 border-accent"
             >
-              <blockquote className="font-serif italic text-2xl md:text-3xl text-foreground leading-snug">
+              <blockquote className="font-handwrite text-2xl md:text-3xl text-foreground leading-snug">
                 &quot;Wir wollten ein Produkt schaffen, das wir selbst jeden Tag benutzen würden. Qualität und Nutzen stehen bei uns an erster Stelle.&quot;
               </blockquote>
               <div className="mt-8 flex items-center gap-4">
@@ -59,27 +61,27 @@ export default function FounderSection() {
             whileInView={{ opacity: 1, scale: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative lg:justify-self-end w-full"
+            className="relative lg:justify-self-end w-full max-w-[320px] sm:max-w-[420px] lg:max-w-none mx-auto"
           >
             {/* Double-Bezel Architecture */}
-            <div className="relative p-2.5 md:p-5 rounded-[4rem] bg-black/5 ring-1 ring-black/5 backdrop-blur-sm shadow-2xl">
+            <div className="relative p-2.5 md:p-5 rounded-[2.5rem] md:rounded-[4rem] bg-black/5 ring-1 ring-black/5 backdrop-blur-sm shadow-elevated">
               <div
-                className="relative overflow-hidden rounded-[calc(4rem-1.25rem)] aspect-[4/5] w-full max-w-[600px] mx-auto"
+                className="relative overflow-hidden rounded-[calc(2.5rem-0.625rem)] md:rounded-[calc(4rem-1.25rem)] aspect-[4/5] w-full lg:max-w-[600px] mx-auto"
               >
                 <Image
                   src="/images/images_kofferklar/yn.jpg"
                   alt="Yasar Heidt und Nico Pandrock, Gründer von KofferKlar"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 600px"
+                  sizes="(max-width: 640px) 80vw, (max-width: 1024px) 60vw, 600px"
                 />
 
                 {/* Floating Detail Overlay */}
-                <div className="absolute top-8 right-8 p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl flex flex-col items-center gap-2">
-                   <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <div className="absolute top-4 md:top-8 right-4 md:right-8 p-3 md:p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl flex flex-col items-center gap-1.5 md:gap-2">
+                   <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                    </div>
-                   <div className="text-[10px] font-bold text-foreground">SINCE 2024</div>
+                   <div className="text-[9px] md:text-[10px] font-bold text-foreground">SINCE 2024</div>
                 </div>
               </div>
             </div>

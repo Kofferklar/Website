@@ -39,6 +39,8 @@ export interface ColorVariant {
   colorName: string
   colorHex: string
   inStock: boolean
+  /** Optional stock count. Surfaced as a scarcity hint when <= 20. */
+  stockLevel?: number
   images?: SanityImage[]
 }
 

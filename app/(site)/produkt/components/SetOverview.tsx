@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { urlFor } from '@/lib/sanity/image'
 import type { SetPart } from '@/lib/sanity/types'
@@ -76,21 +78,134 @@ function getPartIcon(partName: string): React.ReactNode {
   )
 }
 
+const MAGNETIC_RADIUS = 140
+const MAGNETIC_MAX_TRANSLATE = 10
+
 export default function SetOverview({ parts }: SetOverviewProps) {
+  const gridRef = useRef<HTMLDivElement | null>(null)
+  const cardsRef = useRef<Array<HTMLDivElement | null>>([])
+
+  useEffect(() => {
+    const grid = gridRef.current
+    if (!grid) return
+
+    // Skip magnetic effect on touch devices and when reduced motion is requested
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (coarsePointer || reducedMotion) return
+
+    let rafId: number | null = null
+    let pointerX = 0
+    let pointerY = 0
+    let active = false
+
+    const apply = () => {
+      rafId = null
+      const cards = cardsRef.current
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i]
+        if (!card) continue
+        const rect = card.getBoundingClientRect()
+        const cx = rect.left + rect.width / 2
+        const cy = rect.top + rect.height / 2
+        const dx = pointerX - cx
+        const dy = pointerY - cy
+        const dist = Math.hypot(dx, dy)
+
+        if (active && dist < MAGNETIC_RADIUS) {
+          const falloff = 1 - dist / MAGNETIC_RADIUS
+          const tx = (dx / MAGNETIC_RADIUS) * MAGNETIC_MAX_TRANSLATE * falloff * 2
+          const ty = (dy / MAGNETIC_RADIUS) * MAGNETIC_MAX_TRANSLATE * falloff * 2
+          const clampedX = Math.max(-MAGNETIC_MAX_TRANSLATE, Math.min(MAGNETIC_MAX_TRANSLATE, tx))
+          const clampedY = Math.max(-MAGNETIC_MAX_TRANSLATE, Math.min(MAGNETIC_MAX_TRANSLATE, ty))
+          card.style.transform = `translate3d(${clampedX.toFixed(2)}px, ${clampedY.toFixed(2)}px, 0)`
+        } else {
+          card.style.transform = 'translate3d(0, 0, 0)'
+        }
+      }
+    }
+
+    const schedule = () => {
+      if (rafId !== null) return
+      rafId = window.requestAnimationFrame(apply)
+    }
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (e.pointerType === 'touch') return
+      pointerX = e.clientX
+      pointerY = e.clientY
+      active = true
+      schedule()
+    }
+
+    const handlePointerLeave = () => {
+      active = false
+      schedule()
+    }
+
+    grid.addEventListener('pointermove', handlePointerMove)
+    grid.addEventListener('pointerleave', handlePointerLeave)
+
+    return () => {
+      grid.removeEventListener('pointermove', handlePointerMove)
+      grid.removeEventListener('pointerleave', handlePointerLeave)
+      if (rafId !== null) window.cancelAnimationFrame(rafId)
+      // Reset any lingering transforms
+      cardsRef.current.forEach((card) => {
+        if (card) card.style.transform = ''
+      })
+    }
+  }, [parts])
+
   if (!parts || parts.length === 0) return null
 
   return (
     <section aria-label="Set-Übersicht">
-      <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-8">
-        Das Set im Überblick
-      </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="flex items-end justify-between mb-8 gap-6 flex-wrap">
+        <div>
+          <div className="inline-flex items-center gap-2 text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-3">
+            <span className="w-6 h-px bg-accent" /> 8-teiliges Set
+          </div>
+          <h2 className="font-serif text-balance text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-[1.05] tracking-tightest">
+            Das Set im <em className="font-handwrite text-primary">Überblick.</em>
+          </h2>
+        </div>
+        <p className="text-sm text-muted-foreground max-w-xs">
+          Acht durchdacht abgestimmte Teile, für jede Reisesituation der passende Begleiter.
+        </p>
+      </div>
+      <div
+        ref={gridRef}
+        className={[
+          // Mobile: native snap carousel for app-like feel
+          'flex md:grid md:grid-cols-4',
+          'gap-3 md:gap-5',
+          'snap-x snap-mandatory overflow-x-auto md:overflow-visible',
+          '-mx-4 px-4 md:mx-0 md:px-0 no-scrollbar',
+          'scroll-pl-4 md:scroll-pl-0',
+        ].join(' ')}
+      >
         {parts.map((part, index) => (
           <div
             key={index}
-            className="bg-muted rounded-xl p-4 flex flex-col items-center text-center gap-3"
+            ref={(el) => {
+              cardsRef.current[index] = el
+            }}
+            style={{
+              willChange: 'transform',
+              transition: 'transform 350ms cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+            className={[
+              'group relative bg-white rounded-3xl p-5 flex flex-col items-center text-center gap-3',
+              'border border-black/[0.05] shadow-soft lift overflow-hidden',
+              // Mobile snap sizing
+              'snap-start shrink-0 basis-[62%] min-w-[62%] md:basis-auto md:min-w-0',
+            ].join(' ')}
           >
-            {/* Icon/Bild */}
+            {/* Subtle hover wash */}
+            <span className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
             {part.icon?.asset ? (
               <div className="relative w-16 h-16">
                 <Image
@@ -102,17 +217,15 @@ export default function SetOverview({ parts }: SetOverviewProps) {
                 />
               </div>
             ) : (
-              <div className="w-16 h-16 flex items-center justify-center bg-border/30 rounded-lg text-muted-foreground">
+              <div className="w-16 h-16 flex items-center justify-center bg-primary/5 rounded-2xl text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
                 {getPartIcon(part.partName)}
               </div>
             )}
 
-            {/* Name */}
-            <p className="font-medium text-sm text-foreground leading-tight">{part.partName}</p>
+            <p className="relative font-semibold text-sm text-foreground leading-tight">{part.partName}</p>
 
-            {/* Maße */}
             {part.dimensions && (
-              <p className="text-xs text-muted-foreground">{part.dimensions}</p>
+              <p className="relative text-[11px] font-mono tabular-nums text-muted-foreground">{part.dimensions}</p>
             )}
           </div>
         ))}

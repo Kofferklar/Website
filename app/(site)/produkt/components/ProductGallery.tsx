@@ -137,6 +137,7 @@ export default function ProductGallery({
                   priority={activeIndex === 0}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover pointer-events-none"
+                  data-product-hero-image
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">

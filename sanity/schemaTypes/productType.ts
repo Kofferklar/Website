@@ -115,6 +115,13 @@ export const productType = defineType({
             defineField({ name: 'colorHex', title: 'Hex-Code', type: 'string', description: 'z.B. #1E3A5F' }),
             defineField({ name: 'inStock', title: 'Auf Lager', type: 'boolean' }),
             defineField({
+              name: 'stockLevel',
+              title: 'Lagerbestand',
+              type: 'number',
+              description: 'Optional. Wenn <= 20, zeigt die Seite einen Scarcity-Hinweis ("Nur noch X verfügbar").',
+              validation: (Rule) => Rule.min(0),
+            }),
+            defineField({
               name: 'images',
               title: 'Farbvarianten-Bilder',
               type: 'array',
