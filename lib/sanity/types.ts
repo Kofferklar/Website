@@ -60,15 +60,6 @@ export interface Product {
   seo?: SeoFields
 }
 
-export interface Banner {
-  _id: string
-  text: string
-  discountCode?: string
-  isActive: boolean
-  validFrom?: string
-  validUntil?: string
-}
-
 // --- Regular document types ---
 
 export interface Review {

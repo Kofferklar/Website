@@ -29,7 +29,7 @@ export default function HeroSection({ reviewCount }: HeroSectionProps) {
   }, [titleNumber, titles])
 
   return (
-    <section className="relative min-h-[calc(100dvh-72px)] lg:min-h-[88dvh] flex items-stretch lg:items-start overflow-hidden pt-6 md:pt-12 lg:pt-20 pb-8 md:pb-20 lg:pb-32">
+    <section className="relative min-h-[100dvh] flex items-stretch lg:items-center overflow-hidden pt-24 md:pt-28 lg:pt-28 pb-8 md:pb-16 lg:pb-20">
       {/* Whisper-soft background — single subtle aurora */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="aurora" />

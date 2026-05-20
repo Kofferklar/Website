@@ -24,6 +24,7 @@ export default function Header() {
   const [pulse, setPulse] = useState(false)
   const { totalItems, mounted } = useCart()
   const router = useRouter()
+  const isLandingPage = pathname === '/'
 
   useEffect(() => {
     let frame = 0
@@ -74,20 +75,25 @@ export default function Header() {
   }, [pulse])
 
   const cartIconClass = `w-[22px] h-[22px] text-foreground transition-transform ${pulse ? 'kk-cart-pulse' : ''}`
+  const fullWidthSurfaceClass = isLandingPage
+    ? scrolled
+      ? 'backdrop-blur-xl bg-white/70 border-b border-white/30'
+      : 'bg-transparent border-b border-transparent shadow-none'
+    : scrolled
+      ? 'glass-light shadow-soft border-b border-black/[0.06]'
+      : 'bg-background border-b border-transparent'
 
   const headerClass = isDocked
     ? [
         'fixed left-0 right-0 mx-auto z-50',
         'top-3 max-w-[1100px] rounded-full',
-        'backdrop-blur-xl bg-white/92 ring-1 ring-black/[0.08] shadow-elevated',
+        'backdrop-blur-xl bg-white/70 ring-1 ring-black/[0.08] shadow-elevated',
         reducedMotion ? 'h-[60px]' : 'h-[60px] transition-all duration-500',
       ].join(' ')
     : [
         'fixed top-0 left-0 right-0 mx-auto z-50 h-[72px]',
         reducedMotion ? '' : 'transition-all duration-500',
-        scrolled
-          ? 'glass-light shadow-soft border-b border-black/[0.06]'
-          : 'bg-background border-b border-transparent',
+        fullWidthSurfaceClass,
       ].join(' ')
 
   const innerClass = isDocked
@@ -225,7 +231,7 @@ export default function Header() {
           </div>
         </div>
         {/* Hairline gradient progress accent */}
-        {!isDocked && (
+        {!isDocked && !isLandingPage && (
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent pointer-events-none" />
         )}
       </header>

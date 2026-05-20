@@ -50,23 +50,6 @@ export async function getProduct() {
   return client.fetch(PRODUCT_QUERY, {}, { next: { revalidate: HOUR, tags: ['product'] } })
 }
 
-// --- banner ---
-
-const BANNER_QUERY = groq`
-  *[_type == "banner" && !(_id in path("drafts.**"))][0] {
-    _id,
-    text,
-    discountCode,
-    isActive,
-    validFrom,
-    validUntil
-  }
-`
-
-export async function getBanner() {
-  return client.fetch(BANNER_QUERY, {}, { next: { revalidate: HOUR, tags: ['banner'] } })
-}
-
 // --- posts (list) ---
 
 const ALL_POSTS_QUERY = groq`
@@ -167,14 +150,6 @@ export async function getAllPostSlugs() {
 
 const HOME_PAGE_DATA_QUERY = groq`
   {
-    "banner": *[_type == "banner" && !(_id in path("drafts.**"))][0] {
-      _id,
-      text,
-      discountCode,
-      isActive,
-      validFrom,
-      validUntil
-    },
     "product": *[_type == "product" && !(_id in path("drafts.**"))][0] {
       _id,
       name,
@@ -198,6 +173,6 @@ const HOME_PAGE_DATA_QUERY = groq`
 
 export async function getHomePageData() {
   return client.fetch(HOME_PAGE_DATA_QUERY, {}, {
-    next: { revalidate: HOUR, tags: ['banner', 'product', 'reviews'] },
+    next: { revalidate: HOUR, tags: ['product', 'reviews'] },
   })
 }
