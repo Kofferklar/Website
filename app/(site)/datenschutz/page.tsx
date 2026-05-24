@@ -112,16 +112,16 @@ export default function DatenschutzPage() {
         gilt, wenn Sie uns direkt per E-Mail kontaktieren.
       </p>
       <p>
-        Die technische Übermittlung des Formulars erfolgt über unseren Dienstleister Formspark (Lemon Squeezy USA Inc.,
-        548 Market St, PMB 72296, San Francisco, CA 94104, USA). Eine Sicherungskopie wird zusätzlich in unserer
-        Sanity-Instanz gespeichert.
+        Die technische Übermittlung des Formulars erfolgt über unseren Dienstleister Formspark (ein Service der Trampoline Software SRL,
+        Rue de Marsannay-la-Côte 16, 5032 Gembloux, Belgien). Formspark verarbeitet und speichert die Daten auf Servern in
+        Irland (Europäische Union). Eine Sicherungskopie wird zusätzlich in unserer Sanity-Instanz gespeichert.
       </p>
       <p>
         <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO bei vertragsbezogenen Anfragen, im Übrigen Art. 6
         Abs. 1 lit. f DSGVO (berechtigtes Interesse an der effektiven Bearbeitung von Anfragen).<br />
-        <strong>Drittlandtransfer:</strong> Formspark ist nach dem EU-US Data Privacy Framework zertifiziert; die
-        Übermittlung erfolgt auf Grundlage eines Angemessenheitsbeschlusses (Art. 45 DSGVO) ergänzt um
-        Standardvertragsklauseln (Art. 46 DSGVO).<br />
+        <strong>Drittlandtransfer:</strong> Ein Drittlandtransfer im Sinne der DSGVO findet nicht statt, da der
+        Dienstleister in Belgien ansässig ist und die Daten ausschließlich innerhalb der Europäischen Union (Irland)
+        gespeichert und verarbeitet werden.<br />
         <strong>Speicherdauer:</strong> Wir speichern die Daten so lange, wie es zur Bearbeitung Ihrer Anfrage
         erforderlich ist. Anschließend werden die Daten gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten
         entgegenstehen (insbesondere handels- und steuerrechtliche Aufbewahrungsfristen von 6 bzw. 10 Jahren bei
@@ -134,6 +134,11 @@ export default function DatenschutzPage() {
         nach dem Double-Opt-In-Verfahren: Nach Ihrer Anmeldung erhalten Sie eine E-Mail mit einem Bestätigungslink. Erst
         nach Anklicken dieses Links nehmen wir Sie in den Verteiler auf. Damit stellen wir sicher, dass die Anmeldung
         tatsächlich von Ihnen stammt.
+      </p>
+      <p>
+        Die Anmeldung und der Versand des Newsletters werden technisch über unseren Dienstleister Formspark (ein Service der Trampoline
+        Software SRL, Rue de Marsannay-la-Côte 16, 5032 Gembloux, Belgien) abgewickelt. Formspark verarbeitet und speichert die
+        Daten auf Servern in Irland (Europäische Union).
       </p>
       <p>
         Verarbeitet werden Ihre E-Mail-Adresse sowie Bestätigungszeitpunkt und IP-Adresse zum Nachweis der Einwilligung.
@@ -159,7 +164,11 @@ export default function DatenschutzPage() {
         (in der Regel 10 Jahre nach Ende des Kalenderjahres des Vertragsschlusses, § 147 AO, § 257 HGB).
       </p>
 
-      <h2>10. Warenkorb (localStorage)</h2>
+      <h2>10. Keine Cookies & Warenkorb (localStorage)</h2>
+      <p>
+        Wir verzichten auf unserer Website vollständig auf den Einsatz von Cookies (weder eigene Cookies noch Cookies von
+        Drittanbietern) sowie auf Tracking-, Analyse- oder Werbetechnologien.
+      </p>
       <p>
         Wir speichern den Inhalt Ihres Warenkorbs ausschließlich lokal in Ihrem Browser (localStorage). Dabei werden
         keine Daten an unsere Server oder an Dritte übertragen. Die Speicherung ist technisch erforderlich, damit der
@@ -171,8 +180,7 @@ export default function DatenschutzPage() {
         (berechtigtes Interesse an einem funktionierenden Bestellprozess).
       </p>
       <p>
-        Sie können den localStorage Ihres Browsers jederzeit selbst löschen. Wir setzen darüber hinaus keine Cookies und
-        keine Tracking- oder Analyse-Technologien ein.
+        Sie können den localStorage Ihres Browsers jederzeit selbst löschen.
       </p>
 
       <h2>11. Schriftarten (Fonts)</h2>
@@ -188,7 +196,7 @@ export default function DatenschutzPage() {
       <ul>
         <li>unser Hosting-Anbieter (Vercel, USA)</li>
         <li>unser CMS-Anbieter (Sanity, Norwegen)</li>
-        <li>unser Formular-Dienstleister (Formspark, USA)</li>
+        <li>unser Formular- und Newsletter-Dienstleister (Formspark, Belgien/Irland)</li>
         <li>Versanddienstleister und Zahlungsdienstleister im Rahmen der Bestellabwicklung</li>
         <li>Steuerberatung sowie Finanz- und Justizbehörden im Rahmen gesetzlicher Pflichten</li>
       </ul>
@@ -198,7 +206,7 @@ export default function DatenschutzPage() {
 
       <h2>13. Drittlandübermittlung</h2>
       <p>
-        Soweit personenbezogene Daten in die USA übermittelt werden (Vercel, Formspark), erfolgt dies auf Grundlage des
+        Soweit personenbezogene Daten in die USA übermittelt werden (Vercel), erfolgt dies auf Grundlage des
         Angemessenheitsbeschlusses der EU-Kommission zum EU-US Data Privacy Framework (Art. 45 DSGVO). Ergänzend stützen
         wir Übermittlungen auf Standardvertragsklauseln gemäß Art. 46 Abs. 2 lit. c DSGVO. Eine Kopie der
         Standardvertragsklauseln können Sie bei uns anfordern.
