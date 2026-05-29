@@ -201,7 +201,7 @@ export default function ExitIntentPopup() {
                 className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-accent-foreground shadow-soft"
               >
                 <Sparkles className="h-3 w-3" aria-hidden="true" />
-                Nur fuer dich
+                Nur für dich
               </motion.span>
 
               <motion.h2
@@ -220,7 +220,7 @@ export default function ExitIntentPopup() {
                 transition={{ delay: 0.3, duration: 0.4 }}
                 className="mt-3 text-sm leading-relaxed text-muted-foreground"
               >
-                Code an der Kasse einloesen und das komplette Set guenstiger sichern. Kein Newsletter, kein Haken.
+                Code an der Kasse einlösen und das komplette Set günstiger sichern. Kein Newsletter, kein Haken.
               </motion.p>
             </div>
 
@@ -300,7 +300,7 @@ export default function ExitIntentPopup() {
                 className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-glow-navy transition-all hover:bg-primary-600 active:scale-[0.98]"
               >
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
-                Rabatt einloesen
+                Rabatt einlösen
               </button>
               <Link
                 href="#produktbeweis"
