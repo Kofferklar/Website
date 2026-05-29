@@ -84,6 +84,12 @@ export default function Footer() {
               >
                 Ratgeber
               </Link>
+              <Link
+                href="/presse"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              >
+                Presse
+              </Link>
             </div>
           </div>
 
