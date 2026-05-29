@@ -124,10 +124,28 @@ function inputCls(hasError?: boolean) {
   }`
 }
 
-function CartStep({ onNext }: { onNext: () => void }) {
+function CartStep({
+  onNext,
+  couponInput,
+  setCouponInput,
+  appliedCoupon,
+  setAppliedCoupon,
+  couponError,
+  setCouponError,
+}: {
+  onNext: () => void
+  couponInput: string
+  setCouponInput: (val: string) => void
+  appliedCoupon: string
+  setAppliedCoupon: (val: string) => void
+  couponError: string
+  setCouponError: (val: string) => void
+}) {
   const { items, updateQty, removeItem, totalPrice } = useCart()
+  const isCouponApplied = appliedCoupon.toUpperCase() === 'KOFFER10'
+  const discount = isCouponApplied ? totalPrice * 0.10 : 0
   const shipping = totalPrice >= 49 ? 0 : 3.95
-  const total = totalPrice + shipping
+  const total = totalPrice - discount + shipping
 
   if (items.length === 0) {
     return (
@@ -197,11 +215,80 @@ function CartStep({ onNext }: { onNext: () => void }) {
         ))}
       </div>
 
+      {/* Coupon-Bereich */}
+      <div className="border-t border-border pt-6">
+        {!isCouponApplied ? (
+          <div className="space-y-2">
+            <label className="text-xs font-bold tracking-[0.2em] uppercase text-foreground/60 block">
+              Gutscheincode
+            </label>
+            <div className="flex gap-3">
+              <input
+                type="text"
+                placeholder="z.B. KOFFER10"
+                value={couponInput}
+                onChange={(e) => {
+                  setCouponInput(e.target.value)
+                  setCouponError('')
+                }}
+                className="bg-muted/40 border-none rounded-2xl px-5 py-3.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none ring-1 ring-black/5 focus:bg-white focus:ring-primary/30 flex-1 uppercase"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const normalized = couponInput.trim().toUpperCase()
+                  if (normalized === 'KOFFER10') {
+                    setAppliedCoupon('KOFFER10')
+                    setCouponError('')
+                  } else if (normalized === '') {
+                    setCouponError('Bitte Code eingeben')
+                  } else {
+                    setCouponError('Ungültiger Rabattcode')
+                  }
+                }}
+                className="bg-primary text-primary-foreground px-6 py-3 rounded-2xl text-sm font-bold hover:bg-primary/95 transition-all duration-300"
+              >
+                Anwenden
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-3.5 text-sm text-emerald-800">
+            <span className="font-bold flex items-center gap-2">
+              <ShieldCheck className="text-emerald-600 h-4 w-4" />
+              Code {appliedCoupon} angewendet (-10%)
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                setAppliedCoupon('')
+                setCouponInput('')
+              }}
+              className="text-emerald-600 hover:text-emerald-800 font-bold ml-2 text-lg leading-none"
+            >
+              &times;
+            </button>
+          </div>
+        )}
+        {couponError && (
+          <p className="text-[11px] font-bold text-rose-500 flex items-center gap-1 mt-2">
+            <AlertTriangle size={11} />
+            {couponError}
+          </p>
+        )}
+      </div>
+
       <div className="space-y-3 border-t border-border pt-6">
         <div className="flex justify-between text-sm text-muted-foreground">
           <span>Zwischensumme</span>
           <span>{totalPrice.toFixed(2).replace('.', ',')} €</span>
         </div>
+        {isCouponApplied && (
+          <div className="flex justify-between text-sm text-emerald-600 font-bold">
+            <span>Rabatt (10% mit {appliedCoupon})</span>
+            <span>-{discount.toFixed(2).replace('.', ',')} €</span>
+          </div>
+        )}
         <div className="flex justify-between text-sm text-muted-foreground">
           <span className="flex items-center gap-2">
             <Truck size={14} />
@@ -628,6 +715,13 @@ export default function CheckoutWizard({
   const [confirmedTotal, setConfirmedTotal] = useState(0)
   const { totalPrice } = useCart()
 
+  // Coupon state
+  const [couponInput, setCouponInput] = useState('')
+  const [appliedCoupon, setAppliedCoupon] = useState('')
+  const [couponError, setCouponError] = useState('')
+
+  const isCouponApplied = appliedCoupon.toUpperCase() === 'KOFFER10'
+
   return (
     <div className="min-h-[calc(100vh-72px)] py-16 md:py-24">
       <div className="max-w-2xl mx-auto px-4 md:px-8">
@@ -644,6 +738,12 @@ export default function CheckoutWizard({
             {step === 'cart' && (
               <CartStep
                 onNext={() => setStep('address')}
+                couponInput={couponInput}
+                setCouponInput={setCouponInput}
+                appliedCoupon={appliedCoupon}
+                setAppliedCoupon={setAppliedCoupon}
+                couponError={couponError}
+                setCouponError={setCouponError}
               />
             )}
             {step === 'address' && (
@@ -659,8 +759,9 @@ export default function CheckoutWizard({
             {step === 'payment' && (
               <PaymentStep
                 onNext={() => {
+                  const discountAmount = isCouponApplied ? totalPrice * 0.10 : 0
                   const shipping = totalPrice >= 49 ? 0 : 3.95
-                  setConfirmedTotal(totalPrice + shipping)
+                  setConfirmedTotal(totalPrice - discountAmount + shipping)
                   setStep('demo')
                 }}
                 onBack={() => setStep('address')}

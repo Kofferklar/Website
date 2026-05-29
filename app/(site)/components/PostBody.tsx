@@ -22,12 +22,12 @@ function headingId(children: unknown): string {
 const components: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 id={headingId(children)} className="font-display text-3xl md:text-4xl font-bold text-foreground mt-16 mb-6 leading-[1.15] tracking-tightest max-w-[28ch] scroll-mt-32">
+      <h2 id={headingId(children)} className="font-display text-3xl md:text-4xl font-bold text-foreground mt-16 mb-6 leading-[1.15] tracking-tightest max-w-[28ch] scroll-mt-32 break-words hyphens-auto text-balance">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mt-12 mb-4 leading-[1.25] tracking-tight max-w-[32ch]">
+      <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mt-12 mb-4 leading-[1.25] tracking-tight max-w-[32ch] break-words hyphens-auto text-balance">
         {children}
       </h3>
     ),

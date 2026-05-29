@@ -32,7 +32,7 @@ export default function LegalLayout({ title, subtitle, children }: LegalLayoutPr
 
           <div className="max-w-4xl">
             <div className="text-accent text-[10px] font-bold tracking-[0.3em] uppercase mb-6">Rechtliches</div>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.05] tracking-tight mb-8">
+            <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.05] tracking-tight mb-8 break-words hyphens-auto text-balance">
               {title}
             </h1>
             {subtitle && (
@@ -51,7 +51,7 @@ export default function LegalLayout({ title, subtitle, children }: LegalLayoutPr
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-[75ch] mx-auto prose prose-lg prose-slate prose-headings:font-serif prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline"
+            className="max-w-[75ch] mx-auto prose prose-lg prose-slate prose-headings:font-serif prose-headings:text-foreground prose-headings:break-words prose-headings:hyphens-auto prose-headings:text-balance prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline"
           >
             {children}
           </motion.article>
